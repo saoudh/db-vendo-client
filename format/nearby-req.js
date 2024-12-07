@@ -2,24 +2,13 @@ const formatNearbyReq = (ctx, location) => {
 	const {profile, opt} = ctx;
 
 	return {
-		cfg: {polyEnc: 'GPA'},
-		meth: 'LocGeoPos',
-		req: {
-			ring: {
-				cCrd: {
-					x: profile.formatCoord(location.longitude),
-					y: profile.formatCoord(location.latitude),
-				},
-				maxDist: opt.distance || -1,
-				minDist: 0,
-			},
-			locFltrL: [
-				profile.formatProductsFilter(ctx, opt.products || {}),
-			],
-			getPOIs: Boolean(opt.poi),
-			getStops: Boolean(opt.stops),
-			maxLoc: opt.results,
-		},
+		long: location.longitude,
+		lat: location.latitude,
+		radius: opt.distance || undefined,
+		products: profile.formatProductsFilter(ctx, opt.products || {}),
+		// TODO getPOIs: Boolean(opt.poi),
+		// TODO getStops: Boolean(opt.stops),
+		maxNo: opt.results,
 	};
 };
 

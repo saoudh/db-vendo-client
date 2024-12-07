@@ -146,7 +146,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			results: null, // number of journeys – `null` means "whatever HAFAS returns"
 			via: null, // let journeys pass this station?
 			stopovers: false, // return stations on the way?
-			transfers: -1, // maximum nr of transfers
+			transfers: null, // maximum nr of transfers
 			transferTime: 0, // minimum time for a single transfer in minutes
 			// todo: does this work with every endpoint?
 			accessibility: 'none', // 'none', 'partial' or 'complete'
@@ -189,17 +189,17 @@ const createClient = (profile, userAgent, opt = {}) => {
 		// TODO opt.accessibility
 
 		const query = {
-			//maxUmstiege: opt.transfers,
-			//minUmstiegszeit: opt.transferTime,
+			maxUmstiege: opt.transfers,
+			minUmstiegszeit: opt.transferTime,
 			deutschlandTicketVorhanden: false,
 			nurDeutschlandTicketVerbindungen: false,
 			reservierungsKontingenteVorhanden: false,
 			schnelleVerbindungen: true,
 			sitzplatzOnly: false,
 			abfahrtsHalt: from.lid,
-			/*zwischenhalte: opt.via
+			zwischenhalte: opt.via
 				? [{id: opt.via}]
-				: [],*/
+				: null,
 			ankunftsHalt: to.lid,
 			produktgattungen: filters,
 			bikeCarriage: opt.bike,
@@ -208,11 +208,11 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// see rest.exe docs
 			//ushrp: Boolean(opt.startWithWalking),
 		};
-		/*if (journeysRef) { TODO
-			query.ctxScr = journeysRef;
-		} else {*/
+		if (journeysRef) { TODO
+			query.pagingReference = journeysRef;
+		} else {
 			query.anfrageZeitpunkt = profile.formatTime(profile, when);
-		//}
+		}
 		query.ankunftSuche = outFrwd ? 'ABFAHRT' : 'ANKUNFT';
 		if (opt.results !== null) {
 			// TODO query.numF = opt.results;
@@ -220,7 +220,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const {res, common} = await profile.request({profile, opt}, userAgent, {
 			endpoint: profile.journeysEndpoint,
-			req: profile.transformJourneysQuery({profile, opt}, query),
+			body: profile.transformJourneysQuery({profile, opt}, query),
+			method: 'post'
 		});
 		const ctx = {profile, opt, common, res};
 		const journeys = res.verbindungen
@@ -425,16 +426,17 @@ const createClient = (profile, userAgent, opt = {}) => {
 			entrances: true, // parse & expose entrances of stops/stations?
 			linesOfStops: false, // parse & expose lines at each stop/station?
 		}, opt);
-
 		const req = profile.formatLocationsReq({profile, opt}, query);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
-		if (!res.match || !Array.isArray(res.match.locL)) {
-			return [];
-		}
+		const {res, common} = await profile.request({profile, opt}, userAgent, {
+			endpoint: profile.locationsEndpoint,
+			query: req,
+			method: 'get'
+		});
+		
 
 		const ctx = {profile, opt, common, res};
-		return res.match.locL.map(loc => profile.parseLocation(ctx, loc));
+		return res.map(loc => profile.parseLocation(ctx, loc));
 	};
 
 	const stop = async (stop, opt = {}) => {
@@ -481,15 +483,14 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 
 		const req = profile.formatNearbyReq({profile, opt}, location);
+		const {res, common} = await profile.request({profile, opt}, userAgent, {
+			endpoint: profile.nearbyEndpoint,
+			query: req,
+			method: 'get'
+		});
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
-		if (!Array.isArray(res.locL)) {
-			return [];
-		}
-
-		// todo: parse `.dur` – walking duration?
 		const ctx = {profile, opt, common, res};
-		const results = res.locL.map(loc => profile.parseNearby(ctx, loc));
+		const results = res.map(loc => profile.parseLocation(ctx, loc));
 		return Number.isInteger(opt.results)
 			? results.slice(0, opt.results)
 			: results;
