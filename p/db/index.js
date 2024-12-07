@@ -187,17 +187,9 @@ Pass in just opt.age, and the age group will calculated automatically.`);
 			typ: ageGroupLabel[tvlrAgeGroup || ageGroup.ADULT],
 			anzahl: 1,
 			alter: 'age' in opt
-				? [opt.age]
+				? [opt.age+'']
 				: [],
-			/*ermaessigungen: opt.loyaltyCard TODO
-				? formatLoyaltyCard(opt.loyaltyCard)
-				: null,*/
-			ermaessigungen: [
-				{
-					"art": "KEINE_ERMAESSIGUNG",
-					"klasse": "KLASSENLOS"
-				}
-			]					
+			ermaessigungen: [formatLoyaltyCard(opt.loyaltyCard)]				
 		}]
 	};
 	return basicCtrfReq;

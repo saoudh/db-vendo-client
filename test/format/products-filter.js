@@ -5,16 +5,19 @@ const products = [
 	{
 		id: 'train',
 		bitmasks: [1, 2],
+		vendo: 'REGIONAL',
 		default: true,
 	},
 	{
 		id: 'bus',
 		bitmasks: [4],
+		vendo: 'BUS',
 		default: true,
 	},
 	{
 		id: 'tram',
 		bitmasks: [8, 32],
+		vendo: 'TRAM',
 		default: false,
 	},
 ];
@@ -26,25 +29,8 @@ const ctx = {
 };
 
 tap.test('formatProductsFilter works without customisations', (t) => {
-	const expected = 1 | 2 | 4;
+	const expected = ['REGIONAL', 'BUS'];
 	const filter = {};
-	t.same(format(ctx, filter), {
-		type: 'PROD',
-		mode: 'INC',
-		value: String(expected),
-	});
-	t.end();
-});
-
-tap.test('formatProductsFilter works with customisations', (t) => {
-	t.equal(Number(format(ctx, {
-		bus: true,
-	}).value), 1 | 2 | 4);
-	t.equal(Number(format(ctx, {
-		bus: false,
-	}).value), 1 | 2);
-	t.equal(Number(format(ctx, {
-		tram: true,
-	}).value), 1 | 2 | 4 | 8 | 32);
+	t.same(format(ctx, filter), expected);
 	t.end();
 });

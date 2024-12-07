@@ -34,52 +34,85 @@ const opt = {
 	},
 };
 
-const berlinWienQuery0 = Object.freeze({
-	getPasslist: false,
-	maxChg: -1,
-	minChgTime: 0,
-	depLocL: [{
-		type: 'S',
-		lid: 'A=1@L=8098160@',
-	}],
-	viaLocL: [],
-	arrLocL: [{
-		type: 'S',
-		lid: 'A=1@L=8000284@',
-	}],
-	jnyFltrL: [
-		{type: 'PROD', mode: 'INC', value: '1023'},
-		{type: 'META', mode: 'INC', meta: 'notBarrierfree'},
-	],
-	gisFltrL: [],
-	getTariff: false,
-	ushrp: true,
-	getPT: true,
-	getIV: false,
-	getPolyline: false,
-	outDate: '20230912',
-	outTime: '080910',
-	outFrwd: true,
+const berlinWienQuery0 = Object.freeze(
+	{
+		"abfahrtsHalt": "A=1@L=8098160@",
+		"anfrageZeitpunkt": "2024-12-07T23:50:12",
+		"ankunftsHalt": "A=1@L=8000284@",
+		"ankunftSuche": "ABFAHRT",
+		"klasse": "KLASSE_2",
+		"produktgattungen": [
+			"ICE",
+			"EC_IC",
+			"IR",
+			"REGIONAL",
+			"SBAHN",
+			"BUS",
+			"SCHIFF",
+			"UBAHN",
+			"TRAM",
+			"ANRUFPFLICHTIG"
+		],
+		"schnelleVerbindungen": true,
+		"sitzplatzOnly": false,
+		"bikeCarriage": false,
+		"reservierungsKontingenteVorhanden": false,
+		"nurDeutschlandTicketVerbindungen": false,
+		"deutschlandTicketVorhanden": false
 });
 
 tap.test('formats a journeys() request correctly (DB)', (t) => {
+	const _opt = {...opt};
+	delete _opt.loyaltyCard;
+	delete _opt.age;
+	const ctx = {profile, opt: _opt};
+
+	// transformJourneysQuery() mutates its 2nd argument!
+	const query = {...berlinWienQuery0};
+	const req = profile.transformJourneysQuery(ctx, query);
+
+	t.same(req.body, {
+		...berlinWienQuery0,
+		reisende: [
+			{
+				"typ": "ERWACHSENER",
+				"ermaessigungen": [
+					{
+						"art": "KEINE_ERMAESSIGUNG",
+						"klasse": "KLASSENLOS"
+					}
+				],
+				"alter": [],
+				"anzahl": 1
+			}
+		]
+	});
+	t.end();
+});
+
+
+tap.test('formats a journeys() request with BC correctly (DB)', (t) => {
 	const ctx = {profile, opt};
 
 	// transformJourneysQuery() mutates its 2nd argument!
 	const query = {...berlinWienQuery0};
 	const req = profile.transformJourneysQuery(ctx, query);
 
-	t.same(req, {
+	t.same(req.body, {
 		...berlinWienQuery0,
-		trfReq: {
-			jnyCl: 2,
-			tvlrProf: [{
-				type: 'Y', // "young"
-				age: 24,
-				redtnCard: 2, // BahnCard 25
-			}],
-			cType: 'PK',
-		},
+		reisende: [
+			{
+				"typ": "JUGENDLICHER",
+				"ermaessigungen": [
+					{
+						"art": "BAHNCARD25",
+						"klasse": "KLASSE_2"
+					}
+				],
+				"alter": ["24"],
+				"anzahl": 1
+			}
+		]
 	});
 	t.end();
 });
