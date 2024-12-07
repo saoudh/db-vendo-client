@@ -38,11 +38,6 @@ There are [community-maintained TypeScript typings available as `@types/hafas-cl
 
 For the `/departures` and `/arrivals` endpoints, `DB_API_KEY` and `DB_CLIENT_ID` environment variables for RIS::Boards have to be set.
 
-## API
-
-[API documentation](docs/readme.md)
-
-
 ## Related Projects
 
 - [hafas-client](https://github.com/public-transport/hafas-client/) – including further related projects
