@@ -1,296 +1,1180 @@
 {
-	"common": {
-		"locL": [
-			{
-				"lid": "A=1@O=Jungfernheide Bahnhof (S+U), Berlin@X=13300781@Y=52530866@U=80@L=730985@",
-				"type": "S",
-				"name": "Jungfernheide Bahnhof (S+U), Berlin",
-				"icoX": 2,
-				"extId": "730985",
-				"state": "F",
-				"crd": {
-					"x": 13300781,
-					"y": 52530866,
-					"type": "WGS84",
-					"layerX": 0,
-					"crdSysX": 0
-				},
-				"pCls": 184,
-				"pRefL": [
-					1,
-					2,
-					3,
-					4,
-					5
-				],
-				"mMastLocX": 1
-			},
-			{
-				"lid": "A=1@O=Berlin Jungfernheide@X=13299433@Y=52530273@U=80@L=8011167@",
-				"type": "S",
-				"name": "Berlin Jungfernheide",
-				"icoX": 2,
-				"extId": "8011167",
-				"state": "F",
-				"crd": {
-					"x": 13299451,
-					"y": 52530291,
-					"z": 0,
-					"type": "WGS84",
-					"layerX": 0,
-					"crdSysX": 0
-				},
-				"pCls": 184,
-				"pRefL": [
-					6,
-					7,
-					8,
-					9,
-					10,
-					11,
-					12,
-					13,
-					14,
-					15,
-					1,
-					2,
-					16,
-					3,
-					4,
-					5
-				]
-			}
-		],
-		"prodL": [
-			{
-				"name": "U 7",
-				"nameS": "7",
-				"number": "7",
-				"icoX": 0,
-				"cls": 128,
-				"oprX": 0,
-				"prodCtx": {
-					"name": "U      7",
-					"num": "19245",
-					"line": "7",
-					"lineId": "7_vbbBVU_7",
-					"matchId": "",
-					"catOut": "U",
-					"catOutS": "U",
-					"catOutL": "U-Bahn",
-					"catIn": "U",
-					"catCode": "7",
-					"admin": "vbbBVU"
-				}
-			},
-			{
-				"name": "Bus N7",
-				"nameS": "N7",
-				"icoX": 2,
-				"cls": 32,
-				"prodCtx": {
-					"lineId": "5_vbbBVB_N7"
-				}
-			},
-			{
-				"name": "Bus X9",
-				"nameS": "X9",
-				"icoX": 2,
-				"cls": 32,
-				"prodCtx": {
-					"lineId": "5_vbbBVB_X9"
-				}
-			},
-			{
-				"name": "Bus M21",
-				"nameS": "M21",
-				"icoX": 2,
-				"cls": 32,
-				"prodCtx": {
-					"lineId": "5_vbbBVB_M21"
-				}
-			},
-			{
-				"name": "Bus M27",
-				"nameS": "M27",
-				"icoX": 2,
-				"cls": 32,
-				"prodCtx": {
-					"lineId": "5_vbbBVB_M27"
-				}
-			},
-			{
-				"name": "U 7",
-				"nameS": "7",
-				"icoX": 0,
-				"cls": 128,
-				"prodCtx": {
-					"lineId": "7_vbbBVU_7"
-				}
-			},
-			{
-				"name": "Bus RE6",
-				"nameS": "RE6",
-				"icoX": 2,
-				"cls": 8,
-				"prodCtx": {
-					"lineId": "3_BB_____RE6"
-				}
-			},
-			{
-				"name": "Bus SEV",
-				"nameS": "SEV",
-				"icoX": 2,
-				"cls": 8,
-				"prodCtx": {
-					"lineId": "3_08_____SEV!!1491900!!5842741"
-				}
-			},
-			{
-				"name": "RB",
-				"icoX": 3,
-				"cls": 8
-			},
-			{
-				"name": "RE",
-				"icoX": 4,
-				"cls": 8
-			},
-			{
-				"name": "RE",
-				"icoX": 5,
-				"cls": 8
-			},
-			{
-				"name": "S 2",
-				"nameS": "2",
-				"icoX": 6,
-				"cls": 16,
-				"prodCtx": {
-					"lineId": "4_08_____2"
-				}
-			},
-			{
-				"name": "S 25",
-				"nameS": "25",
-				"icoX": 6,
-				"cls": 16,
-				"prodCtx": {
-					"lineId": "4_08_____25"
-				}
-			},
-			{
-				"name": "S 41",
-				"nameS": "41",
-				"icoX": 6,
-				"cls": 16,
-				"prodCtx": {
-					"lineId": "4_08_____41"
-				}
-			},
-			{
-				"name": "S 42",
-				"nameS": "42",
-				"icoX": 6,
-				"cls": 16,
-				"prodCtx": {
-					"lineId": "4_08_____42"
-				}
-			},
-			{
-				"name": "S 46",
-				"nameS": "46",
-				"icoX": 6,
-				"cls": 16,
-				"prodCtx": {
-					"lineId": "4_08_____46"
-				}
-			},
-			{
-				"name": "Bus 109",
-				"nameS": "109",
-				"icoX": 2,
-				"cls": 32,
-				"prodCtx": {
-					"lineId": "5_vbbBVB_109"
-				}
-			}
-		],
-		"polyL": [],
-		"layerL": [
-			{
-				"id": "standard",
-				"name": "standard",
-				"index": 0,
-				"annoCnt": 0
-			}
-		],
-		"crdSysL": [
-			{
-				"id": "standard",
-				"index": 0,
-				"type": "WGS84",
-				"dim": 3
-			}
-		],
-		"opL": [
-			{
-				"name": "Nahreisezug",
-				"icoX": 1
-			}
-		],
-		"remL": [],
-		"icoL": [
-			{
-				"res": "U"
-			},
-			{
-				"res": "DPN",
-				"txt": "Nahreisezug"
-			},
-			{
-				"res": "Bus"
-			},
-			{
-				"res": "RB"
-			},
-			{
-				"res": "DPN"
-			},
-			{
-				"res": "RE"
-			},
-			{
-				"res": "S"
-			}
-		]
-	},
-	"type": "ARR",
-	"jnyL": [
+	"arrivals": [
 		{
-			"jid": "1|1144239|52|80|9062020",
-			"date": "20200609",
-			"prodX": 0,
-			"dirTxt": "Rathaus Spandau (S+U), Berlin",
-			"status": "P",
-			"isRchbl": true,
-			"stbStop": {
-				"locX": 0,
-				"idx": 9,
-				"aProdX": 0,
-				"aOutR": true,
-				"aTimeS": "170400",
-				"aTimeR": "172100",
-				"aProgType": "PROGNOSED",
-				"aTZOffset": 120,
-				"type": "N"
+			"station": {
+				"evaNumber": "8089100",
+				"name": "Berlin Jungfernheide (S)"
 			},
-			"subscr": "F"
+			"journeyID": "20241208-c33bba6c-a73a-3eec-8a64-76356c922ece",
+			"timeSchedule": "2024-12-08T01:00:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:00:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "6",
+			"platform": "6",
+			"administration": {
+				"administrationID": "08",
+				"operatorCode": "S",
+				"operatorName": "DB Regio, S-Bahn Berlin"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "FB",
+					"text": "Fahrradmitnahme begrenzt möglich",
+					"textShort": null
+				}
+			],
+			"arrivalID": "8089100_A_1",
+			"transport": {
+				"type": "CITY_TRAIN",
+				"journeyDescription": "S 42 (42323)",
+				"label": "",
+				"category": "S",
+				"categoryInternal": "s",
+				"number": 42323,
+				"line": "42",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Ring S42",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-c33bba6c-a73a-3eec-8a64-76356c922ece",
+				"origin": {
+					"evaNumber": "8089118",
+					"name": "Berlin Beusselstraße",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": []
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": {
+				"type": "CITY_TRAIN",
+				"journeyDescription": "S 42 (42257)",
+				"label": "",
+				"category": "S",
+				"categoryInternal": "s",
+				"number": 42257,
+				"line": "42",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Ring S42",
+					"stopPlaces": []
+				},
+				"journeyID": "20241207-5e72fb36-13d0-3ca0-ad4a-e51a17f277ea",
+				"origin": {
+					"evaNumber": "8089118",
+					"name": "Berlin Beusselstraße",
+					"canceled": false
+				},
+				"differingOrigin": null
+			},
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
+		},
+		{
+			"station": {
+				"evaNumber": "730985",
+				"name": "Jungfernheide Bahnhof (S+U), Berlin"
+			},
+			"journeyID": "20241208-89eeca5a-1768-3713-894a-dd088977f42b",
+			"timeSchedule": "2024-12-08T01:00:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:00:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "",
+			"platform": "",
+			"administration": {
+				"administrationID": "vbbBVU",
+				"operatorCode": "DPN",
+				"operatorName": "Nahreisezug"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "FB",
+					"text": "Fahrradmitnahme begrenzt möglich",
+					"textShort": null
+				},
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "RG",
+					"text": "Behindertengerechtes Fahrzeug",
+					"textShort": null
+				}
+			],
+			"arrivalID": "730985_A_1",
+			"transport": {
+				"type": "SUBWAY",
+				"journeyDescription": "U 7 (15421)",
+				"label": "",
+				"category": "U",
+				"categoryInternal": "U",
+				"number": 15421,
+				"line": "7",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Rathaus Spandau",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-89eeca5a-1768-3713-894a-dd088977f42b",
+				"origin": {
+					"evaNumber": "732218",
+					"name": "Rudow (U), Berlin",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": [
+					{
+						"evaNumber": "730973",
+						"name": "Mierendorffplatz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 2
+					},
+					{
+						"evaNumber": "731009",
+						"name": "Richard-Wagner-Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 3
+					},
+					{
+						"evaNumber": "731040",
+						"name": "Bismarckstr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 4
+					},
+					{
+						"evaNumber": "731041",
+						"name": "Wilmersdorfer Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 5
+					},
+					{
+						"evaNumber": "731026",
+						"name": "Adenauerplatz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 6
+					},
+					{
+						"evaNumber": "731362",
+						"name": "Konstanzer Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 7
+					},
+					{
+						"evaNumber": "731355",
+						"name": "Fehrbelliner Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 8
+					},
+					{
+						"evaNumber": "731356",
+						"name": "Blissestr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 9
+					},
+					{
+						"evaNumber": "731380",
+						"name": "Berliner Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 10
+					},
+					{
+						"evaNumber": "731629",
+						"name": "Bayerischer Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 11
+					},
+					{
+						"evaNumber": "731614",
+						"name": "Eisenacher Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 12
+					},
+					{
+						"evaNumber": "731613",
+						"name": "Kleistpark (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 13
+					},
+					{
+						"evaNumber": "731656",
+						"name": "Yorckstr. (S+U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 14
+					},
+					{
+						"evaNumber": "730942",
+						"name": "Möckernbrücke (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 15
+					},
+					{
+						"evaNumber": "730939",
+						"name": "Mehringdamm (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 16
+					},
+					{
+						"evaNumber": "730915",
+						"name": "Gneisenaustr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 17
+					},
+					{
+						"evaNumber": "730928",
+						"name": "Südstern (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 18
+					},
+					{
+						"evaNumber": "732102",
+						"name": "Hermannplatz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 19
+					},
+					{
+						"evaNumber": "732103",
+						"name": "Rathaus Neukölln (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 20
+					},
+					{
+						"evaNumber": "732104",
+						"name": "Karl-Marx-Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 21
+					},
+					{
+						"evaNumber": "8089077",
+						"name": "Berlin-Neukölln",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 1
+					},
+					{
+						"evaNumber": "732141",
+						"name": "Grenzallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 22
+					},
+					{
+						"evaNumber": "732140",
+						"name": "Blaschkoallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 23
+					},
+					{
+						"evaNumber": "732149",
+						"name": "Parchimer Allee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 24
+					},
+					{
+						"evaNumber": "732150",
+						"name": "Britz-Süd (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 25
+					},
+					{
+						"evaNumber": "732192",
+						"name": "Johannisthaler Chaussee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 26
+					},
+					{
+						"evaNumber": "732191",
+						"name": "Lipschitzallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 27
+					},
+					{
+						"evaNumber": "732208",
+						"name": "Wutzkyallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 28
+					},
+					{
+						"evaNumber": "732207",
+						"name": "Zwickauer Damm (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 29
+					}
+				]
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": null,
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
+		},
+		{
+			"station": {
+				"evaNumber": "730985",
+				"name": "Jungfernheide Bahnhof (S+U), Berlin"
+			},
+			"journeyID": "20241208-2dc4f2d4-a1e1-3bbf-a607-98ff71c927d0",
+			"timeSchedule": "2024-12-08T01:03:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:03:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "",
+			"platform": "",
+			"administration": {
+				"administrationID": "vbbBVB",
+				"operatorCode": "DPN",
+				"operatorName": "Nahreisezug"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "NF",
+					"text": "keine Fahrradbeförderung möglich",
+					"textShort": null
+				},
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "RG",
+					"text": "Behindertengerechtes Fahrzeug",
+					"textShort": null
+				}
+			],
+			"arrivalID": "730985_A_1",
+			"transport": {
+				"type": "BUS",
+				"journeyDescription": "Bus M21 (93424)",
+				"label": "",
+				"category": "Bus",
+				"categoryInternal": "Bus",
+				"number": 93424,
+				"line": "M21",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Rosenthal Nord",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-2dc4f2d4-a1e1-3bbf-a607-98ff71c927d0",
+				"origin": {
+					"evaNumber": "730993",
+					"name": "Goerdelersteg, Berlin",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": []
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": null,
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
+		},
+		{
+			"station": {
+				"evaNumber": "8089100",
+				"name": "Berlin Jungfernheide (S)"
+			},
+			"journeyID": "20241208-6fa6d37c-a1c0-3f84-bdac-0424705bffaf",
+			"timeSchedule": "2024-12-08T01:05:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:05:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "5",
+			"platform": "5",
+			"administration": {
+				"administrationID": "08",
+				"operatorCode": "S",
+				"operatorName": "DB Regio, S-Bahn Berlin"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "FB",
+					"text": "Fahrradmitnahme begrenzt möglich",
+					"textShort": null
+				}
+			],
+			"arrivalID": "8089100_A_1",
+			"transport": {
+				"type": "CITY_TRAIN",
+				"journeyDescription": "S 41 (41254)",
+				"label": "",
+				"category": "S",
+				"categoryInternal": "s",
+				"number": 41254,
+				"line": "41",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Ring S41",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-6fa6d37c-a1c0-3f84-bdac-0424705bffaf",
+				"origin": {
+					"evaNumber": "8089118",
+					"name": "Berlin Beusselstraße",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": [
+					{
+						"evaNumber": "8089111",
+						"name": "Berlin Westend",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 3
+					},
+					{
+						"evaNumber": "8089110",
+						"name": "Berlin Messe Nord/ICC (Witzleben)",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 4
+					},
+					{
+						"evaNumber": "8089047",
+						"name": "Berlin Westkreuz",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 2
+					},
+					{
+						"evaNumber": "8089109",
+						"name": "Berlin-Halensee",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 5
+					},
+					{
+						"evaNumber": "8089108",
+						"name": "Berlin Hohenzollerndamm",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 6
+					},
+					{
+						"evaNumber": "8089112",
+						"name": "Berlin Heidelberger Platz",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 7
+					},
+					{
+						"evaNumber": "8089107",
+						"name": "Berlin Bundesplatz",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 8
+					},
+					{
+						"evaNumber": "8089106",
+						"name": "Berlin Innsbrucker Platz",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 9
+					},
+					{
+						"evaNumber": "8089474",
+						"name": "Berlin-Schöneberg",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 22
+					},
+					{
+						"evaNumber": "8089073",
+						"name": "Berlin Südkreuz (S)",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 23
+					},
+					{
+						"evaNumber": "8089090",
+						"name": "Berlin-Tempelhof",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 10
+					},
+					{
+						"evaNumber": "8089105",
+						"name": "Berlin Hermannstraße",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 11
+					},
+					{
+						"evaNumber": "8089077",
+						"name": "Berlin-Neukölln",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 1
+					},
+					{
+						"evaNumber": "8089327",
+						"name": "Berlin Sonnenallee",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 12
+					},
+					{
+						"evaNumber": "8089043",
+						"name": "Berlin Treptower Park",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 13
+					},
+					{
+						"evaNumber": "8089028",
+						"name": "Berlin Ostkreuz (S)",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 24
+					},
+					{
+						"evaNumber": "8089013",
+						"name": "Berlin Frankfurter Allee",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 14
+					},
+					{
+						"evaNumber": "8089041",
+						"name": "Berlin Storkower Str",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 15
+					},
+					{
+						"evaNumber": "8089020",
+						"name": "Berlin Landsberger Allee",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 16
+					},
+					{
+						"evaNumber": "8089011",
+						"name": "Berlin Greifswalder Str",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 17
+					},
+					{
+						"evaNumber": "8089033",
+						"name": "Berlin Prenzlauer Allee",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 18
+					},
+					{
+						"evaNumber": "8089039",
+						"name": "Berlin Schönhauser Allee",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 19
+					},
+					{
+						"evaNumber": "8089015",
+						"name": "Berlin Gesundbrunnen(S)",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 25
+					},
+					{
+						"evaNumber": "8089131",
+						"name": "Berlin-Wedding",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 20
+					},
+					{
+						"evaNumber": "8089116",
+						"name": "Berlin Westhafen",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 21
+					}
+				]
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": {
+				"type": "CITY_TRAIN",
+				"journeyDescription": "S 41 (41242)",
+				"label": "",
+				"category": "S",
+				"categoryInternal": "s",
+				"number": 41242,
+				"line": "41",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Ring S41",
+					"stopPlaces": []
+				},
+				"journeyID": "20241207-84528f5b-cc9e-3eb5-b782-8d9b016fefce",
+				"origin": {
+					"evaNumber": "8089118",
+					"name": "Berlin Beusselstraße",
+					"canceled": false
+				},
+				"differingOrigin": null
+			},
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
+		},
+		{
+			"station": {
+				"evaNumber": "730985",
+				"name": "Jungfernheide Bahnhof (S+U), Berlin"
+			},
+			"journeyID": "20241208-c4abf007-d667-3bf1-87a8-2d1b153c014d",
+			"timeSchedule": "2024-12-08T01:10:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:10:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "",
+			"platform": "",
+			"administration": {
+				"administrationID": "vbbBVU",
+				"operatorCode": "DPN",
+				"operatorName": "Nahreisezug"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "FB",
+					"text": "Fahrradmitnahme begrenzt möglich",
+					"textShort": null
+				},
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "RG",
+					"text": "Behindertengerechtes Fahrzeug",
+					"textShort": null
+				}
+			],
+			"arrivalID": "730985_A_1",
+			"transport": {
+				"type": "SUBWAY",
+				"journeyDescription": "U 7 (15422)",
+				"label": "",
+				"category": "U",
+				"categoryInternal": "U",
+				"number": 15422,
+				"line": "7",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Rathaus Spandau",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-c4abf007-d667-3bf1-87a8-2d1b153c014d",
+				"origin": {
+					"evaNumber": "732218",
+					"name": "Rudow (U), Berlin",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": [
+					{
+						"evaNumber": "730973",
+						"name": "Mierendorffplatz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 2
+					},
+					{
+						"evaNumber": "731009",
+						"name": "Richard-Wagner-Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 3
+					},
+					{
+						"evaNumber": "731040",
+						"name": "Bismarckstr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 4
+					},
+					{
+						"evaNumber": "731041",
+						"name": "Wilmersdorfer Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 5
+					},
+					{
+						"evaNumber": "731026",
+						"name": "Adenauerplatz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 6
+					},
+					{
+						"evaNumber": "731362",
+						"name": "Konstanzer Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 7
+					},
+					{
+						"evaNumber": "731355",
+						"name": "Fehrbelliner Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 8
+					},
+					{
+						"evaNumber": "731356",
+						"name": "Blissestr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 9
+					},
+					{
+						"evaNumber": "731380",
+						"name": "Berliner Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 10
+					},
+					{
+						"evaNumber": "731629",
+						"name": "Bayerischer Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 11
+					},
+					{
+						"evaNumber": "731614",
+						"name": "Eisenacher Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 12
+					},
+					{
+						"evaNumber": "731613",
+						"name": "Kleistpark (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 13
+					},
+					{
+						"evaNumber": "731656",
+						"name": "Yorckstr. (S+U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 14
+					},
+					{
+						"evaNumber": "730942",
+						"name": "Möckernbrücke (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 15
+					},
+					{
+						"evaNumber": "730939",
+						"name": "Mehringdamm (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 16
+					},
+					{
+						"evaNumber": "730915",
+						"name": "Gneisenaustr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 17
+					},
+					{
+						"evaNumber": "730928",
+						"name": "Südstern (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 18
+					},
+					{
+						"evaNumber": "732102",
+						"name": "Hermannplatz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 19
+					},
+					{
+						"evaNumber": "732103",
+						"name": "Rathaus Neukölln (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 20
+					},
+					{
+						"evaNumber": "732104",
+						"name": "Karl-Marx-Str. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 21
+					},
+					{
+						"evaNumber": "8089077",
+						"name": "Berlin-Neukölln",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 1
+					},
+					{
+						"evaNumber": "732141",
+						"name": "Grenzallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 22
+					},
+					{
+						"evaNumber": "732140",
+						"name": "Blaschkoallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 23
+					},
+					{
+						"evaNumber": "732149",
+						"name": "Parchimer Allee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 24
+					},
+					{
+						"evaNumber": "732150",
+						"name": "Britz-Süd (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 25
+					},
+					{
+						"evaNumber": "732192",
+						"name": "Johannisthaler Chaussee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 26
+					},
+					{
+						"evaNumber": "732191",
+						"name": "Lipschitzallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 27
+					},
+					{
+						"evaNumber": "732208",
+						"name": "Wutzkyallee (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 28
+					},
+					{
+						"evaNumber": "732207",
+						"name": "Zwickauer Damm (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 29
+					}
+				]
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": null,
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
+		},
+		{
+			"station": {
+				"evaNumber": "8089100",
+				"name": "Berlin Jungfernheide (S)"
+			},
+			"journeyID": "20241208-c8b6e3e4-6acb-3237-b89e-1fca72497555",
+			"timeSchedule": "2024-12-08T01:10:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:10:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "6",
+			"platform": "6",
+			"administration": {
+				"administrationID": "08",
+				"operatorCode": "S",
+				"operatorName": "DB Regio, S-Bahn Berlin"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "FB",
+					"text": "Fahrradmitnahme begrenzt möglich",
+					"textShort": null
+				}
+			],
+			"arrivalID": "8089100_A_1",
+			"transport": {
+				"type": "CITY_TRAIN",
+				"journeyDescription": "S 42 (42325)",
+				"label": "",
+				"category": "S",
+				"categoryInternal": "s",
+				"number": 42325,
+				"line": "42",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Ring S42",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-c8b6e3e4-6acb-3237-b89e-1fca72497555",
+				"origin": {
+					"evaNumber": "8089118",
+					"name": "Berlin Beusselstraße",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": []
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": {
+				"type": "CITY_TRAIN",
+				"journeyDescription": "S 42 (42259)",
+				"label": "",
+				"category": "S",
+				"categoryInternal": "s",
+				"number": 42259,
+				"line": "42",
+				"replacementTransport": null,
+				"direction": {
+					"text": null,
+					"stopPlaces": [
+						{
+							"evaNumber": "8089105",
+							"name": "Berlin Hermannstraße"
+						}
+					]
+				},
+				"journeyID": "20241208-7038dd18-c93c-3d80-ad6e-28a1e3300794",
+				"origin": {
+					"evaNumber": "8089118",
+					"name": "Berlin Beusselstraße",
+					"canceled": false
+				},
+				"differingOrigin": null
+			},
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
+		},
+		{
+			"station": {
+				"evaNumber": "730985",
+				"name": "Jungfernheide Bahnhof (S+U), Berlin"
+			},
+			"journeyID": "20241208-f9d83ab7-d603-3344-87c0-a65ecf0f8524",
+			"timeSchedule": "2024-12-08T01:10:00+01:00",
+			"timeType": "SCHEDULE",
+			"time": "2024-12-08T01:10:00+01:00",
+			"onDemand": false,
+			"platformSchedule": "",
+			"platform": "",
+			"administration": {
+				"administrationID": "vbbBVU",
+				"operatorCode": "DPN",
+				"operatorName": "Nahreisezug"
+			},
+			"messages": [],
+			"disruptions": [],
+			"attributes": [
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "FB",
+					"text": "Fahrradmitnahme begrenzt möglich",
+					"textShort": null
+				},
+				{
+					"displayPriority": null,
+					"displayPriorityDetail": null,
+					"code": "RG",
+					"text": "Behindertengerechtes Fahrzeug",
+					"textShort": null
+				}
+			],
+			"arrivalID": "730985_A_1",
+			"transport": {
+				"type": "SUBWAY",
+				"journeyDescription": "U 7 (15752)",
+				"label": "",
+				"category": "U",
+				"categoryInternal": "U",
+				"number": 15752,
+				"line": "7",
+				"replacementTransport": null,
+				"direction": {
+					"text": "Rudow",
+					"stopPlaces": []
+				},
+				"journeyID": "20241208-f9d83ab7-d603-3344-87c0-a65ecf0f8524",
+				"origin": {
+					"evaNumber": "731176",
+					"name": "Rathaus Spandau (S+U), Berlin",
+					"canceled": false
+				},
+				"differingOrigin": null,
+				"via": [
+					{
+						"evaNumber": "730950",
+						"name": "Jakob-Kaiser-Platz (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 1
+					},
+					{
+						"evaNumber": "730951",
+						"name": "Halemweg (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 2
+					},
+					{
+						"evaNumber": "731248",
+						"name": "Siemensdamm (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 3
+					},
+					{
+						"evaNumber": "731261",
+						"name": "Rohrdamm (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 4
+					},
+					{
+						"evaNumber": "731238",
+						"name": "Paulsternstr. (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 5
+					},
+					{
+						"evaNumber": "731239",
+						"name": "Haselhorst (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 6
+					},
+					{
+						"evaNumber": "731235",
+						"name": "Zitadelle (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 7
+					},
+					{
+						"evaNumber": "731175",
+						"name": "Altstadt Spandau (U), Berlin",
+						"canceled": false,
+						"additional": false,
+						"displayPriority": 8
+					}
+				]
+			},
+			"journeyType": "REGULAR",
+			"additional": false,
+			"canceled": false,
+			"reliefFor": [],
+			"reliefBy": [],
+			"replacementFor": [],
+			"replacedBy": [],
+			"continuationFor": null,
+			"travelsWith": [],
+			"codeshares": [],
+			"pastDisruptions": false
 		}
 	],
-	"fpB": "20191215",
-	"fpE": "20201212",
-	"planrtTS": "1591715437",
-	"sD": "20200609",
-	"sT": "171108"
+	"disruptions": []
 }

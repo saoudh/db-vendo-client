@@ -2,5 +2,6 @@
 	"journeysEndpoint": "https://int.bahn.de/web/api/angebote/fahrplan",
 	"locationsEndpoint": "https://int.bahn.de/web/api/reiseloesung/orte",
 	"nearbyEndpoint": "https://int.bahn.de/web/api/reiseloesung/orte/nearby",
+	"boardEndpoint": "https://apis.deutschebahn.com/db/apis/ris-boards/v1/public/",
 	"defaultLanguage": "en"
 }

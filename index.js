@@ -47,11 +47,9 @@ const createClient = (profile, userAgent, opt = {}) => {
 	}
 
 	const _stationBoard = async (station, type, resultsField, parse, opt = {}) => {
-		if (isObj(station)) {
-			station = profile.formatStation(station.id);
-		} else if ('string' === typeof station) {
-			station = profile.formatStation(station);
-		} else {
+		if (isObj(station) && station.id) {
+			station = station.id;
+		} else if ('string' !== typeof station) {
 			throw new TypeError('station must be an object or a string.');
 		}
 
@@ -86,22 +84,16 @@ const createClient = (profile, userAgent, opt = {}) => {
 			throw new Error('opt.when is invalid');
 		}
 
-		const req = profile.formatStationBoardReq({profile, opt}, station, type);
+		const req = profile.formatStationBoardReq({profile, opt}, station, resultsField);
 
 		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const jnyL = Array.isArray(res.jnyL)
-			? res.jnyL
-			: [];
-		const results = jnyL.map(res => parse(ctx, res))
-			.sort((a, b) => new Date(a.when) - new Date(b.when)); // todo
+		const results = res[resultsField].map(res => parse(ctx, res)); // todo sort?
 
 		return {
 			[resultsField]: results,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
+			realtimeDataUpdatedAt: null, // TODO
 		};
 	};
 
@@ -217,12 +209,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 		if (opt.results !== null) {
 			// TODO query.numF = opt.results;
 		}
-
-		const {res, common} = await profile.request({profile, opt}, userAgent, {
-			endpoint: profile.journeysEndpoint,
-			body: profile.transformJourneysQuery({profile, opt}, query),
-			method: 'post'
-		});
+		const req = profile.transformJourneysQuery({profile, opt}, query);
+		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 		const journeys = res.verbindungen
 			.map(j => profile.parseJourney(ctx, j));
@@ -428,11 +416,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 		const req = profile.formatLocationsReq({profile, opt}, query);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, {
-			endpoint: profile.locationsEndpoint,
-			query: req,
-			method: 'get'
-		});
+		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 		
 
 		const ctx = {profile, opt, common, res};
@@ -483,11 +467,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 
 		const req = profile.formatNearbyReq({profile, opt}, location);
-		const {res, common} = await profile.request({profile, opt}, userAgent, {
-			endpoint: profile.nearbyEndpoint,
-			query: req,
-			method: 'get'
-		});
+		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		const results = res.map(loc => profile.parseLocation(ctx, loc));

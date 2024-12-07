@@ -151,18 +151,21 @@ loadFactors[3] = 'very-high';
 loadFactors[4] = 'exceptionally-high';
 
 const parseLoadFactor = (opt, auslastung) => {
+	if (!auslastung) {
+		return null;
+	}
 	const cls = opt.firstClass
 		? 'KLASSE_1'
 		: 'KLASSE_2';
-	const load = auslastung?.find(a => a.klasse === cls)?.stufe;
+	const load = auslastung.find(a => a.klasse === cls)?.stufe;
 	return load && loadFactors[load.r] || null;
 };
 
 const parseArrOrDepWithLoadFactor = ({parsed, res, opt}, d) => {
-	const load = parseLoadFactor(opt, d);
+	/*const load = parseLoadFactor(opt, d);
 	if (load) {
 		parsed.loadFactor = load;
-	}
+	}*/ // TODO
 	return parsed;
 };
 
@@ -200,10 +203,13 @@ Pass in just opt.age, and the age group will calculated automatically.`);
 	return basicCtrfReq;
 };
 
-const transformJourneysQuery = ({opt}, query) => {
+const transformJourneysQuery = ({profile, opt}, query) => {
 	query = Object.assign(query, trfReq(opt, false));
-
-	return query;
+	return {
+		endpoint: profile.journeysEndpoint,
+		body: query,
+		method: 'post'
+	};
 };
 
 const formatRefreshJourneyReq = (ctx, refreshToken) => {

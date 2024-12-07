@@ -9,6 +9,7 @@ const profile = {
 			name: 'InterCityExpress',
 			short: 'ICE',
 			vendo: 'ICE',
+			ris: 'HIGH_SPEED_TRAIN',
 			default: true,
 		},
 		{
@@ -17,6 +18,7 @@ const profile = {
 			name: 'Bus',
 			short: 'B',
 			vendo: 'BUS',
+			ris: 'BUS',
 			default: true,
 		},
 	],
@@ -55,7 +57,7 @@ tap.test('parses ICE leg correctly', (t) => {
 	};
 	const expected = {
 		type: 'line',
-		id: 'foo',
+		id: 'ice-229',
 		fahrtNr: 229,
 		name: 'ICE 229',
 		public: true,
@@ -86,7 +88,7 @@ tap.test('parses Bus trip correctly', (t) => {
 	};
 	const expected = {
 		type: 'line',
-		id: undefined,
+		id: '',
 		fahrtNr: undefined,
 		name: 'Bus 807',
 		public: true,
@@ -127,13 +129,45 @@ tap.test('parses Bus leg correctly', (t) => {
 	};
 	const expected = {
 		type: 'line',
-		id: 'foo',
+		id: 'bus-807',
 		fahrtNr: '807',
 		name: 'Bus 807',
 		public: true,
 		product: 'bus',
 		productName: 'Bus',
 		mode: 'bus',
+		operator: null
+	};
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+
+
+
+tap.test('parses ris entry correctly', (t) => {
+	const input = {
+		"journeyID": "20241207-79693bf3-2ed5-325f-8a99-154bad5f5cf3",
+		"transport": {
+			"type": "HIGH_SPEED_TRAIN",
+			"journeyDescription": "RB 51 (15538)",
+			"label": "",
+			"category": "RB",
+			"categoryInternal": "RB",
+			"number": 15538,
+			"line": "51",
+			"replacementTransport": null,
+		}
+	};
+	const expected = {
+		type: 'line',
+		id: 'rb-51-15538',
+		fahrtNr: 15538,
+		name: 'RB 51 (15538)',
+		public: true,
+		product: 'nationalExpress',
+		productName: 'RB',
+		mode: 'train',
 		operator: null
 	};
 

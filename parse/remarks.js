@@ -2,18 +2,26 @@ import flatMap from 'lodash/flatMap.js';
 
 const parseRemarks = (ctx, ref) => {
 	//TODO ereignisZusammenfassung, priorisierteMeldungen?
-	return flatMap([ref.risNotizen || [], ref.himMeldungen || [], ref.meldungenAsObject || [], ref.verkehrsmittel?.zugattribute || []]).map(remark => {
+	return flatMap([
+            ref.risNotizen || [],
+            ref.himMeldungen || [],
+            ref.meldungenAsObject || [],
+            ref.verkehrsmittel?.zugattribute || [],
+            ref.messages || [],
+            ref.attributes || [],
+            ref.disruptions || [],
+        ]).map(remark => {
         if (remark.kategorie) {
             const res = ctx.profile.parseHintByCode(remark);
             if (res) return res;
         }
 		let type = 'hint';
-		if (remark.prioritaet) type = 'status'; 
-		if (!remark.kategorie && remark.key || remark.prioritaet && remark.prioritaet == 'HOCH') type = 'warning';
+		if (remark.prioritaet || remark.type) type = 'status'; 
+		if (!remark.kategorie && remark.key || remark.disruptionID || remark.prioritaet && remark.prioritaet == 'HOCH') type = 'warning';
 		let res = {
 			code: remark.code || remark.key,
-			summary: remark.nachrichtKurz || remark.value || remark.ueberschrift,
-			text: remark.nachrichtLang || remark.value || remark.text,
+			summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || Object.values(remark.descriptions || {}).shift()?.textShort,
+			text: remark.nachrichtLang || remark.value || remark.text || Object.values(remark.descriptions || {}).shift()?.text,
 			type: type,
 		};
 		if (remark.modDateTime) {

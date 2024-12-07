@@ -1,39 +1,26 @@
 const formatStationBoardReq = (ctx, station, type) => {
 	const {profile, opt} = ctx;
 
-	const jnyFltrL = [
-		profile.formatProductsFilter(ctx, opt.products || {}),
-	];
-	if (opt.line !== null) {
-		jnyFltrL.push({type: 'LINEID', mode: 'INC', value: opt.line});
-	}
-
-	const req = {
-		type,
-		date: profile.formatDate(profile, opt.when),
-		time: profile.formatTime(profile, opt.when),
-		stbLoc: station,
-		dirLoc: opt.direction
-			? profile.formatStation(opt.direction)
-			: undefined,
-		jnyFltrL,
-		dur: opt.duration,
-	};
-	if (opt.results !== null) {
-		req.maxJny = opt.results === Infinity
-			? 10000
-			: opt.results;
-	}
-	if (profile.departuresGetPasslist) {
-		req.getPasslist = Boolean(opt.stopovers);
-	}
-	if (profile.departuresStbFltrEquiv) {
-		req.stbFltrEquiv = !opt.includeRelatedStations;
-	}
-
 	return {
-		meth: 'StationBoard',
-		req,
+		endpoint: profile.boardEndpoint,
+		path: type+'/'+station,
+		query: {
+			// TODO direction
+			filterTransports: profile.formatProductsFilter(ctx, opt.products || {}, 'ris'),
+			timeStart: profile.formatTime(profile, opt.when, true),
+			timeEnd: profile.formatTime(profile, opt.when.getTime()+opt.duration*60*1000, true),
+			maxViaStops: opt.stopovers ? undefined : 0,
+			includeStationGroup: opt.includeRelatedStations,
+			maxTransportsPerType: opt.results === Infinity ? undefined : opt.results,
+			includeMessagesDisruptions: opt.remarks,
+			sortBy: 'TIME_SCHEDULE'
+		},
+		method: 'get',
+		headers: {
+			'Db-Client-Id': process.env.DB_CLIENT_ID,
+			'Db-Api-Key': process.env.DB_API_KEY,
+			'Accept': 'application/vnd.de.db.ris+json'
+		}
 	};
 };
 

@@ -6,6 +6,7 @@ const products = [
 		name: 'InterCityExpress',
 		short: 'ICE',
 		vendo: 'ICE',
+		ris: 'HIGH_SPEED_TRAIN',
 		default: true,
 	},
 	{
@@ -15,6 +16,7 @@ const products = [
 		name: 'InterCity & EuroCity',
 		short: 'IC/EC',
 		vendo: 'EC_IC',
+		ris: 'INTERCITY_TRAIN',
 		default: true,
 	},
 	{
@@ -24,6 +26,7 @@ const products = [
 		name: 'RegionalExpress & InterRegio', // FlixTrain??
 		short: 'RE/IR',
 		vendo: 'IR',
+		ris: 'INTER_REGIONAL_TRAIN',
 		default: true,
 	},
 	{
@@ -33,6 +36,7 @@ const products = [
 		name: 'Regio',
 		short: 'RB',
 		vendo: 'REGIONAL',
+		ris: 'REGIONAL_TRAIN',
 		default: true,
 	},
 	{
@@ -42,6 +46,7 @@ const products = [
 		name: 'S-Bahn',
 		short: 'S',
 		vendo: 'SBAHN',
+		ris: 'CITY_TRAIN',
 		default: true,
 	},
 	{
@@ -51,6 +56,7 @@ const products = [
 		name: 'Bus',
 		short: 'B',
 		vendo: 'BUS',
+		ris: 'BUS',
 		default: true,
 	},
 	{
@@ -60,6 +66,7 @@ const products = [
 		name: 'Ferry',
 		short: 'F',
 		vendo: 'SCHIFF',
+		ris: 'FERRY',
 		default: true,
 	},
 	{
@@ -69,6 +76,7 @@ const products = [
 		name: 'U-Bahn',
 		short: 'U',
 		vendo: 'UBAHN',
+		ris: 'SUBWAY',
 		default: true,
 	},
 	{
@@ -78,6 +86,7 @@ const products = [
 		name: 'Tram',
 		short: 'T',
 		vendo: 'TRAM',
+		ris: 'TRAM',
 		default: true,
 	},
 	{
@@ -87,6 +96,7 @@ const products = [
 		name: 'Group Taxi',
 		short: 'Taxi',
 		vendo: 'ANRUFPFLICHTIG',
+		ris: 'TAXI',
 		default: true,
 	},
 ];

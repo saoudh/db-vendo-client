@@ -2,7 +2,7 @@ import isObj from 'lodash/isObject.js';
 
 const hasProp = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 
-const formatProductsFilter = (ctx, filter) => {
+const formatProductsFilter = (ctx, filter, key='vendo') => {
 	if (!isObj(filter)) {
 		throw new TypeError('products filter must be an object');
 	}
@@ -17,17 +17,22 @@ const formatProductsFilter = (ctx, filter) => {
 	filter = Object.assign({}, defaultProducts, filter);
 
 	let products = [];
+	let foundDeselected = false;
 	for (let product in filter) {
 		if (!hasProp(filter, product) || filter[product] !== true) {
+			foundDeselected = true;
 			continue;
 		}
 		if (!byProduct[product]) {
 			throw new TypeError('unknown product ' + product);
 		}
-		products.push(byProduct[product].vendo);
+		products.push(byProduct[product][key]);
 	}
 	if (products.length === 0) {
 		throw new Error('no products used');
+	}
+	if (!foundDeselected && key == 'ris') {
+		return undefined;
 	}
 
 	return products;

@@ -9,10 +9,14 @@ const leadingZeros = /^0+/;
 const parseLocation = (ctx, l) => {
 	const {profile, opt} = ctx;
 
+	if (!l) {
+		return null;
+	}
+
 	const lid = parse(l.id, {delimiter: '@'});
 	const res = {
 		type: 'location',
-		id: (l.extId || lid.L || '').replace(leadingZeros, '') || null,
+		id: (l.extId || lid.L || l.evaNumber || '').replace(leadingZeros, '') || null,
 	};
 
 	if (l.lat && l.lon) {
@@ -23,7 +27,7 @@ const parseLocation = (ctx, l) => {
 		res.longitude = lid.X / 1000000;
 	}
 
-	if (l.type === STATION || l.extId) {
+	if (l.type === STATION || l.extId || l.evaNumber) {
 		const stop = {
 			type: 'stop', // TODO station
 			id: res.id,

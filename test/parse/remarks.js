@@ -118,3 +118,75 @@ tap.test('parses zugattribute correctly', (t) => {
 	t.same(parse(ctx, input), expected);
 	t.end();
 });
+
+
+tap.test('parses board disruptions correctly', (t) => {
+	const input = { disruptions: [
+        {
+            "disruptionID": "9aee61d6-700e-3c19-aaa0-019f5612df4c",
+            "disruptionCommunicationID": null,
+            "displayPriority": 25,
+            "descriptions": {
+                "DE": {
+                    "text": "Eine Reparatur an einem Signal verzögert den Zugverkehr",
+                    "textShort": "Verzögerungen durch Reparatur an einem Signal"
+                }
+            }
+        }
+    ]};
+	const expected = [{
+		"code": undefined,
+        "summary": "Verzögerungen durch Reparatur an einem Signal",
+        "text": "Eine Reparatur an einem Signal verzögert den Zugverkehr",
+        "type": "warning",
+    }];
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+
+
+tap.test('parses board messages correctly', (t) => {
+	const input = { messages: [
+        {
+            "code": "80",
+            "type": "QUALITY_VARIATION",
+            "displayPriority": null,
+            "category": null,
+            "text": "Andere Reihenfolge der Wagen",
+            "textShort": null
+        }
+    ]};
+	const expected = [{
+		"code": 80,
+        "summary": "Andere Reihenfolge der Wagen",
+        "text": "Andere Reihenfolge der Wagen",
+        "type": "status",
+    }];
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+
+tap.test('parses ris attributes correctly', (t) => {
+	const input = { attributes: [
+        {
+            "displayPriority": null,
+            "displayPriorityDetail": null,
+            "code": "CK",
+            "text": "Komfort Check-in verfügbar - wenn möglich bitte einchecken",
+            "textShort": null
+        }
+    ]};
+	const expected = [{
+        //"code": "komfort-checkin",
+		"code": "CK",
+        //"summary": "Komfort-Checkin available",
+        "summary": "Komfort Check-in verfügbar - wenn möglich bitte einchecken",
+        "text": "Komfort Check-in verfügbar - wenn möglich bitte einchecken",
+        "type": "hint",
+    }];
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
