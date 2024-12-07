@@ -2,7 +2,7 @@
 
 **A client for the new "vendo" bahn.de APIs, a drop-in replacement for [hafas-client](https://github.com/public-transport/hafas-client/).**
 
-![ISC-licensed](https://img.shields.io/github/license/public-transport/hafas-client.svg)
+![ISC-licensed](https://img.shields.io/github/license/public-transport/db-vendo-client.svg)
 [![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
 
 This is a very early version. What works:
@@ -21,12 +21,12 @@ What doesn't work (yet, see TODO's scattered around the code):
 
 Feel free report anything that you stumble upon via Issues or create a PR :)
 
-Also consult the relevant **[documentation](https://github.com/public-transport/hafas-rest-api/docs/readme.md)** of [hafas-client](https://github.com/public-transport/hafas-client/) (but beware of the limited functionality of db-vendo-client).
+Also consult the relevant **[documentation](https://github.com/public-transport/hafas-client/blob/main/docs/readme.md)** of [hafas-client](https://github.com/public-transport/hafas-client/) (but beware of the limited functionality of db-vendo-client).
 
 
 ## Background
 
-After DB has switched to the new "vendo" platform for bahn.de and DB Navigator, the old [HAFAS](https://de.wikipedia.org/wiki/HAFAS) api (see [hafas-client](https://github.com/public-transport/hafas-client/)) seems to become less and less reliable (server unreachable, missing prices, etc.) This project aims to enable easy switching to the new APIs. However, not all information will be available from the new APIs.
+After DB has switched to the new "vendo" platform for bahn.de and DB Navigator, the old [HAFAS](https://de.wikipedia.org/wiki/HAFAS) API (see [hafas-client](https://github.com/public-transport/hafas-client/)) seems to become less and less reliable (server unreachable, missing prices, etc.) This project aims to enable easy switching to the new APIs. However, not all information will be available from the new APIs.
 
 Strictly speaking, permission is necessary to use this library with the bahn.de APIs.
 
@@ -46,13 +46,14 @@ For the `/departures` and `/arrivals` endpoints, `DB_API_KEY` and `DB_CLIENT_ID`
 ## Related Projects
 
 - [hafas-client](https://github.com/public-transport/hafas-client/) – including further related projects
+- [hafas-rest-api](https://github.com/public-transport/hafas-rest-api/) – expose a hafas-client or db-vendo-client instance as a REST API
 - [db-rest](https://github.com/derhuerst/db-rest/) – for the legacy DB HAFAS endpoint
 - [`*.transport.rest`](https://transport.rest/) – Public APIs wrapping some HAFAS endpoints.
 
 ## Contributing
 
-If you **have a question**, **found a bug** or want to **propose a feature**, please [open an Issue](https://github.com/public-transport/hafas-client/issues).
+If you **have a question**, **found a bug** or want to **propose a feature**, please [open an Issue](https://github.com/public-transport/db-vendo-client/issues).
 
-This project needs help! Check the [list of "help wanted" Issues](https://github.com/public-transport/hafas-client/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
+This project needs help! Check the [list of "help wanted" Issues](https://github.com/public-transport/db-vendo-client/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
 
 If you're contributing code, please read the [contribution guidelines](contributing.md).

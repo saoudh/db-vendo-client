@@ -8,7 +8,7 @@ const config = {
 	name: "db-vendo-client",
 	description: "db-vendo-client",
 	homepage: "https://github.com/public-transport/db-vendo-client",
-	version: "7",
+	version: "6.0.0",
 	docsLink: 'https://github.com/public-transport/db-vendo-client',
 	openapiSpec: true,
 	logging: true,
