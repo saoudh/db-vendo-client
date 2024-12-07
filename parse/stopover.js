@@ -1,12 +1,13 @@
-import {findRemarks} from './find-remarks.js';
+import {parseRemarks, isStopCancelled} from './remarks.js';
 
 const parseStopover = (ctx, st, date) => { // st = raw stopover
 	const {profile, opt} = ctx;
 
-	const arr = profile.parseWhen(ctx, date, st.aTimeS, st.aTimeR, st.aTZOffset, st.aCncl);
-	const arrPl = profile.parsePlatform(ctx, st.aPlatfS || st.aPltfS && st.aPltfS.txt || null, st.aPlatfR || st.aPltfR && st.aPltfR.txt || null, st.aCncl);
-	const dep = profile.parseWhen(ctx, date, st.dTimeS, st.dTimeR, st.dTZOffset, st.dCncl);
-	const depPl = profile.parsePlatform(ctx, st.dPlatfS || st.dPltfS && st.dPltfS.txt || null, st.dPlatfR || st.dPltfR && st.dPltfR.txt || null, st.dCncl);
+	const cancelled = isStopCancelled(st);
+	const arr = profile.parseWhen(ctx, date, st.ankunftsZeitpunkt, st.ezAnkunftsZeitpunkt, cancelled);
+	const arrPl = profile.parsePlatform(ctx, st.gleis, st.ezGleis);
+	const dep = profile.parseWhen(ctx, date, st.abfahrtsZeitpunkt, st.ezAbfahrtsZeitpunkt, cancelled);
+	const depPl = profile.parsePlatform(ctx, st.gleis, st.ezGleis);
 
 	const res = {
 		stop: st.location || null,
@@ -14,13 +15,13 @@ const parseStopover = (ctx, st, date) => { // st = raw stopover
 		plannedArrival: arr.plannedWhen,
 		arrivalDelay: arr.delay,
 		arrivalPlatform: arrPl.platform,
-		arrivalPrognosisType: profile.parsePrognosisType(ctx, st.aProgType),
+		arrivalPrognosisType: null, // TODO
 		plannedArrivalPlatform: arrPl.plannedPlatform,
 		departure: dep.when,
 		plannedDeparture: dep.plannedWhen,
 		departureDelay: dep.delay,
 		departurePlatform: depPl.platform,
-		departurePrognosisType: profile.parsePrognosisType(ctx, st.dProgType),
+		departurePrognosisType: null, // TODO
 		plannedDeparturePlatform: depPl.plannedPlatform,
 	};
 
@@ -37,23 +38,20 @@ const parseStopover = (ctx, st, date) => { // st = raw stopover
 		res.prognosedDeparturePlatform = depPl.prognosedPlatform;
 	}
 
-	// mark stations the train passes without stopping
-	if (st.dInS === false && st.aOutS === false) {
-		res.passBy = true;
-	}
+	res.loadFactor = profile.parseLoadFactor(opt, st.auslastungsmeldungen);
 
-	if (st.aCncl || st.dCncl) {
+	// mark stations the train passes without stopping
+	// TODO risNotizen key text.realtime.stop.exit.disabled?
+
+	if (cancelled) {
 		res.cancelled = true;
 		Object.defineProperty(res, 'canceled', {value: true});
 	}
 
-	if (st.isAdd) {
-		res.additional = true;
-	}
+	// TODO res.additional = true;
 
-	if (opt.remarks && Array.isArray(st.msgL)) {
-		res.remarks = findRemarks(st.msgL)
-			.map(([remark]) => remark);
+	if (opt.remarks) {
+		res.remarks = parseRemarks(ctx, st);
 	}
 
 	return res;

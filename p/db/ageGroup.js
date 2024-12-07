@@ -13,6 +13,14 @@ const ageGroup = {
 	},
 };
 
+const ageGroupLabel = {
+	'B': 'KLEINKIND',
+	'K': 'FAMILIENKIND',
+	'Y': 'JUGENDLICHER',
+	'E': 'ERWACHSENER',
+	'S': 'SENIOR',
+};
+
 const ageGroupFromAge = (age) => {
 	const {upperBoundOf} = ageGroup;
 	if (age < upperBoundOf.BABY) {
@@ -35,5 +43,6 @@ const ageGroupFromAge = (age) => {
 
 export {
 	ageGroup,
+	ageGroupLabel,
 	ageGroupFromAge,
 };

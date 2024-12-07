@@ -6,17 +6,34 @@ const ctx = {
 	opt: {},
 	profile: {},
 };
+
 tap.test('parses an operator correctly', (t) => {
-	const op = {
-		name: 'Berliner Verkehrsbetriebe',
-		icoX: 1,
-		id: 'Berliner Verkehrsbetriebe',
-	};
+	const op = [{
+		"kategorie": "BEFÖRDERER",
+		"key": "BEF",
+		"value": "DB Fernverkehr AG"
+	},{
+		"kategorie": "FAHRRADMITNAHME",
+		"key": "FR",
+		"value": "Bicycles conveyed - subject to reservation"
+	}];
 
 	t.same(parse(ctx, op), {
 		type: 'operator',
-		id: 'berliner-verkehrsbetriebe',
-		name: 'Berliner Verkehrsbetriebe',
+		id: 'db-fernverkehr-ag',
+		name: 'DB Fernverkehr AG',
 	});
+	t.end();
+});
+
+
+tap.test('parses nothing', (t) => {
+	const op = [{
+		"kategorie": "INFORMATION",
+		"key": "cB",
+		"value": "Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)"
+	}];
+
+	t.same(parse(ctx, op), null);
 	t.end();
 });

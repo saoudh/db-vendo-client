@@ -17,34 +17,12 @@ const parseTrip = (ctx, t) => { // t = raw trip
 		jny: t,
 	};
 
-	// todo: this breaks if the trip starts on a different day
-	// how does HAFAS do this?
-	const today = () => profile.formatDate(profile, Date.now());
-	const date = t.date || today();
-
-	const trip = profile.parseJourneyLeg(ctx, fakeLeg, date);
-	trip.id = trip.tripId;
+	const trip = profile.parseJourneyLeg(ctx, fakeLeg);
+	trip.id = trip.tripId; //TODO journeyId
 	delete trip.tripId;
 	delete trip.reachable;
 
-	if (opt.scheduledDays) {
-		const nrOfStopovers = t.stopL.length;
-		// trips seem to use sDaysL[], journeys use sDays
-		const sDaysL = Array.isArray(t.sDaysL)
-			? t.sDaysL
-			: [];
-		const matchingSDays = sDaysL.filter((sDays) => {
-			return sDays.fLocIdx === 0 && sDays.tLocIdx === nrOfStopovers - 1;
-		});
-
-		// if there are >1 sDays, we don't know how to interpret them
-		const sDays = matchingSDays.length === 1
-			? matchingSDays[0]
-			: null;
-		// todo [breaking]: rename to scheduledDates
-		trip.scheduledDays = profile.parseScheduledDays(ctx, sDays);
-	}
-
+	// TODO opt.scheduledDays
 	return trip;
 };
 

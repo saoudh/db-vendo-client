@@ -16,13 +16,13 @@ const {profile} = client;
 const opt = {
 	results: null,
 	via: null,
-	stopovers: true,
+	stopovers: false,
 	transfers: -1,
 	transferTime: 0,
 	accessibility: 'none',
 	bike: false,
 	tickets: true,
-	polylines: true,
+	polylines: false,
 	remarks: true,
 	walkingSpeed: 'normal',
 	startWithWalking: true,
@@ -31,10 +31,9 @@ const opt = {
 	products: {},
 };
 
-tap.test('parses a journey with a DEVI leg correctly (DB)', (t) => {
-	const common = profile.parseCommon({profile, opt, res});
-	const ctx = {profile, opt, common, res};
-	const journey = profile.parseJourney(ctx, res.outConL[2]);
+tap.test('parses a journey correctly (DB)', (t) => { //TODO DEVI leg
+	const ctx = {profile, opt, common: null, res};
+	const journey = profile.parseJourney(ctx, res.verbindungen[0]);
 
 	t.same(journey, expected);
 	t.end();

@@ -14,30 +14,18 @@ import {parseJourneyLeg as _parseJourneyLeg} from '../../parse/journey-leg.js';
 import {parseLine as _parseLine} from '../../parse/line.js';
 import {parseArrival as _parseArrival} from '../../parse/arrival.js';
 import {parseDeparture as _parseDeparture} from '../../parse/departure.js';
-import {parseHint as _parseHint} from '../../parse/hint.js';
 import {parseLocation as _parseLocation} from '../../parse/location.js';
 import {formatStation as _formatStation} from '../../format/station.js';
+import {parseDateTime} from '../../parse/date-time.js';
 import {bike} from '../../format/filters.js';
 
 const baseProfile = require('./base.json');
 import {products} from './products.js';
 import {formatLoyaltyCard} from './loyalty-cards.js';
-import {ageGroup, ageGroupFromAge} from './ageGroup.js';
+import {ageGroup, ageGroupFromAge, ageGroupLabel} from './ageGroup.js';
 import {routingModes} from './routing-modes.js';
 
 const transformReqBody = (ctx, body) => {
-	const req = body.svcReqL[0] || {};
-
-	// see https://pastebin.com/qZ9WS3Cx
-	const rtMode = 'routingMode' in ctx.opt
-		? ctx.opt.routingMode
-		: routingModes.REALTIME;
-
-	req.cfg = {
-		...req.cfg,
-		rtMode,
-	};
-
 	return body;
 };
 
@@ -162,21 +150,18 @@ loadFactors[2] = 'high';
 loadFactors[3] = 'very-high';
 loadFactors[4] = 'exceptionally-high';
 
-const parseLoadFactor = (opt, tcocL, tcocX) => {
+const parseLoadFactor = (opt, auslastung) => {
 	const cls = opt.firstClass
-		? 'FIRST'
-		: 'SECOND';
-	const load = tcocX.map(i => tcocL[i])
-		.find(lf => lf.c === cls);
+		? 'KLASSE_1'
+		: 'KLASSE_2';
+	const load = auslastung?.find(a => a.klasse === cls)?.stufe;
 	return load && loadFactors[load.r] || null;
 };
 
 const parseArrOrDepWithLoadFactor = ({parsed, res, opt}, d) => {
-	if (d.stbStop.dTrnCmpSX && Array.isArray(d.stbStop.dTrnCmpSX.tcocX)) {
-		const load = parseLoadFactor(opt, res.common.tcocL || [], d.stbStop.dTrnCmpSX.tcocX);
-		if (load) {
-			parsed.loadFactor = load;
-		}
+	const load = parseLoadFactor(opt, d);
+	if (load) {
+		parsed.loadFactor = load;
 	}
 	return parsed;
 };
@@ -193,35 +178,30 @@ Pass in just opt.age, and the age group will calculated automatically.`);
 		: opt.ageGroup;
 
 	const basicCtrfReq = {
-		jnyCl: opt.firstClass === true ? 1 : 2,
+		klasse: opt.firstClass === true ? 'KLASSE_1' : 'KLASSE_2',
 		// todo [breaking]: support multiple travelers
-		tvlrProf: [{
-			type: tvlrAgeGroup || ageGroup.ADULT,
-			...'age' in opt
-				? {age: opt.age}
-				: {},
-			redtnCard: opt.loyaltyCard
+		reisende: [{
+			typ: ageGroupLabel[tvlrAgeGroup || ageGroup.ADULT],
+			anzahl: 1,
+			alter: 'age' in opt
+				? [opt.age]
+				: [],
+			/*ermaessigungen: opt.loyaltyCard TODO
 				? formatLoyaltyCard(opt.loyaltyCard)
-				: null,
-		}],
-		cType: 'PK',
+				: null,*/
+			ermaessigungen: [
+				{
+					"art": "KEINE_ERMAESSIGUNG",
+					"klasse": "KLASSENLOS"
+				}
+			]					
+		}]
 	};
-	if (refreshJourney && opt.tickets) {
-		// todo: what are these?
-		// basicCtrfReq.directESuiteCall = true
-		// If called with "Reconstruction"
-		// 'DB-PE' causes the response to contain the tariff information.
-		basicCtrfReq.rType = 'DB-PE';
-	}
 	return basicCtrfReq;
 };
 
 const transformJourneysQuery = ({opt}, query) => {
-	const filters = query.jnyFltrL;
-	if (opt.bike) {
-		filters.push(bike);
-	}
-	query.trfReq = trfReq(opt, false);
+	query = Object.assign(query, trfReq(opt, false));
 
 	return query;
 };
@@ -322,24 +302,14 @@ const parseLineWithAdditionalName = ({parsed}, l) => {
 // todo: conSubscr, showARSLink, useableTime
 const mutateToAddPrice = (parsed, raw) => {
 	parsed.price = null;
-	// todo: find cheapest, find discounts
-	if (
-		raw.trfRes
-		&& Array.isArray(raw.trfRes.fareSetL)
-		&& raw.trfRes.fareSetL[0]
-		&& Array.isArray(raw.trfRes.fareSetL[0].fareL)
-		&& raw.trfRes.fareSetL[0].fareL[0]
-	) {
-		const tariff = raw.trfRes.fareSetL[0].fareL[0];
-		if (tariff.price && tariff.price.amount >= 0) { // wat
-			parsed.price = {
-				amount: tariff.price.amount / 100,
-				currency: 'EUR',
-				hint: null,
-			};
-		}
+	// TODO find all prices?
+	if (raw.angebotsPreis?.betrag) {
+		parsed.price = {
+			amount: raw.angebotsPreis.betrag,
+			currency: raw.angebotsPreis.waehrung,
+			hint: null,
+		};
 	}
-
 	return parsed;
 };
 
@@ -402,17 +372,14 @@ const mutateToAddTickets = (parsed, opt, j) => {
 
 const parseJourneyWithPriceAndTickets = ({parsed, opt}, raw) => {
 	mutateToAddPrice(parsed, raw);
-	mutateToAddTickets(parsed, opt, raw);
+	//mutateToAddTickets(parsed, opt, raw); TODO
 	return parsed;
 };
 
 const parseJourneyLegWithLoadFactor = ({parsed, res, opt}, raw) => {
-	const tcocX = raw.jny && raw.jny.dTrnCmpSX && raw.jny.dTrnCmpSX.tcocX;
-	if (Array.isArray(tcocX) && Array.isArray(res.common.tcocL)) {
-		const load = parseLoadFactor(opt, res.common.tcocL, tcocX);
-		if (load) {
-			parsed.loadFactor = load;
-		}
+	const load = parseLoadFactor(opt, raw.auslastungsmeldungen);
+	if (load) {
+		parsed.loadFactor = load;
 	}
 	return parsed;
 };
@@ -618,28 +585,12 @@ const codesByText = Object.assign(Object.create(null), {
 	'platform change': 'changed platform', // todo: use dash, German variant
 });
 
-const parseHintByCode = ({parsed}, raw) => {
-	// plain-text hints used e.g. for stop metadata
-	if (raw.type === 'K') {
-		return {type: 'hint', text: raw.txtN};
+const parseHintByCode = (raw) => {
+	const hint = hintsByCode[raw.key.trim().toLowerCase()];
+	if (hint) {
+		return Object.assign({text: raw.value}, hint);
 	}
-
-	if (raw.type === 'A') {
-		const hint = hintsByCode[raw.code && raw.code.trim()
-			.toLowerCase()];
-		if (hint) {
-			return Object.assign({text: raw.txtN}, hint);
-		}
-	}
-
-	if (parsed && raw.txtN) {
-		const text = trim(raw.txtN.toLowerCase(), ' ()');
-		if (codesByText[text]) {
-			parsed.code = codesByText[text];
-		}
-	}
-
-	return parsed;
+	return null;
 };
 
 const isIBNR = /^\d{6,}$/;
@@ -670,8 +621,9 @@ const profile = {
 	parseLine: parseHook(_parseLine, parseLineWithAdditionalName),
 	parseArrival: parseHook(_parseArrival, parseArrOrDepWithLoadFactor),
 	parseDeparture: parseHook(_parseDeparture, parseArrOrDepWithLoadFactor),
-	parseHint: parseHook(_parseHint, parseHintByCode),
-
+	parseDateTime,
+	parseLoadFactor,
+	parseHintByCode,
 	formatStation,
 
 	generateUnreliableTicketUrls: false,

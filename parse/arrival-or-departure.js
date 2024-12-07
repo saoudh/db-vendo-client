@@ -1,4 +1,4 @@
-import {findRemarks} from './find-remarks.js';
+import {parseRemarks} from './remarks.js';
 
 const ARRIVAL = 'a';
 const DEPARTURE = 'd';
@@ -60,7 +60,7 @@ const createParseArrOrDep = (prefix) => {
 		}
 
 		if (opt.remarks) {
-			res.remarks = findRemarks([
+			res.remarks = parseRemarks(ctx, [
 				...d.remL || [],
 				...d.msgL || [],
 				...d.stbStop.remL || [],

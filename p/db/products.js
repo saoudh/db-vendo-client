@@ -1,4 +1,3 @@
-// todo: https://gist.github.com/anonymous/d3323a5d2d6e159ed42b12afd0380434#file-haf_products-properties-L1-L95
 const products = [
 	{
 		id: 'nationalExpress',
@@ -6,6 +5,7 @@ const products = [
 		bitmasks: [1],
 		name: 'InterCityExpress',
 		short: 'ICE',
+		vendo: 'ICE',
 		default: true,
 	},
 	{
@@ -14,14 +14,16 @@ const products = [
 		bitmasks: [2],
 		name: 'InterCity & EuroCity',
 		short: 'IC/EC',
+		vendo: 'EC_IC',
 		default: true,
 	},
 	{
 		id: 'regionalExpress',
 		mode: 'train',
 		bitmasks: [4],
-		name: 'RegionalExpress & InterRegio',
+		name: 'RegionalExpress & InterRegio', // FlixTrain??
 		short: 'RE/IR',
+		vendo: 'IR',
 		default: true,
 	},
 	{
@@ -30,6 +32,7 @@ const products = [
 		bitmasks: [8],
 		name: 'Regio',
 		short: 'RB',
+		vendo: 'REGIONAL',
 		default: true,
 	},
 	{
@@ -38,6 +41,7 @@ const products = [
 		bitmasks: [16],
 		name: 'S-Bahn',
 		short: 'S',
+		vendo: 'SBAHN',
 		default: true,
 	},
 	{
@@ -46,6 +50,7 @@ const products = [
 		bitmasks: [32],
 		name: 'Bus',
 		short: 'B',
+		vendo: 'BUS',
 		default: true,
 	},
 	{
@@ -54,6 +59,7 @@ const products = [
 		bitmasks: [64],
 		name: 'Ferry',
 		short: 'F',
+		vendo: 'SCHIFF',
 		default: true,
 	},
 	{
@@ -62,6 +68,7 @@ const products = [
 		bitmasks: [128],
 		name: 'U-Bahn',
 		short: 'U',
+		vendo: 'UBAHN',
 		default: true,
 	},
 	{
@@ -70,6 +77,7 @@ const products = [
 		bitmasks: [256],
 		name: 'Tram',
 		short: 'T',
+		vendo: 'TRAM',
 		default: true,
 	},
 	{
@@ -78,6 +86,7 @@ const products = [
 		bitmasks: [512],
 		name: 'Group Taxi',
 		short: 'Taxi',
+		vendo: 'ANRUFPFLICHTIG',
 		default: true,
 	},
 ];

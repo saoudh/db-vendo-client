@@ -1,11 +1,32 @@
 import tap from 'tap';
 import omit from 'lodash/omit.js';
 import {parseLocation as parse} from '../../parse/location.js';
+import {parseBitmask as parseProductsBitmask} from '../../parse/products-bitmask.js'
 
 const profile = {
 	parseLocation: parse,
 	parseStationName: (_, name) => name.toLowerCase(),
-	parseProductsBitmask: (_, bitmask) => [bitmask],
+	parseProductsBitmask,
+	products: [{
+		id: 'nationalExpress',
+		vendo: 'ICE',
+	},
+	{
+		id: 'national',
+		vendo: 'IC',
+	},
+	{
+		id: 'regional',
+		vendo: 'REGIONAL',
+	},
+	{
+		id: 'bus',
+		vendo: 'BUS',
+	},
+	{
+		id: 'taxi',
+		vendo: 'ANRUFPFLICHTIG',
+	}]
 };
 
 const ctx = {
@@ -20,19 +41,21 @@ const ctx = {
 
 tap.test('parses an address correctly', (t) => {
 	const input = {
-		type: 'A',
-		name: 'Foo street 3',
-		lid: 'a=b@L=some%20id',
-		crd: {x: 13418027, y: 52515503},
+		"id": "A=2@O=Würzburg - Heuchelhof, Pergamonweg@X=9952209@Y=49736794@U=92@b=981423354@B=1@p=1706613073@",
+		"lat": 49.736794,
+		"lon": 9.952209,
+		"name": "Würzburg - Heuchelhof, Pergamonweg",
+		"products": [],
+		"type": "ADR"
 	};
 
 	const address = parse(ctx, input);
 	t.same(address, {
 		type: 'location',
-		id: 'some id',
-		address: 'Foo street 3',
-		latitude: 52.515503,
-		longitude: 13.418027,
+		id: null,
+		address: 'Würzburg - Heuchelhof, Pergamonweg',
+		latitude: 49.736794,
+		longitude: 9.952209,
 	});
 
 	t.end();
@@ -40,143 +63,85 @@ tap.test('parses an address correctly', (t) => {
 
 tap.test('parses a POI correctly', (t) => {
 	const input = {
-		type: 'P',
-		name: 'some POI',
-		lid: 'a=b@L=some%20id',
-		crd: {x: 13418027, y: 52515503},
+		"id": "A=4@O=Berlin, Pergamonkeller (Gastronomie)@X=13395473@Y=52520223@U=91@L=991526508@B=1@p=1732715706@",
+		"lat": 52.52022,
+		"lon": 13.395473,
+		"name": "Berlin, Pergamonkeller (Gastronomie)",
+		"products": [],
+		"type": "POI"
 	};
 
 	const poi = parse(ctx, input);
 	t.same(poi, {
 		type: 'location',
 		poi: true,
-		id: 'some id',
-		name: 'some POI',
-		latitude: 52.515503,
-		longitude: 13.418027,
+		id: '991526508',
+		name: 'Berlin, Pergamonkeller (Gastronomie)',
+		latitude: 52.52022,
+		longitude: 13.395473,
 	});
-
-	const withExtId = parse(ctx, {...input, extId: 'some ext id'});
-	t.equal(withExtId.id, 'some ext id');
-
-	const withLeadingZero = parse(ctx, {...input, extId: '00some ext id'});
-	t.equal(withLeadingZero.id, 'some ext id');
-
 	t.end();
 });
-
-const fooBusStop = {
-	type: 'S',
-	name: 'Foo bus stop',
-	lid: 'a=b@L=foo%20stop',
-	crd: {x: 13418027, y: 52515503},
-	pCls: 123,
-};
 
 tap.test('parses a stop correctly', (t) => {
-	const stop = parse(ctx, fooBusStop);
+	const input = {
+		"extId": "8012622",
+		"id": "A=1@O=Perleberg@X=11852322@Y=53071252@U=81@L=8012622@B=1@p=1733173731@i=U×008027183@",
+		"lat": 53.07068,
+		"lon": 11.85039,
+		"name": "Perleberg",
+		"products": [
+			"REGIONAL",
+			"BUS",
+			"ANRUFPFLICHTIG"
+		],
+		"type": "ST"
+	  };
+
+	const stop = parse(ctx, input);
 	t.same(stop, {
 		type: 'stop',
-		id: 'foo stop',
-		name: 'foo bus stop', // lower-cased!
+		id: '8012622',
+		name: 'Perleberg',
 		location: {
 			type: 'location',
-			id: 'foo stop',
-			latitude: 52.515503,
-			longitude: 13.418027,
+			id: '8012622',
+			latitude: 53.07068,
+			longitude: 11.85039,
 		},
-		products: [123],
+		products: {
+			"nationalExpress": false,
+			"national": false,
+			"regional": true,       
+			"bus": true,            
+			"taxi": true
+		}
 	});
-
-	const withoutLoc = parse(ctx, omit(fooBusStop, ['crd']));
-	t.equal(withoutLoc.location, null);
-
-	const mainMast = parse(ctx, {...fooBusStop, isMainMast: true});
-	t.equal(mainMast.type, 'station');
-
-	const meta = parse(ctx, {...fooBusStop, meta: 1});
-	t.equal(meta.isMeta, true);
-
-	const lineA = {id: 'a'};
-	const withLines = parse({
-		...ctx,
-		opt: {...ctx.opt, linesOfStops: true},
-	}, {
-		...fooBusStop, lines: [lineA],
-	});
-	t.same(withLines.lines, [lineA]);
-
 	t.end();
 });
 
-tap.test('falls back to coordinates from `lid`', (t) => {
-	const {location} = parse(ctx, {
-		type: 'S',
-		name: 'foo',
-		lid: 'a=b@L=foo@X=12345678@Y=23456789',
-	});
-	t.ok(location);
-	t.equal(location.latitude, 23.456789);
-	t.equal(location.longitude, 12.345678);
-	t.end();
-});
-
-tap.test('handles recursive references properly', (t) => {
-	const southernInput = {
-		type: 'S',
-		name: 'Southern Platform',
-		lid: 'a=b@L=southern-platform',
-		crd: {x: 22222222, y: 11111111},
-		// This doesn't make sense semantically, but we test if
-		// `parseLocation` falls into an endless recursive loop.
-		stopLocL: [1],
+tap.test('falls back to coordinates from `lid', (t) => {
+	const input = {
+		"id": "A=1@O=Bahnhof, Rothenburg ob der Tauber@X=10190711@Y=49377180@U=80@L=683407@",
+		"name": "Bahnhof, Rothenburg ob der Tauber",
+		"bahnhofsInfoId": "5393",
+		"extId": "683407",
+		"adminID": "vgn063",
+		"kategorie": "Bus",
+		"nummer": "2524"
 	};
-	const northernInput = {
-		type: 'S',
-		name: 'Northern Platform',
-		lid: 'a=b@L=northern-platform',
-		crd: {x: 44444444, y: 33333333},
-		// This doesn't make sense semantically, but we test if
-		// `parseLocation` falls into an endless recursive loop.
-		entryLocL: [0],
-	};
-	const common = {locL: [southernInput, northernInput]};
-	const _ctx = {...ctx, res: {common}};
 
-	const northernExpected = {
+	const stop = parse(ctx, input);
+	t.same(stop, {
 		type: 'stop',
-		id: 'northern-platform',
-		name: 'northern platform', // lower-cased!
+		id: '683407',
+		name: 'Bahnhof, Rothenburg ob der Tauber',
 		location: {
 			type: 'location',
-			id: 'northern-platform',
-			latitude: 33.333333, longitude: 44.444444,
-		},
-	};
-	const southernExpected = {
-		type: 'station',
-		id: 'southern-platform',
-		name: 'southern platform', // lower-cased!
-		location: {
-			type: 'location',
-			id: 'southern-platform',
-			latitude: 11.111111, longitude: 22.222222,
-		},
-		stops: [northernExpected],
-	};
-
-	const {entrances} = parse(_ctx, {
-		...fooBusStop,
-		entryLocL: [0],
+			id: '683407',
+			latitude: 49.377180,
+			longitude: 10.190711,
+		}
 	});
-	t.same(entrances, [southernExpected.location]);
-
-	const {type, stops} = parse(_ctx, {
-		...fooBusStop,
-		stopLocL: [0],
-	});
-	t.equal(type, 'station');
-	t.same(stops, [southernExpected]);
-
 	t.end();
 });

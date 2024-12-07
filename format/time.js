@@ -16,7 +16,7 @@ const formatTime = (profile, when) => {
 			locale: profile.locale,
 			zone: timezone,
 		})
-		.toFormat('HHmmss');
+		.toISO({ includeOffset: false, suppressMilliseconds: true })
 };
 
 export {

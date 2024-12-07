@@ -185,86 +185,52 @@ const createClient = (profile, userAgent, opt = {}) => {
 			outFrwd = false;
 		}
 
-		const filters = [
-			profile.formatProductsFilter({profile}, opt.products || {}),
-		];
-		if (
-			opt.accessibility
-			&& profile.filters
-			&& profile.filters.accessibility
-			&& profile.filters.accessibility[opt.accessibility]
-		) {
-			filters.push(profile.filters.accessibility[opt.accessibility]);
-		}
-
-		if (!['slow', 'normal', 'fast'].includes(opt.walkingSpeed)) {
-			throw new Error('opt.walkingSpeed must be one of these values: "slow", "normal", "fast".');
-		}
-		const gisFltrL = [];
-		if (profile.journeysWalkingSpeed) {
-			gisFltrL.push({
-				meta: 'foot_speed_' + opt.walkingSpeed,
-				mode: 'FB',
-				type: 'M',
-			});
-		}
+		const filters = profile.formatProductsFilter({profile}, opt.products || {});
+		// TODO opt.accessibility
 
 		const query = {
-			getPasslist: Boolean(opt.stopovers),
-			maxChg: opt.transfers,
-			minChgTime: opt.transferTime,
-			depLocL: [from],
-			viaLocL: opt.via
-				? [{loc: opt.via}]
-				: [],
-			arrLocL: [to],
-			jnyFltrL: filters,
-			gisFltrL,
-			getTariff: Boolean(opt.tickets),
+			//maxUmstiege: opt.transfers,
+			//minUmstiegszeit: opt.transferTime,
+			deutschlandTicketVorhanden: false,
+			nurDeutschlandTicketVerbindungen: false,
+			reservierungsKontingenteVorhanden: false,
+			schnelleVerbindungen: true,
+			sitzplatzOnly: false,
+			abfahrtsHalt: from.lid,
+			/*zwischenhalte: opt.via
+				? [{id: opt.via}]
+				: [],*/
+			ankunftsHalt: to.lid,
+			produktgattungen: filters,
+			bikeCarriage: opt.bike,
+			// TODO
 			// todo: this is actually "take additional stations nearby the given start and destination station into account"
 			// see rest.exe docs
-			ushrp: Boolean(opt.startWithWalking),
-
-			getPT: true, // todo: what is this?
-			getIV: false, // todo: walk & bike as alternatives?
-			getPolyline: Boolean(opt.polylines),
-			// todo: `getConGroups: false` what is this?
-			// todo: what is getEco, fwrd?
+			//ushrp: Boolean(opt.startWithWalking),
 		};
-		if (journeysRef) {
+		/*if (journeysRef) { TODO
 			query.ctxScr = journeysRef;
-		} else {
-			query.outDate = profile.formatDate(profile, when);
-			query.outTime = profile.formatTime(profile, when);
-		}
+		} else {*/
+			query.anfrageZeitpunkt = profile.formatTime(profile, when);
+		//}
+		query.ankunftSuche = outFrwd ? 'ABFAHRT' : 'ANKUNFT';
 		if (opt.results !== null) {
-			query.numF = opt.results;
-		}
-		if (profile.journeysOutFrwd) {
-			query.outFrwd = outFrwd;
+			// TODO query.numF = opt.results;
 		}
 
 		const {res, common} = await profile.request({profile, opt}, userAgent, {
-			cfg: {polyEnc: 'GPA'},
-			meth: 'TripSearch',
+			endpoint: profile.journeysEndpoint,
 			req: profile.transformJourneysQuery({profile, opt}, query),
 		});
-		if (!Array.isArray(res.outConL)) {
-			return [];
-		}
-		// todo: outConGrpL
-
 		const ctx = {profile, opt, common, res};
-		const journeys = res.outConL
+		const journeys = res.verbindungen
 			.map(j => profile.parseJourney(ctx, j));
 
 		return {
-			earlierRef: res.outCtxScrB || null,
-			laterRef: res.outCtxScrF || null,
+			earlierRef: res.verbindungReference?.earlier || null,
+			laterRef: res.verbindungReference?.later || null,
 			journeys,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
+			realtimeDataUpdatedAt: null // TODO
 		};
 	};
 

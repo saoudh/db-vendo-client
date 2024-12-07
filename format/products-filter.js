@@ -16,7 +16,7 @@ const formatProductsFilter = (ctx, filter) => {
 	}
 	filter = Object.assign({}, defaultProducts, filter);
 
-	let res = 0, products = 0;
+	let products = [];
 	for (let product in filter) {
 		if (!hasProp(filter, product) || filter[product] !== true) {
 			continue;
@@ -24,20 +24,13 @@ const formatProductsFilter = (ctx, filter) => {
 		if (!byProduct[product]) {
 			throw new TypeError('unknown product ' + product);
 		}
-		products++;
-		for (let bitmask of byProduct[product].bitmasks) {
-			res = res | bitmask;
-		}
+		products.push(byProduct[product].vendo);
 	}
-	if (products === 0) {
+	if (products.length === 0) {
 		throw new Error('no products used');
 	}
 
-	return {
-		type: 'PROD',
-		mode: 'INC',
-		value: String(res),
-	};
+	return products;
 };
 
 export {
