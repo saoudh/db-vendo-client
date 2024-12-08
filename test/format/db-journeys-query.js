@@ -36,30 +36,30 @@ const opt = {
 
 const berlinWienQuery0 = Object.freeze(
 	{
-		"abfahrtsHalt": "A=1@L=8098160@",
-		"anfrageZeitpunkt": "2024-12-07T23:50:12",
-		"ankunftsHalt": "A=1@L=8000284@",
-		"ankunftSuche": "ABFAHRT",
-		"klasse": "KLASSE_2",
-		"produktgattungen": [
-			"ICE",
-			"EC_IC",
-			"IR",
-			"REGIONAL",
-			"SBAHN",
-			"BUS",
-			"SCHIFF",
-			"UBAHN",
-			"TRAM",
-			"ANRUFPFLICHTIG"
+		abfahrtsHalt: 'A=1@L=8098160@',
+		anfrageZeitpunkt: '2024-12-07T23:50:12',
+		ankunftsHalt: 'A=1@L=8000284@',
+		ankunftSuche: 'ABFAHRT',
+		klasse: 'KLASSE_2',
+		produktgattungen: [
+			'ICE',
+			'EC_IC',
+			'IR',
+			'REGIONAL',
+			'SBAHN',
+			'BUS',
+			'SCHIFF',
+			'UBAHN',
+			'TRAM',
+			'ANRUFPFLICHTIG',
 		],
-		"schnelleVerbindungen": true,
-		"sitzplatzOnly": false,
-		"bikeCarriage": false,
-		"reservierungsKontingenteVorhanden": false,
-		"nurDeutschlandTicketVerbindungen": false,
-		"deutschlandTicketVorhanden": false
-});
+		schnelleVerbindungen: true,
+		sitzplatzOnly: false,
+		bikeCarriage: false,
+		reservierungsKontingenteVorhanden: false,
+		nurDeutschlandTicketVerbindungen: false,
+		deutschlandTicketVorhanden: false,
+	});
 
 tap.test('formats a journeys() request correctly (DB)', (t) => {
 	const _opt = {...opt};
@@ -75,17 +75,17 @@ tap.test('formats a journeys() request correctly (DB)', (t) => {
 		...berlinWienQuery0,
 		reisende: [
 			{
-				"typ": "ERWACHSENER",
-				"ermaessigungen": [
+				typ: 'ERWACHSENER',
+				ermaessigungen: [
 					{
-						"art": "KEINE_ERMAESSIGUNG",
-						"klasse": "KLASSENLOS"
-					}
+						art: 'KEINE_ERMAESSIGUNG',
+						klasse: 'KLASSENLOS',
+					},
 				],
-				"alter": [],
-				"anzahl": 1
-			}
-		]
+				alter: [],
+				anzahl: 1,
+			},
+		],
 	});
 	t.end();
 });
@@ -102,17 +102,17 @@ tap.test('formats a journeys() request with BC correctly (DB)', (t) => {
 		...berlinWienQuery0,
 		reisende: [
 			{
-				"typ": "JUGENDLICHER",
-				"ermaessigungen": [
+				typ: 'JUGENDLICHER',
+				ermaessigungen: [
 					{
-						"art": "BAHNCARD25",
-						"klasse": "KLASSE_2"
-					}
+						art: 'BAHNCARD25',
+						klasse: 'KLASSE_2',
+					},
 				],
-				"alter": ["24"],
-				"anzahl": 1
-			}
-		]
+				alter: ['24'],
+				anzahl: 1,
+			},
+		],
 	});
 	t.end();
 });

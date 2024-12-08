@@ -2,7 +2,7 @@ import isObj from 'lodash/isObject.js';
 
 const hasProp = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 
-const formatProductsFilter = (ctx, filter, key='vendo') => {
+const formatProductsFilter = (ctx, filter, key = 'vendo') => {
 	if (!isObj(filter)) {
 		throw new TypeError('products filter must be an object');
 	}

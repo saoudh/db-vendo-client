@@ -30,133 +30,133 @@ const dbJourney = {
 			departure: '2025-04-11T05:11:00+02:00',
 			plannedDeparture: '2025-04-11T05:11:00+02:00',
 			departureDelay: null,
-			direction: "Hennef(Sieg)",
-			arrivalPlatform: "9",
-			plannedArrivalPlatform: "9",
-			departurePlatform: "10 A-B",
-			plannedDeparturePlatform: "10 A-B",
-			tripId: "2|#VN#1#ST#1733173731#PI#1#ZI#161473#TA#1#DA#110425#1S#8000208#1T#504#LS#8002753#LT#545#PU#81#RT#1#CA#s#ZE#12#ZB#S     12#PC#4#FR#8000208#FT#504#TO#8002753#TT#545#",
+			direction: 'Hennef(Sieg)',
+			arrivalPlatform: '9',
+			plannedArrivalPlatform: '9',
+			departurePlatform: '10 A-B',
+			plannedDeparturePlatform: '10 A-B',
+			tripId: '2|#VN#1#ST#1733173731#PI#1#ZI#161473#TA#1#DA#110425#1S#8000208#1T#504#LS#8002753#LT#545#PU#81#RT#1#CA#s#ZE#12#ZB#S     12#PC#4#FR#8000208#FT#504#TO#8002753#TT#545#',
 			line: {
-				type: "line",
-				id: "s-12",
-				fahrtNr: "12",
-				name: "S 12",
+				type: 'line',
+				id: 's-12',
+				fahrtNr: '12',
+				name: 'S 12',
 				public: true,
-				productName: "S",
-				mode: "train",
-				product: "suburban",
+				productName: 'S',
+				mode: 'train',
+				product: 'suburban',
 				operator: {
-					"type": "operator",
-					"id": "db-regio-ag-nrw",
-					"name": "DB Regio AG NRW",
+					type: 'operator',
+					id: 'db-regio-ag-nrw',
+					name: 'DB Regio AG NRW',
 				},
 			},
 			remarks: [
 				{
-					"text": "Fahrradmitnahme begrenzt möglich",
-					"type": "hint",
-					"code": "bicycle-conveyance",
-					"summary": "bicycles conveyed",
+					text: 'Fahrradmitnahme begrenzt möglich',
+					type: 'hint',
+					code: 'bicycle-conveyance',
+					summary: 'bicycles conveyed',
 				},
 				{
-					"text": "nur 2. Klasse",
-					"type": "hint",
-					"code": "2nd-class-only",
-					"summary": "2. class only",
+					text: 'nur 2. Klasse',
+					type: 'hint',
+					code: '2nd-class-only',
+					summary: '2. class only',
 				},
 				{
-					"text": "Fahrzeuggebundene Einstiegshilfe vorhanden",
-					"type": "hint",
-					"code": "boarding-ramp",
-					"summary": "vehicle-mounted boarding ramp available",
-				}
+					text: 'Fahrzeuggebundene Einstiegshilfe vorhanden',
+					type: 'hint',
+					code: 'boarding-ramp',
+					summary: 'vehicle-mounted boarding ramp available',
+				},
 			],
-			"polyline": {
-				"type": "FeatureCollection",
-				"features": [
+			polyline: {
+				type: 'FeatureCollection',
+				features: [
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.9597,
 								50.943038,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.9597,
 								50.943038,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.960033,
 								50.942724,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.960491,
 								50.942301,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.961282,
 								50.941825,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.962253,
 								50.941582,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.971467,
 								50.941492,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								6.974658,
 								50.941285,
 							],
@@ -198,7 +198,7 @@ const dbJourney = {
 					id: '8073368',
 					latitude: 50.941717,
 					longitude: 6.974065,
-				}
+				},
 			},
 			destination: {
 				type: 'stop',
@@ -240,10 +240,10 @@ const dbJourney = {
 			plannedDeparturePlatform: '11',
 			remarks: [
 				{
-					"text": "Bordrestaurant",
-					"type": "hint",
-					"code": "on-board-restaurant",
-					"summary": "Bordrestaurant available",
+					text: 'Bordrestaurant',
+					type: 'hint',
+					code: 'on-board-restaurant',
+					summary: 'Bordrestaurant available',
 				},
 				{
 					text: 'Komfort Check-in verfügbar - wenn möglich bitte einchecken',
@@ -252,26 +252,26 @@ const dbJourney = {
 					summary: 'Komfort-Checkin available',
 				},
 			],
-			"polyline": {
-				"type": "FeatureCollection",
-				"features": [
+			polyline: {
+				type: 'FeatureCollection',
+				features: [
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								11.082144,
 								49.445678,
 							],
 						},
 					},
 					{
-						"type": "Feature",
-						"properties": {},
-						"geometry": {
-							"type": "Point",
-							"coordinates": [
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [
 								11.08227,
 								49.445435,
 							],
@@ -282,8 +282,8 @@ const dbJourney = {
 		},
 	],
 	refreshToken: '¶HKI¶T$A=1@O=Köln Hbf@X=6958730@Y=50943029@L=8000207@a=128@$A=1@O=Köln Messe/Deutz@X=6975000@Y=50940872@L=8003368@a=128@$202504110511$202504110512$S     12$$1$$$$$$§W$A=1@O=Köln Messe/Deutz@X=6975000@Y=50940872@L=8003368@a=128@$A=1@O=Köln Messe/Deutz Gl.11-12@X=6974065@Y=50941717@L=8073368@a=128@$202504110512$202504110519$$$1$$$$$$§T$A=1@O=Köln Messe/Deutz Gl.11-12@X=6974065@Y=50941717@L=8073368@a=128@$A=1@O=Nürnberg Hbf@X=11082989@Y=49445615@L=8000284@a=128@$202504110520$202504110858$ICE  523$$1$$$$$$¶KC¶#VE#2#CF#100#CA#0#CM#0#SICT#0#AM#81#AM2#0#RT#7#¶KCC¶I1ZFIzEjRVJHIzMjSElOIzAjRUNLIzcwNTkxMXw3MDU5MTF8NzA2MTM4fDcwNjEzOHwwfDB8NDg1fDcwNTg5N3wxfDB8MTh8MHwwfC0yMTQ3NDgzNjQ4I0dBTSMxMTA0MjUwNTExIwpaI1ZOIzEjU1QjMTczMzE3MzczMSNQSSMxI1pJIzE2MTQ3MyNUQSMxI0RBIzExMDQyNSMxUyM4MDAwMjA4IzFUIzUwNCNMUyM4MDAyNzUzI0xUIzU0NSNQVSM4MSNSVCMxI0NBI3MjWkUjMTIjWkIjUyAgICAgMTIjUEMjNCNGUiM4MDAwMjA3I0ZUIzUxMSNUTyM4MDAzMzY4I1RUIzUxMiMKRiNWTiMwI1NUIzE3MzMxNzM3MzEjUEkjMSNQVSM4MSNaSSMyMjgzODI4ODkzI0RBIzExMDQyNSNGUiM4MDAzMzY4I1RPIzgwNzMzNjgjRlQjNTEyI1RUIzUxOSNUUyMwI0ZGIyNGViMwIwpaI1ZOIzEjU1QjMTczMzE3MzczMSNQSSMxI1pJIzE1NTA2MyNUQSMwI0RBIzExMDQyNSMxUyM4MDAwMDgwIzFUIzM1OCNMUyM4MDAwMjYxI0xUIzEwMDYjUFUjODEjUlQjMSNDQSNJQ0UjWkUjNTIzI1pCI0lDRSAgNTIzI1BDIzAjRlIjODA3MzM2OCNGVCM1MjAjVE8jODAwMDI4NCNUVCM4NTgj¶KRCC¶#VE#1#¶SC¶1_H4sIAAAAAAACA32P306DMBjFX8X0GpevhUIhIUFGFv8sGzHOaIwXbHQTU2CWskgIz+GbeOXdXswCemE09qLpOT09v68tOnCJPIQnDkMG4q9Kiyic3EYTV2vJX5DXoqLOZ8ijRn8IkQcGKmsVJYrrMAFCwcIYDeZNlvcmUNBLW9uh4RQb6LloZkLJOfIeWqSafR+Lr5eRDuVl2quLxVSLQyLqXmEgJuoeh5mmT7uxWJNTvp+Xm7FGZKlOnvk4WPpXx3dRnJyvt8Gdb7uUOSYE9z4F1zKBuMHKZxDM9QZAwAlC/WbvY8c0scNsmwSZvzq+ATDA1KIs0INUavzgbJgikfJP7OL4IYs1l7svNMbAiMtczbZcy6I2pj/YzPqHTQh2zd/sHVdxKRqRFdpTsuaDdVnWsuBNWNZFWiFvm4hqvIiTqhJZpb6zfFPGiUxyHWq7rvsE0LytQvMBAAA=',
-	price: { amount: 31.49, currency: 'EUR', hint: null },
-	remarks: []
+	price: {amount: 31.49, currency: 'EUR', hint: null},
+	remarks: [],
 };
 
 export {

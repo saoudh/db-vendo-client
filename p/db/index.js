@@ -3,7 +3,6 @@
 import {createRequire} from 'module';
 const require = createRequire(import.meta.url);
 
-import trim from 'lodash/trim.js';
 import uniqBy from 'lodash/uniqBy.js';
 import slugg from 'slugg';
 import without from 'lodash/without.js';
@@ -17,13 +16,11 @@ import {parseDeparture as _parseDeparture} from '../../parse/departure.js';
 import {parseLocation as _parseLocation} from '../../parse/location.js';
 import {formatStation as _formatStation} from '../../format/station.js';
 import {parseDateTime} from '../../parse/date-time.js';
-import {bike} from '../../format/filters.js';
 
 const baseProfile = require('./base.json');
 import {products} from './products.js';
 import {formatLoyaltyCard} from './loyalty-cards.js';
 import {ageGroup, ageGroupFromAge, ageGroupLabel} from './ageGroup.js';
-import {routingModes} from './routing-modes.js';
 
 const transformReqBody = (ctx, body) => {
 	return body;
@@ -162,7 +159,8 @@ const parseLoadFactor = (opt, auslastung) => {
 };
 
 const parseArrOrDepWithLoadFactor = ({parsed, res, opt}, d) => {
-	/*const load = parseLoadFactor(opt, d);
+
+	/* const load = parseLoadFactor(opt, d);
 	if (load) {
 		parsed.loadFactor = load;
 	}*/ // TODO
@@ -187,10 +185,10 @@ Pass in just opt.age, and the age group will calculated automatically.`);
 			typ: ageGroupLabel[tvlrAgeGroup || ageGroup.ADULT],
 			anzahl: 1,
 			alter: 'age' in opt
-				? [opt.age+'']
+				? [String(opt.age)]
 				: [],
-			ermaessigungen: [formatLoyaltyCard(opt.loyaltyCard)]				
-		}]
+			ermaessigungen: [formatLoyaltyCard(opt.loyaltyCard)],
+		}],
 	};
 	return basicCtrfReq;
 };
@@ -200,7 +198,7 @@ const transformJourneysQuery = ({profile, opt}, query) => {
 	return {
 		endpoint: profile.journeysEndpoint,
 		body: query,
-		method: 'post'
+		method: 'post',
 	};
 };
 
@@ -224,55 +222,6 @@ const formatRefreshJourneyReq = (ctx, refreshToken) => {
 		req,
 	};
 };
-
-const parseShpCtx = (addDataTicketInfo) => {
-	try {
-		return JSON.parse(atob(addDataTicketInfo)).shpCtx;
-	} catch (e) {
-		// in case addDataTicketInfo is not a valid base64 string
-		return null;
-	}
-};
-
-
-const addDbOfferSelectionUrl = (journey, opt) => {
-
-	// if no ticket contains addData, we can't get the offer selection URL
-	if (journey.tickets.some((t) => t.addDataTicketInfo)) {
-
-		const queryParams = new URLSearchParams();
-
-		// Add individual parameters
-		queryParams.append('A.1', opt.age);
-		queryParams.append('E', 'F');
-		queryParams.append('E.1', opt.loyaltyCard ? formatLoyaltyCard(opt.loyaltyCard) : '0');
-		queryParams.append('K', opt.firstClass ? '1' : '2');
-		queryParams.append('M', 'D');
-		queryParams.append('RT.1', 'E');
-		queryParams.append('SS', journey.legs[0].origin.id);
-		queryParams.append('T', journey.legs[0].departure);
-		queryParams.append('VH', journey.refreshToken);
-		queryParams.append('ZS', journey.legs[journey.legs.length - 1].destination.id);
-		queryParams.append('journeyOptions', '0');
-		queryParams.append('journeyProducts', '1023');
-		queryParams.append('optimize', '1');
-		queryParams.append('returnurl', 'dbnavigator://');
-		const endpoint = opt.language === 'de' ? 'dox' : 'eox';
-
-		journey.tickets.forEach((t) => {
-			const shpCtx = parseShpCtx(t.addDataTicketInfo);
-			if (shpCtx) {
-				const url = new URL(`https://mobile.bahn.de/bin/mobil/query.exe/${endpoint}`);
-				url.searchParams = new URLSearchParams(queryParams);
-				url.searchParams.append('shpCtx', shpCtx);
-				t.url = url.href;
-			} else {
-				t.url = null;
-			}
-		});
-	}
-};
-
 
 // todo: fix this
 // line: {
@@ -311,66 +260,9 @@ const mutateToAddPrice = (parsed, raw) => {
 	return parsed;
 };
 
-const isFirstClassTicket = (addData, opt) => {
-	// if addData is undefined, it is assumed that the ticket is not first class
-	// (this is the case for S-Bahn tickets)
-	if (!addData) {
-		return false;
-	}
-	try {
-		const addDataJson = JSON.parse(atob(addData));
-		return Boolean(addDataJson.Upsell === 'S1' || opt.firstClass);
-	} catch (err) {
-		return false;
-	}
-};
-
-const mutateToAddTickets = (parsed, opt, j) => {
-	if (
-		j.trfRes
-		&& Array.isArray(j.trfRes.fareSetL)
-	) {
-		const addData = j.trfRes.fareSetL[0].addData;
-		parsed.tickets = j.trfRes.fareSetL
-			.filter(s => Array.isArray(s.fareL) && s.fareL.length > 0)
-			.map((s) => {
-				const fare = s.fareL[0];
-				if (!fare.ticketL) { // if journeys()
-					return {
-						name: fare.buttonText,
-						priceObj: {amount: fare.price.amount},
-					};
-				} else { // if refreshJourney()
-					return {
-						name: fare.name || fare.ticketL[0].name,
-						priceObj: fare.ticketL[0].price,
-						addData: addData,
-						addDataTicketInfo: s.addData,
-						addDataTicketDetails: fare.addData,
-						addDataTravelInfo: fare.ticketL[0].addData,
-						firstClass: isFirstClassTicket(s.addData, opt),
-					};
-				}
-			});
-		// add price info, to avoid breaking changes
-		// todo [breaking]: remove this format
-		if (parsed.tickets.length > 0 && !parsed.price) {
-			parsed.price = {
-				...parsed.tickets[0].priceObj,
-				amount: parsed.tickets[0].priceObj.amount / 100,
-				currency: 'EUR',
-			};
-		}
-		if (opt.generateUnreliableTicketUrls) {
-			addDbOfferSelectionUrl(parsed, opt);
-		}
-
-	}
-};
-
 const parseJourneyWithPriceAndTickets = ({parsed, opt}, raw) => {
 	mutateToAddPrice(parsed, raw);
-	//mutateToAddTickets(parsed, opt, raw); TODO
+	// mutateToAddTickets(parsed, opt, raw); TODO
 	return parsed;
 };
 
@@ -574,17 +466,9 @@ const hintsByCode = Object.assign(Object.create(null), {
 	},
 });
 
-const codesByText = Object.assign(Object.create(null), {
-	'journey cancelled': 'journey-cancelled', // todo: German variant
-	'stop cancelled': 'stop-cancelled', // todo: change to `stopover-cancelled`, German variant
-	'signal failure': 'signal-failure',
-	'signalstörung': 'signal-failure',
-	'additional stop': 'additional-stopover', // todo: German variant
-	'platform change': 'changed platform', // todo: use dash, German variant
-});
-
 const parseHintByCode = (raw) => {
-	const hint = hintsByCode[raw.key.trim().toLowerCase()];
+	const hint = hintsByCode[raw.key.trim()
+		.toLowerCase()];
 	if (hint) {
 		return Object.assign({text: raw.value}, hint);
 	}

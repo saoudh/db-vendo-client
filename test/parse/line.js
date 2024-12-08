@@ -22,7 +22,7 @@ const profile = {
 			default: true,
 		},
 	],
-	parseOperator: _ => null
+	parseOperator: _ => null,
 };
 const ctx = {
 	data: {},
@@ -32,28 +32,28 @@ const ctx = {
 
 tap.test('parses ICE leg correctly', (t) => {
 	const input = {
-		"journeyId": "foo",
-		"verkehrsmittel": {
-			"produktGattung": "ICE",
-			"kategorie": "ICE",
-			"name": "ICE 229",
-			"nummer": "229",
-			"richtung": "Wien Hbf",
-			"typ": "PUBLICTRANSPORT",
-			"zugattribute": [{
-				"kategorie": "BEFÖRDERER",
-				"key": "BEF",
-				"value": "DB Fernverkehr AG, Österreichische Bundesbahnen"
-			},{
-				"kategorie": "FAHRRADMITNAHME",
-				"key": "FR",
-				"value": "Bicycles conveyed - subject to reservation",
-				"teilstreckenHinweis": "(Mainz Hbf - Wien Meidling)"
+		journeyId: 'foo',
+		verkehrsmittel: {
+			produktGattung: 'ICE',
+			kategorie: 'ICE',
+			name: 'ICE 229',
+			nummer: '229',
+			richtung: 'Wien Hbf',
+			typ: 'PUBLICTRANSPORT',
+			zugattribute: [{
+				kategorie: 'BEFÖRDERER',
+				key: 'BEF',
+				value: 'DB Fernverkehr AG, Österreichische Bundesbahnen',
+			}, {
+				kategorie: 'FAHRRADMITNAHME',
+				key: 'FR',
+				value: 'Bicycles conveyed - subject to reservation',
+				teilstreckenHinweis: '(Mainz Hbf - Wien Meidling)',
 			}],
-			"kurzText": "ICE",
-			"mittelText": "ICE 229",
-			"langText": "ICE 229"
-		}
+			kurzText: 'ICE',
+			mittelText: 'ICE 229',
+			langText: 'ICE 229',
+		},
 	};
 	const expected = {
 		type: 'line',
@@ -73,18 +73,18 @@ tap.test('parses ICE leg correctly', (t) => {
 
 tap.test('parses Bus trip correctly', (t) => {
 	const input = {
-		"reisetag": "2024-12-07",
-		"regulaereVerkehrstage": "not every day",
-		"irregulaereVerkehrstage": "7., 14. Dec 2024",
-		"zugName": "Bus 807",
-		"zugattribute": [
+		reisetag: '2024-12-07',
+		regulaereVerkehrstage: 'not every day',
+		irregulaereVerkehrstage: '7., 14. Dec 2024',
+		zugName: 'Bus 807',
+		zugattribute: [
 			{
-				"kategorie": "INFORMATION",
-				"key": "cB",
-				"value": "Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)"
-			}
+				kategorie: 'INFORMATION',
+				key: 'cB',
+				value: 'Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)',
+			},
 		],
-		"cancelled": false,
+		cancelled: false,
 	};
 	const expected = {
 		type: 'line',
@@ -95,7 +95,7 @@ tap.test('parses Bus trip correctly', (t) => {
 		product: undefined,
 		productName: undefined,
 		mode: undefined,
-		operator: null
+		operator: null,
 	};
 
 	t.same(parse(ctx, input), expected);
@@ -103,29 +103,28 @@ tap.test('parses Bus trip correctly', (t) => {
 });
 
 
-
 tap.test('parses Bus leg correctly', (t) => {
 	const input = {
-		"journeyId": "foo",
-		"verkehrsmittel": {
-			"produktGattung": "BUS",
-			"kategorie": "Bus",
-			"linienNummer": "807",
-			"name": "Bus 807",
-			"nummer": "807",
-			"richtung": "Bahnhof, Dombühl",
-			"typ": "PUBLICTRANSPORT",
-			"zugattribute": [
+		journeyId: 'foo',
+		verkehrsmittel: {
+			produktGattung: 'BUS',
+			kategorie: 'Bus',
+			linienNummer: '807',
+			name: 'Bus 807',
+			nummer: '807',
+			richtung: 'Bahnhof, Dombühl',
+			typ: 'PUBLICTRANSPORT',
+			zugattribute: [
 				{
-					"kategorie": "INFORMATION",
-					"key": "cB",
-					"value": "Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)"
-				}
+					kategorie: 'INFORMATION',
+					key: 'cB',
+					value: 'Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)',
+				},
 			],
-			"kurzText": "Bus",
-			"mittelText": "Bus 807",
-			"langText": "Bus 807"
-		}
+			kurzText: 'Bus',
+			mittelText: 'Bus 807',
+			langText: 'Bus 807',
+		},
 	};
 	const expected = {
 		type: 'line',
@@ -136,7 +135,7 @@ tap.test('parses Bus leg correctly', (t) => {
 		product: 'bus',
 		productName: 'Bus',
 		mode: 'bus',
-		operator: null
+		operator: null,
 	};
 
 	t.same(parse(ctx, input), expected);
@@ -144,20 +143,19 @@ tap.test('parses Bus leg correctly', (t) => {
 });
 
 
-
 tap.test('parses ris entry correctly', (t) => {
 	const input = {
-		"journeyID": "20241207-79693bf3-2ed5-325f-8a99-154bad5f5cf3",
-		"transport": {
-			"type": "HIGH_SPEED_TRAIN",
-			"journeyDescription": "RB 51 (15538)",
-			"label": "",
-			"category": "RB",
-			"categoryInternal": "RB",
-			"number": 15538,
-			"line": "51",
-			"replacementTransport": null,
-		}
+		journeyID: '20241207-79693bf3-2ed5-325f-8a99-154bad5f5cf3',
+		transport: {
+			type: 'HIGH_SPEED_TRAIN',
+			journeyDescription: 'RB 51 (15538)',
+			label: '',
+			category: 'RB',
+			categoryInternal: 'RB',
+			number: 15538,
+			line: '51',
+			replacementTransport: null,
+		},
 	};
 	const expected = {
 		type: 'line',
@@ -168,7 +166,7 @@ tap.test('parses ris entry correctly', (t) => {
 		product: 'nationalExpress',
 		productName: 'RB',
 		mode: 'train',
-		operator: null
+		operator: null,
 	};
 
 	t.same(parse(ctx, input), expected);

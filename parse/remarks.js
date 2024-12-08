@@ -1,36 +1,46 @@
 import flatMap from 'lodash/flatMap.js';
 
 const parseRemarks = (ctx, ref) => {
-	//TODO ereignisZusammenfassung, priorisierteMeldungen?
+	// TODO ereignisZusammenfassung, priorisierteMeldungen?
 	return flatMap([
-            ref.risNotizen || [],
-            ref.himMeldungen || [],
-            ref.meldungenAsObject || [],
-            ref.verkehrsmittel?.zugattribute || [],
-            ref.messages || [],
-            ref.attributes || [],
-            ref.disruptions || [],
-        ]).map(remark => {
-        if (remark.kategorie) {
-            const res = ctx.profile.parseHintByCode(remark);
-            if (res) return res;
-        }
-		let type = 'hint';
-		if (remark.prioritaet || remark.type) type = 'status'; 
-		if (!remark.kategorie && remark.key || remark.disruptionID || remark.prioritaet && remark.prioritaet == 'HOCH') type = 'warning';
-		let res = {
-			code: remark.code || remark.key,
-			summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || Object.values(remark.descriptions || {}).shift()?.textShort,
-			text: remark.nachrichtLang || remark.value || remark.text || Object.values(remark.descriptions || {}).shift()?.text,
-			type: type,
-		};
-		if (remark.modDateTime) {
-			res.modified = ctx.profile.parseDateTime(ctx, null, remark.modDateTime);
-		}
-		// TODO fromStops, toStops = routeIdxFrom ??
-		// TODO prio
-        return res;
-	}).filter(remark => remark.code != 'BEF');
+		ref.risNotizen || [],
+		ref.himMeldungen || [],
+		ref.meldungenAsObject || [],
+		ref.verkehrsmittel?.zugattribute || [],
+		ref.messages || [],
+		ref.attributes || [],
+		ref.disruptions || [],
+	])
+		.map(remark => {
+			if (remark.kategorie) {
+				const res = ctx.profile.parseHintByCode(remark);
+				if (res) {
+					return res;
+				}
+			}
+			let type = 'hint';
+			if (remark.prioritaet || remark.type) {
+				type = 'status';
+			}
+			if (!remark.kategorie && remark.key || remark.disruptionID || remark.prioritaet && remark.prioritaet == 'HOCH') {
+				type = 'warning';
+			}
+			let res = {
+				code: remark.code || remark.key,
+				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || Object.values(remark.descriptions || {})
+					.shift()?.textShort,
+				text: remark.nachrichtLang || remark.value || remark.text || Object.values(remark.descriptions || {})
+					.shift()?.text,
+				type: type,
+			};
+			if (remark.modDateTime) {
+				res.modified = ctx.profile.parseDateTime(ctx, null, remark.modDateTime);
+			}
+			// TODO fromStops, toStops = routeIdxFrom ??
+			// TODO prio
+			return res;
+		})
+		.filter(remark => remark.code != 'BEF');
 };
 
 /*
@@ -137,7 +147,7 @@ const parseRemarks = (ctx, ref) => {
         "prioritaet": "HOCH",
         "modDateTime": "2024-12-05T19:01:48"
     }
-	]	
+	]
 
     zugattribute
     [
@@ -180,10 +190,10 @@ const parseRemarks = (ctx, ref) => {
 */
 
 const isStopCancelled = (ref) => {
-	return !!ref.risNotizen.find(r => r.key == 'text.realtime.stop.cancelled' || r.type == 'HALT_AUSFALL');
-}
+	return Boolean(ref.risNotizen.find(r => r.key == 'text.realtime.stop.cancelled' || r.type == 'HALT_AUSFALL'));
+};
 
 export {
 	parseRemarks,
-	isStopCancelled
+	isStopCancelled,
 };

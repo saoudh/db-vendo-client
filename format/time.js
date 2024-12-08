@@ -17,7 +17,7 @@ const formatTime = (profile, when, includeOffset = false) => {
 			zone: timezone,
 		})
 		.startOf('second')
-		.toISO({ includeOffset: includeOffset, suppressMilliseconds: true })
+		.toISO({includeOffset: includeOffset, suppressMilliseconds: true});
 };
 
 export {

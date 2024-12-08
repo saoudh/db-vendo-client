@@ -7,7 +7,7 @@ const ADDRESS = 'ADR';
 const leadingZeros = /^0+/;
 
 const parseLocation = (ctx, l) => {
-	const {profile, opt} = ctx;
+	const {profile} = ctx;
 
 	if (!l) {
 		return null;
@@ -42,9 +42,9 @@ const parseLocation = (ctx, l) => {
 			stop.products = profile.parseProductsBitmask(ctx, l.products);
 		}
 
-		//TODO isMeta
-		//TODO station
-		//TODO entrances, lines, transitAuthority, dhid, ids
+		// TODO isMeta
+		// TODO station
+		// TODO entrances, lines, transitAuthority, dhid, ids
 		return stop;
 	}
 

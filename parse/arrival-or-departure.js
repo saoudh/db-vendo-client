@@ -16,8 +16,8 @@ const createParseArrOrDep = (prefix) => {
 			stop: profile.parseLocation(ctx, d.station),
 			...profile.parseWhen(ctx, null, d.timeSchedule, d.time, d.canceled),
 			...profile.parsePlatform(ctx, d.platformSchedule, d.platform, d.canceled),
-			//prognosisType: TODO
-			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || null, 
+			// prognosisType: TODO
+			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || null,
 			provenance: profile.parseStationName(ctx, d.transport?.origin?.name) || null,
 			line: profile.parseLine(ctx, d) || null,
 			remarks: [],

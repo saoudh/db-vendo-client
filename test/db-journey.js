@@ -31,7 +31,7 @@ const opt = {
 	products: {},
 };
 
-tap.test('parses a journey correctly (DB)', (t) => { //TODO DEVI leg
+tap.test('parses a journey correctly (DB)', (t) => { // TODO DEVI leg
 	const ctx = {profile, opt, common: null, res};
 	const journey = profile.parseJourney(ctx, res.verbindungen[0]);
 

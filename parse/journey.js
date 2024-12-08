@@ -24,7 +24,7 @@ const parseJourney = (ctx, j) => { // j = raw journey
 	// TODO
 	if (opt.scheduledDays && j.serviceDays) {
 		// todo [breaking]: rename to scheduledDates
-		//res.scheduledDays = profile.parseScheduledDays(ctx, j.serviceDays);
+		// res.scheduledDays = profile.parseScheduledDays(ctx, j.serviceDays);
 	}
 
 	return res;

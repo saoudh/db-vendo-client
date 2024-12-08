@@ -198,9 +198,9 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// TODO
 			// todo: this is actually "take additional stations nearby the given start and destination station into account"
 			// see rest.exe docs
-			//ushrp: Boolean(opt.startWithWalking),
+			// ushrp: Boolean(opt.startWithWalking),
 		};
-		if (journeysRef) { TODO
+		if (journeysRef) {
 			query.pagingReference = journeysRef;
 		} else {
 			query.anfrageZeitpunkt = profile.formatTime(profile, when);
@@ -219,7 +219,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			earlierRef: res.verbindungReference?.earlier || null,
 			laterRef: res.verbindungReference?.later || null,
 			journeys,
-			realtimeDataUpdatedAt: null // TODO
+			realtimeDataUpdatedAt: null, // TODO
 		};
 	};
 
@@ -417,7 +417,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.formatLocationsReq({profile, opt}, query);
 
 		const {res, common} = await profile.request({profile, opt}, userAgent, req);
-		
+
 
 		const ctx = {profile, opt, common, res};
 		return res.map(loc => profile.parseLocation(ctx, loc));

@@ -1,6 +1,6 @@
 import tap from 'tap';
 import {parseWhen as parse} from '../../parse/when.js';
-import { parseDateTime } from '../../parse/date-time.js';
+import {parseDateTime} from '../../parse/date-time.js';
 
 const profile = {
 	parseDateTime: parseDateTime,
@@ -15,7 +15,7 @@ const ctx = {
 
 tap.test('parseWhen works correctly', (t) => {
 	const date = null;
-	const timeS = '2019-06-06T16:30:00'; 
+	const timeS = '2019-06-06T16:30:00';
 	const timeR = '2019-06-06T16:31:00';
 	const expected = {
 		when: '2019-06-06T16:31:00+02:00',

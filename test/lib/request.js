@@ -18,7 +18,7 @@ import {
 } from '../../lib/errors.js';
 import {formatTripReq} from '../../format/trip-req.js';
 
-const resNoMatch = {"verbindungen":[],"verbindungReference":{},"fehlerNachricht":{"code":"MDA-AK-MSG-1001","ueberschrift":"Datum liegt außerhalb der Fahrplanperiode.","text":"Das Datum liegt außerhalb der Fahrplanperiode."}};
+const resNoMatch = {verbindungen: [], verbindungReference: {}, fehlerNachricht: {code: 'MDA-AK-MSG-1001', ueberschrift: 'Datum liegt außerhalb der Fahrplanperiode.', text: 'Das Datum liegt außerhalb der Fahrplanperiode.'}};
 
 const USER_AGENT = 'public-transport/hafas-client:test';
 

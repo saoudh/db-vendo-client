@@ -1,8 +1,8 @@
 const formatLocationFilter = (stops, addresses, poi) => {
 	if (!addresses && !poi) { // TODO other combos?
-		return 'HALTESTELLEN'; 
+		return 'HALTESTELLEN';
 	}
-	return 'ALL';	
+	return 'ALL';
 };
 
 export {

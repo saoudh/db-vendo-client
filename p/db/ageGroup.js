@@ -14,11 +14,11 @@ const ageGroup = {
 };
 
 const ageGroupLabel = {
-	'B': 'KLEINKIND',
-	'K': 'FAMILIENKIND',
-	'Y': 'JUGENDLICHER',
-	'E': 'ERWACHSENER',
-	'S': 'SENIOR',
+	B: 'KLEINKIND',
+	K: 'FAMILIENKIND',
+	Y: 'JUGENDLICHER',
+	E: 'ERWACHSENER',
+	S: 'SENIOR',
 };
 
 const ageGroupFromAge = (age) => {

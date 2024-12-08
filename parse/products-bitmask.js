@@ -1,7 +1,7 @@
 const parseBitmask = ({profile}, bitmask) => {
 	const res = {};
 	for (let product of profile.products) {
-		res[product.id] = !!bitmask.find(p => p == product.vendo);
+		res[product.id] = Boolean(bitmask.find(p => p == product.vendo));
 	}
 	return res;
 };

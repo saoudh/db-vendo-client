@@ -12,7 +12,7 @@ const formatNearbyReq = (ctx, location) => {
 			// TODO getStops: Boolean(opt.stops),
 			maxNo: opt.results,
 		},
-		method: 'get'
+		method: 'get',
 	};
 };
 

@@ -3,7 +3,7 @@ import maxBy from 'lodash/maxBy.js';
 import last from 'lodash/last.js';
 
 const parseTrip = (ctx, t) => { // t = raw trip
-	const {profile, opt} = ctx;
+	const {profile} = ctx;
 
 	// pretend the trip is a leg in a journey
 	const fakeLeg = {
@@ -18,7 +18,7 @@ const parseTrip = (ctx, t) => { // t = raw trip
 	};
 
 	const trip = profile.parseJourneyLeg(ctx, fakeLeg);
-	trip.id = trip.tripId; //TODO journeyId
+	trip.id = trip.tripId; // TODO journeyId
 	delete trip.tripId;
 	delete trip.reachable;
 

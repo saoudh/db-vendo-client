@@ -5,8 +5,8 @@ const locationFallback = (id, name) => {
 		type: 'stop',
 		id: id,
 		name: name,
-		location: null
-	}
+		location: null,
+	};
 };
 
 const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
@@ -14,7 +14,7 @@ const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
 
 	const res = {
 		origin: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[0]) : locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt),
-		destination: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[pt.halte.length-1]) : locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt),
+		destination: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[pt.halte.length - 1]) : locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt),
 	};
 
 	const cancelledDep = pt.halte?.length > 0 && isStopCancelled(pt.halte[0]);
@@ -26,7 +26,7 @@ const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
 		res.prognosedDeparture = dep.prognosedWhen;
 	}
 
-	const cancelledArr = pt.halte?.length > 0 && isStopCancelled(pt.halte[pt.halte.length-1]);
+	const cancelledArr = pt.halte?.length > 0 && isStopCancelled(pt.halte[pt.halte.length - 1]);
 	const arr = profile.parseWhen(ctx, date, pt.ankunftsZeitpunkt, pt.ezAnkunftsZeitpunkt, cancelledArr);
 	res.arrival = arr.when;
 	res.plannedArrival = arr.plannedWhen;
@@ -50,7 +50,7 @@ const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
 		res.public = true;
 		res.walking = true;
 		res.distance = pt.distanz || null;
-		//TODO res.transfer, res.checkin
+		// TODO res.transfer, res.checkin
 	} else {
 		res.tripId = pt.journeyId;
 		res.line = profile.parseLine(ctx, pt) || null;
@@ -58,13 +58,13 @@ const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
 
 		// TODO res.currentLocation
 		if (pt.halte?.length > 0) {
-			const arrPl = profile.parsePlatform(ctx, pt.halte[pt.halte.length-1].gleis, pt.halte[pt.halte.length-1].ezGleis, cancelledArr);
+			const arrPl = profile.parsePlatform(ctx, pt.halte[pt.halte.length - 1].gleis, pt.halte[pt.halte.length - 1].ezGleis, cancelledArr);
 			res.arrivalPlatform = arrPl.platform;
 			res.plannedArrivalPlatform = arrPl.plannedPlatform;
 			if (arrPl.prognosedPlatform) {
 				res.prognosedArrivalPlatform = arrPl.prognosedPlatform;
 			}
-			//res.arrivalPrognosisType = null; // TODO 
+			// res.arrivalPrognosisType = null; // TODO
 
 			const depPl = profile.parsePlatform(ctx, pt.halte[0].gleis, pt.halte[0].ezGleis, cancelledDep);
 			res.departurePlatform = depPl.platform;
@@ -72,14 +72,14 @@ const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
 			if (depPl.prognosedPlatform) {
 				res.prognosedDeparturePlatform = depPl.prognosedPlatform;
 			}
-			//res.departurePrognosisType = null; // TODO
-		
+			// res.departurePrognosisType = null; // TODO
+
 
 			if (opt.stopovers) {
 				res.stopovers = pt.halte.map(s => profile.parseStopover(ctx, s, date));
 				// filter stations the train passes without stopping, as this doesn't comply with fptf (yet)
 				res.stopovers = res.stopovers.filter((x) => !x.passBy);
-			} 
+			}
 			if (opt.remarks) {
 				res.remarks = parseRemarks(ctx, pt);
 			}

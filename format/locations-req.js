@@ -3,12 +3,12 @@ const formatLocationsReq = (ctx, query) => {
 
 	return {
 		endpoint: profile.locationsEndpoint,
-		query: {		
+		query: {
 			typ: profile.formatLocationFilter(opt.stops, opt.addresses, opt.poi),
-			suchbegriff: query,			
+			suchbegriff: query,
 			limit: opt.results,
 		},
-		method: 'get'
+		method: 'get',
 	};
 };
 
