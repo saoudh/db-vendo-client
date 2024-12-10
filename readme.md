@@ -9,14 +9,14 @@ This is a very early version. What works:
 
 * rudimentary `/journeys` including lowest prices
 * `/locations`, `/locations/nearby`
-* `/departures`, `/arrivals` (requires a DB API Key for RIS::Boards, maybe you find one somewhere ;)
+* `/departures`, `/arrivals`
 
 What doesn't work (yet, see TODO's scattered around the code):
 
 * `/journeys` details like scheduledDays, stop/station groups, tickets, some line details ...
 * `/journeys` uses different tripIds compared to departure and arrival boards...
 * certain stop details like products for `/locations` and geopositions for departures and arrivals
-* some query options like BahnCards etc. 
+* some query options like BahnCards etc., certain filters for boards 
 * all other endpoints
 
 Feel free report anything that you stumble upon via Issues or create a PR :)
@@ -28,15 +28,15 @@ Also consult the relevant **[documentation](https://github.com/public-transport/
 
 After DB has switched to the new "vendo" platform for bahn.de and DB Navigator, the old [HAFAS](https://de.wikipedia.org/wiki/HAFAS) API (see [hafas-client](https://github.com/public-transport/hafas-client/)) seems to become less and less reliable (server unreachable, missing prices, etc.) This project aims to enable easy switching to the new APIs. However, not all information will be available from the new APIs.
 
-Strictly speaking, permission is necessary to use this library with the bahn.de APIs.
+Actually, db-vendo-client is a wrapper around multiple different APIs, currently the bahn.de API for route planning and the regio-guide RIS API for boards. See some [notes about the various new APIs at DB](docs/db-apis.md).
+
+Strictly speaking, permission is necessary to use this library with the DB APIs.
 
 ## Usage
 
 See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with `hafas-rest-api` in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server.
 
 There are [community-maintained TypeScript typings available as `@types/hafas-client`](https://www.npmjs.com/package/@types/hafas-client). 
-
-For the `/departures` and `/arrivals` endpoints, `DB_API_KEY` and `DB_CLIENT_ID` environment variables for RIS::Boards have to be set.
 
 ## Related Projects
 
