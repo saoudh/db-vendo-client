@@ -89,7 +89,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const results = res[resultsField].map(res => parse(ctx, res)); // todo sort?
+		const results = (res[resultsField] || res.items).map(res => parse(ctx, res)); // todo sort?
 
 		return {
 			[resultsField]: results,

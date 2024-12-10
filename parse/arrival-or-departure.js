@@ -14,15 +14,15 @@ const createParseArrOrDep = (prefix) => {
 		const res = {
 			tripId: d.journeyID,
 			stop: profile.parseLocation(ctx, d.station),
-			...profile.parseWhen(ctx, null, d.timeSchedule, d.time, d.canceled),
-			...profile.parsePlatform(ctx, d.platformSchedule, d.platform, d.canceled),
+			...profile.parseWhen(ctx, null, d.timeSchedule ? d.timeSchedule : d.time, d.timePredicted ? d.timePredicted : d.time, d.canceled),
+			...profile.parsePlatform(ctx, d.platformSchedule ? d.platformSchedule : d.platform, d.platformPredicted ? d.platformPredicted : d.platform, d.canceled),
 			// prognosisType: TODO
-			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || null,
-			provenance: profile.parseStationName(ctx, d.transport?.origin?.name) || null,
+			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || profile.parseStationName(ctx, d.destination?.name) || null,
+			provenance: profile.parseStationName(ctx, d.transport?.origin?.name) || profile.parseStationName(ctx, d.origin?.name) || null,
 			line: profile.parseLine(ctx, d) || null,
 			remarks: [],
-			origin: profile.parseLocation(ctx, d.transport?.origin) || null,
-			destination: profile.parseLocation(ctx, d.transport?.destination) || null,
+			origin: profile.parseLocation(ctx, d.transport?.origin || d.origin) || null,
+			destination: profile.parseLocation(ctx, d.transport?.destination || d.destination) || null,
 		};
 
 		// TODO pos
