@@ -12,7 +12,7 @@ const createParseArrOrDep = (prefix) => {
 		const {profile, opt} = ctx;
 
 		const res = {
-			tripId: d.journeyID,
+			tripId: d.journeyID || d.train.journeyId,
 			stop: profile.parseLocation(ctx, d.station),
 			...profile.parseWhen(ctx, null, d.timeSchedule ? d.timeSchedule : d.time, d.timePredicted ? d.timePredicted : d.time, d.canceled),
 			...profile.parsePlatform(ctx, d.platformSchedule ? d.platformSchedule : d.platform, d.platformPredicted ? d.platformPredicted : d.platform, d.canceled),

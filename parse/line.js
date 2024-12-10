@@ -5,7 +5,7 @@ const parseLine = (ctx, p) => {
 	const res = {
 		type: 'line',
 		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.train?.no), // TODO terrible
-		fahrtNr: p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no,
+		fahrtNr: (p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no)+'',
 		name: p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName,
 		public: true,
 	};
