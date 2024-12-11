@@ -7,16 +7,16 @@
 
 This is a very early version. What works:
 
-* rudimentary `/journeys` including lowest prices
-* `/locations`, `/locations/nearby`
-* `/departures`, `/arrivals`
+* `journeys()`, `refreshJourney()` including prices
+* `locations()`, `nearby()`
+* `departures()`, `arrivals()` boards
 
 What doesn't work (yet, see TODO's scattered around the code):
 
-* `/journeys` details like scheduledDays, stop/station groups, tickets, some line details ...
-* `/journeys` uses different tripIds compared to departure and arrival boards...
-* certain stop details like products for `/locations` and geopositions for departures and arrivals
-* some query options like BahnCards etc., certain filters for boards 
+* `journeys()` details like scheduledDays, stop/station groups, some line details ...
+* `journeys()` uses different tripIds compared to departure and arrival boards...
+* certain stop details like products for `locations()` and geopositions for boards
+* some query options/filters (e.g. direction for boards)
 * all other endpoints
 
 Feel free report anything that you stumble upon via Issues or create a PR :)
@@ -34,7 +34,7 @@ Strictly speaking, permission is necessary to use this library with the DB APIs.
 
 ## Usage
 
-See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with `hafas-rest-api` in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server.
+See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with `hafas-rest-api` in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API.
 
 There are [community-maintained TypeScript typings available as `@types/hafas-client`](https://www.npmjs.com/package/@types/hafas-client). 
 
