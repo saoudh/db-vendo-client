@@ -2,10 +2,11 @@ import slugg from 'slugg';
 
 const parseLine = (ctx, p) => {
 	const profile = ctx.profile;
+	const fahrtNr = p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no;
 	const res = {
 		type: 'line',
 		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.train?.no), // TODO terrible
-		fahrtNr: (p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no)+'',
+		fahrtNr: fahrtNr ? String(fahrtNr) : undefined,
 		name: p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName,
 		public: true,
 	};

@@ -43,7 +43,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		throw new TypeError('userAgent must be a string');
 	}
 	if (FORBIDDEN_USER_AGENTS.includes(userAgent.toLowerCase())) {
-		throw new TypeError(`userAgent should tell the HAFAS API operators how to contact you. If you have copied "${userAgent}" value from the documentation, please adapt it.`);
+		throw new TypeError(`userAgent should tell the API operators how to contact you. If you have copied "${userAgent}" value from the documentation, please adapt it.`);
 	}
 
 	const _stationBoard = async (station, type, resultsField, parse, opt = {}) => {
@@ -241,17 +241,11 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.formatRefreshJourneyReq({profile, opt}, refreshToken);
 
 		const {res, common} = await profile.request({profile, opt}, userAgent, req);
-		if (!Array.isArray(res.outConL) || !res.outConL[0]) {
-			throw new HafasError('invalid response, expected outConL[0]', null, {});
-		}
-
 		const ctx = {profile, opt, common, res};
 
 		return {
-			journey: profile.parseJourney(ctx, res.outConL[0]),
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
+			journey: profile.parseJourney(ctx, res.verbindungen[0]),
+			realtimeDataUpdatedAt: null, // TODO
 		};
 	};
 

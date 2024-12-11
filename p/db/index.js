@@ -204,36 +204,20 @@ const transformJourneysQuery = ({profile, opt}, query) => {
 
 const formatRefreshJourneyReq = (ctx, refreshToken) => {
 	const {profile, opt} = ctx;
-	const req = {
-		getIST: true,
-		getPasslist: Boolean(opt.stopovers),
-		getPolyline: Boolean(opt.polylines),
-		getTariff: Boolean(opt.tickets),
+	let query = {
+		ctxRecon: refreshToken,
+		deutschlandTicketVorhanden: false,
+		nurDeutschlandTicketVerbindungen: false,
+		reservierungsKontingenteVorhanden: false,
 	};
-	if (profile.refreshJourneyUseOutReconL) {
-		req.outReconL = [{ctx: refreshToken}];
-	} else {
-		req.ctxRecon = refreshToken;
-	}
-	req.trfReq = trfReq(opt, true);
-
+	query = Object.assign(query, trfReq(opt, true));
 	return {
-		meth: 'Reconstruction',
-		req,
+		endpoint: profile.refreshJourneysEndpoint,
+		body: query,
+		method: 'post',
 	};
 };
 
-// todo: fix this
-// line: {
-// 	type: 'line',
-// 	id: '5-vbbbvb-x9',
-// 	fahrtNr: '52496',
-// 	name: 'X9',
-// 	public: true,
-// 	mode: 'bus',
-// 	product: 'bus',
-// 	operator: {type: 'operator', id: 'nahreisezug', name: 'Nahreisezug'}
-// }
 const parseLineWithAdditionalName = ({parsed}, l) => {
 	if (l.nameS && ['bus', 'tram', 'ferry'].includes(l.product)) {
 		parsed.name = l.nameS;
@@ -245,11 +229,8 @@ const parseLineWithAdditionalName = ({parsed}, l) => {
 	return parsed;
 };
 
-// todo: sotRating, conSubscr, isSotCon, showARSLink, sotCtxt
-// todo: conSubscr, showARSLink, useableTime
 const mutateToAddPrice = (parsed, raw) => {
 	parsed.price = null;
-	// TODO find all prices?
 	if (raw.angebotsPreis?.betrag) {
 		parsed.price = {
 			amount: raw.angebotsPreis.betrag,
@@ -260,9 +241,49 @@ const mutateToAddPrice = (parsed, raw) => {
 	return parsed;
 };
 
+const mutateToAddTickets = (parsed, opt, j) => {
+	if (!opt.tickets) {
+		return;
+	}
+	if (j.reiseAngebote && j.reiseAngebote.length > 0) { // if refreshJourney()
+		parsed.tickets = j.reiseAngebote
+			.filter(s => s.typ == 'REISEANGEBOT' && !s.angebotsbeziehungList.flatMap(b => b.referenzen)
+				.find(r => r.referenzAngebotsoption == 'PFLICHT'))
+			.map((s) => {
+				return {
+					name: s.name,
+					priceObj: {
+						amount: Math.round(s.preis?.betrag * 100),
+						currency: s.preis?.waehrung,
+					},
+					addData: s.teilpreis ? 'Teilpreis / partial fare' : undefined,
+					addDataTicketInfo: s.konditionsAnzeigen?.map(a => a.anzeigeUeberschrift)
+						.join('. '),
+					addDataTicketDetails: s.konditionsAnzeigen?.map(a => a.textLang)
+						.join(' '),
+					addDataTravelInfo: s.leuchtturmInfo?.text,
+					firstClass: s.klasse == 'KLASSE_1',
+					partialFare: s.teilpreis,
+				};
+			});
+		if (opt.generateUnreliableTicketUrls) {
+			// TODO
+		}
+
+	} else if (j.angebotsPreis?.betrag) { // if journeys()
+		parsed.tickets = [{
+			name: 'from',
+			priceObj: {
+				amount: Math.round(j.angebotsPreis.betrag * 100),
+				currency: j.angebotsPreis.waehrung,
+			},
+		}];
+	}
+};
+
 const parseJourneyWithPriceAndTickets = ({parsed, opt}, raw) => {
 	mutateToAddPrice(parsed, raw);
-	// mutateToAddTickets(parsed, opt, raw); TODO
+	mutateToAddTickets(parsed, opt, raw);
 	return parsed;
 };
 
