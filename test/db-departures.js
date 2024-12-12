@@ -7,8 +7,8 @@ import tap from 'tap';
 
 import {createClient} from '../index.js';
 import {profile as rawProfile} from '../p/db/index.js';
-const res = require('./fixtures/db-arrivals.json');
-import {dbArrivals as expected} from './fixtures/db-arrivals.js';
+const res = require('./fixtures/db-departures-regio-guide.json');
+import {dbDepartures as expected} from './fixtures/db-departures-regio-guide.js';
 
 const client = createClient(rawProfile, 'public-transport/hafas-client:test');
 const {profile} = client;
@@ -24,10 +24,10 @@ const opt = {
 	products: {},
 };
 
-tap.test('parses a RIS::Boards arrival correctly', (t) => {
+tap.test('parses a regio-guide departure correctly', (t) => {
 	const ctx = {profile, opt, common: null, res};
-	const arrivals = res.arrivals.map(d => profile.parseArrival(ctx, d));
+	const departures = res.items.map(d => profile.parseDeparture(ctx, d));
 
-	t.same(arrivals, expected);
+	t.same(departures, expected);
 	t.end();
 });

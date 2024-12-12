@@ -14,7 +14,7 @@ const createParseArrOrDep = (prefix) => {
 		const res = {
 			tripId: d.journeyID || d.train.journeyId,
 			stop: profile.parseLocation(ctx, d.station),
-			...profile.parseWhen(ctx, null, d.timeSchedule ? d.timeSchedule : d.time, d.timePredicted ? d.timePredicted : d.time, d.canceled),
+			...profile.parseWhen(ctx, null, d.timeSchedule ? d.timeSchedule : d.time, d.timeType != 'SCHEDULE' ? d.timePredicted ? d.timePredicted : d.time : null, d.canceled),
 			...profile.parsePlatform(ctx, d.platformSchedule ? d.platformSchedule : d.platform, d.platformPredicted ? d.platformPredicted : d.platform, d.canceled),
 			// prognosisType: TODO
 			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || profile.parseStationName(ctx, d.destination?.name) || null,
