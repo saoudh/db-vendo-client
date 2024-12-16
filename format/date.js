@@ -16,7 +16,7 @@ const formatDate = (profile, when) => {
 			locale: profile.locale,
 			zone: timezone,
 		})
-		.toFormat('yyyyMMdd');
+		.toFormat('yyyy-MM-dd');
 };
 
 export {

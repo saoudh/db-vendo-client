@@ -1,8 +1,7 @@
 import {DateTime, IANAZone} from 'luxon';
 import {luxonIANAZonesByProfile as timezones} from '../lib/luxon-timezones.js';
 
-// todo: change to `(profile) => (when) => {}`
-const formatTime = (profile, when, includeOffset = false) => {
+const getTimezone = (profile) => {
 	let timezone;
 	if (timezones.has(profile)) {
 		timezone = timezones.get(profile);
@@ -10,6 +9,11 @@ const formatTime = (profile, when, includeOffset = false) => {
 		timezone = new IANAZone(profile.timezone);
 		timezones.set(profile, timezone);
 	}
+	return timezone;
+}
+
+const formatIsoDateTime = (profile, when, includeOffset = false) => {
+	const timezone = getTimezone(profile);
 
 	return DateTime
 		.fromMillis(Number(when), {
@@ -20,6 +24,20 @@ const formatTime = (profile, when, includeOffset = false) => {
 		.toISO({includeOffset: includeOffset, suppressMilliseconds: true});
 };
 
-export {
-	formatTime,
+const formatTime = (profile, when) => {
+	const timezone = getTimezone(profile);
+
+	return DateTime
+		.fromMillis(Number(when), {
+			locale: profile.locale,
+			zone: timezone,
+		})
+		.toFormat('HH:mm');
 };
+
+export {
+	formatIsoDateTime,
+	formatTime
+};
+	
+

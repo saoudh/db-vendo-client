@@ -7,6 +7,7 @@ const products = [
 		short: 'ICE',
 		vendo: 'ICE',
 		ris: 'HIGH_SPEED_TRAIN',
+		dbnav: 'HOCHGESCHWINDIGKEITSZUEGE',
 		default: true,
 	},
 	{
@@ -17,6 +18,7 @@ const products = [
 		short: 'IC/EC',
 		vendo: 'EC_IC',
 		ris: 'INTERCITY_TRAIN',
+		dbnav: 'INTERCITYUNDEUROCITYZUEGE',
 		default: true,
 	},
 	{
@@ -27,6 +29,7 @@ const products = [
 		short: 'RE/IR',
 		vendo: 'IR',
 		ris: 'INTER_REGIONAL_TRAIN',
+		dbnav: 'INTERREGIOUNDSCHNELLZUEGE',
 		default: true,
 	},
 	{
@@ -37,6 +40,7 @@ const products = [
 		short: 'RB',
 		vendo: 'REGIONAL',
 		ris: 'REGIONAL_TRAIN',
+		dbnav: 'NAHVERKEHRSONSTIGEZUEGE',
 		default: true,
 	},
 	{
@@ -47,6 +51,7 @@ const products = [
 		short: 'S',
 		vendo: 'SBAHN',
 		ris: 'CITY_TRAIN',
+		dbnav: 'SBAHNEN',
 		default: true,
 	},
 	{
@@ -57,6 +62,7 @@ const products = [
 		short: 'B',
 		vendo: 'BUS',
 		ris: 'BUS',
+		dbnav: 'BUSSE',
 		default: true,
 	},
 	{
@@ -67,6 +73,7 @@ const products = [
 		short: 'F',
 		vendo: 'SCHIFF',
 		ris: 'FERRY',
+		dbnav: 'SCHIFFE',
 		default: true,
 	},
 	{
@@ -77,6 +84,7 @@ const products = [
 		short: 'U',
 		vendo: 'UBAHN',
 		ris: 'SUBWAY',
+		dbnav: 'UBAHN',
 		default: true,
 	},
 	{
@@ -87,6 +95,7 @@ const products = [
 		short: 'T',
 		vendo: 'TRAM',
 		ris: 'TRAM',
+		dbnav: 'STRASSENBAHN',
 		default: true,
 	},
 	{
@@ -97,6 +106,7 @@ const products = [
 		short: 'Taxi',
 		vendo: 'ANRUFPFLICHTIG',
 		ris: 'TAXI',
+		dbnav: 'ANRUFPFLICHTIGEVERKEHRE',
 		default: true,
 	},
 ];
