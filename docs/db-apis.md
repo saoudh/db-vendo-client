@@ -1,6 +1,6 @@
 # New DB Board and Route Planning APIs (beyond HAFAS and IRIS)
 
-(Beware that a DB journey is what you usually call a trip (a vehicle travelilng at a certain time) and a DB trip is what you usually call a journey (result of a route search from A to B).)
+(Beware that a DB journey is what you usually call a trip (a vehicle travelling at a certain time) and a DB trip is what you usually call a journey (result of a route search from A to B).)
 
 ## RIS::Boards
 https://apis.deutschebahn.com/db/apis/ris-boards/v1/public/
@@ -59,10 +59,11 @@ EPs:
 * angebote/recon/autonomereservierung (prices)
 
 Notes:
-* see [traffic dumps](dumps/readme.md)
+* see [traffic dumps](dumps/)
 * no API Key needed
 * used by new DB Navigator
 * HAFAS trip IDs
+* boards only 1 hour (or unknown param)
 * does not contain machine-readable cancelled info in the boards (only "Halt entfällt" string), but contains relevant remarks
 * loadFactor only on journeys (?)
 

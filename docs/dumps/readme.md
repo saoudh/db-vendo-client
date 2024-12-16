@@ -1,6 +1,6 @@
 # Dumps from DB Navigator API app.vendo.noncd.db.de
 
-In this directory, some intercepted traffic from DB Navigator.
+In this directory, some intercepted traffic from DB Navigator. (Repo license does not apply to this directory.)
 
 How to intercept:
 
