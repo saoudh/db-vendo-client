@@ -1,0 +1,18 @@
+POST /mob/angebote/fahrplan HTTP/1.1
+Accept: application/x.db.vendo.mob.verbindungssuche.v8+json
+x-feature-reiseketten-enabled: false
+X-Correlation-ID: 0564dcdf-edbf-4412-a147-7299f6481470_64466773-556f-4aa8-b128-0948c4d60887
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: 0d0c6c50-3bea-4cb7-b008-09bc92a0d96a
+Content-Type: application/x.db.vendo.mob.verbindungssuche.v8+json
+Content-Length: 679
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"autonomeReservierung":false,"einstiegsTypList":["STANDARD"],"klasse":"KLASSE_2","reiseHin":{"wunsch":{"abgangsLocationId":"A\u003d1@O\u003dBerlin Hbf@X\u003d13369549@Y\u003d52525589@U\u003d81@L\u003d8011160@B\u003d1@p\u003d1734031727@i\u003dU×008065969@","verkehrsmittel":["ALL"],"zeitWunsch":{"reiseDatum":"2024-12-16T19:28:48.659812+01:00","zeitPunktArt":"ABFAHRT"},"zielLocationId":"A\u003d1@O\u003dKöln Hbf@X\u003d6958730@Y\u003d50943029@U\u003d81@L\u003d8000207@B\u003d1@p\u003d1734031727@i\u003dU×008015458@"}},"reisendenProfil":{"reisende":[{"ermaessigungen":["KEINE_ERMAESSIGUNG KLASSENLOS"],"reisendenTyp":"ERWACHSENER"}]},"reservierungsKontingenteVorhanden":false}

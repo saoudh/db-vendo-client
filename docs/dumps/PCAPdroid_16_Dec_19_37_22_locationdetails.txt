@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Mon, 16 Dec 2024 18:36:50 GMT
+Content-Type: application/x.db.vendo.mob.location.v3+json
+Content-Length: 1158
+Connection: keep-alive
+server-timing: intid;desc=5ae5ce547c4a8b38
+Server-Timing: intid;desc=5ae5ce547c4a8b38
+Server-Timing: intid;desc=5ae5ce547c4a8b38
+x-correlation-id: 0564dcdf-edbf-4412-a147-7299f6481470_64466773-556f-4aa8-b128-0948c4d60887
+Strict-Transport-Security: max-age=16070400; includeSubDomains
+X-XSS-Protection: 0
+server-timing: intid;desc=5ae5ce547c4a8b38
+Content-Security-Policy: frame-ancestors 'none';
+X-Content-Type-Options: nosniff
+Set-Cookie: TS01be2125=01d513bcd125629ac814505605565f3e87a8081db30d56beae22efb148df982534183fd830148fa0901fa5a36116fab13d52c5d86a; Path=/; Domain=.app.vendo.noncd.db.de; Secure; HTTPOnly
+
+{"haltName":"Berlin Hbf","produktGattungen":[{"produktGattung":"HOCHGESCHWINDIGKEITSZUEGE","produkte":[{"name":"ICE"},{"name":"RJ"}]},{"produktGattung":"INTERCITYUNDEUROCITYZUEGE","produkte":[{"name":"EC"},{"name":"IC"},{"name":"NJ"}]},{"produktGattung":"INTERREGIOUNDSCHNELLZUEGE","produkte":[{"name":"BUS"},{"name":"Bus"},{"name":"D"},{"name":"EN"},{"name":"ES"},{"name":"FLX"},{"name":"UEX"}]},{"produktGattung":"NAHVERKEHRSONSTIGEZUEGE","produkte":[{"name":"FEX"},{"name":"HBX"},{"name":"R"},{"name":"RB"},{"name":"RE"},{"name":"RSM"},{"name":"Bus RE3"},{"name":"Bus RE5"},{"name":"Bus RE7"},{"name":"Bus RE8"},{"name":"Bus S7"}]},{"produktGattung":"SBAHNEN","produkte":[{"name":"S 3"},{"name":"S 5"},{"name":"S 7"},{"name":"S 9"},{"name":"S 45"}]},{"produktGattung":"BUSSE","produkte":[{"name":"Bus 120"},{"name":"Bus 123"},{"name":"Bus 142"},{"name":"Bus 147"},{"name":"Bus 245"},{"name":"Bus M41"},{"name":"Bus M85"},{"name":"Bus N5"},{"name":"Bus N20"},{"name":"Bus N40"}]},{"produktGattung":"UBAHN","produkte":[{"name":"U 5"}]},{"produktGattung":"STRASSENBAHN","produkte":[{"name":"STR 12"},{"name":"STR M5"},{"name":"STR M8"},{"name":"STR M10"}]}]}

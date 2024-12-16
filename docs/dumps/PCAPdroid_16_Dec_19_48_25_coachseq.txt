@@ -1,0 +1,15 @@
+GET /mob/zuglaeufe/ICE_947/halte/by-abfahrt/8000207_2024-12-16T19:26:00+01:00/wagenreihung HTTP/1.1
+Accept: application/x.db.vendo.mob.wagenreihung.v3+json
+Content-Type: application/x.db.vendo.mob.wagenreihung.v3+json
+X-Correlation-ID: b8d93b08-71ac-4cc2-836e-cd2683e34478_64466773-556f-4aa8-b128-0948c4d60887
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: 4ce19a5d-9da2-480d-a278-543fade2f485
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+

@@ -1,0 +1,17 @@
+POST /mob/bahnhofstafel/abfahrt HTTP/1.1
+Accept: application/x.db.vendo.mob.bahnhofstafeln.v2+json
+X-Correlation-ID: 0564dcdf-edbf-4412-a147-7299f6481470_64466773-556f-4aa8-b128-0948c4d60887
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: b2d3fe71-a8d6-4675-bbe5-a5081368a6ab
+Content-Type: application/x.db.vendo.mob.bahnhofstafeln.v2+json
+Content-Length: 197
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"anfragezeit":"21:28","datum":"2024-12-16","ursprungsBahnhofId":"A\u003d1@O\u003dBerlin Hbf@X\u003d13369549@Y\u003d52525589@U\u003d81@L\u003d8098160@i\u003dU×008031922@","verkehrsmittel":["ALL"]}

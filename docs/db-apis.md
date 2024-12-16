@@ -41,6 +41,7 @@ EPs:
 Notes:
 * no API Key needed
 * no remarks in boards (or with unknown param), only some in journey
+* cancelled trips are completely missing from boards (?)
 * uses RIS trip IDs, does not expose them directly in the routing-search response
 * loadFactor for some regional services, not for long distance services
 * boards up to 12 hours
@@ -50,13 +51,20 @@ https://app.vendo.noncd.db.de/mob/
 
 EPs:
 * bahnhofstafel/abfahrt
+* bahnhofstafel/ankunft
+* location/search
 * angebote/fahrplan (for route planning)
+* zuglauf
+* zuglaeufe/ICE_947/halte/by-abfahrt/8000207_2024 (coach sequence)
+* angebote/recon/autonomereservierung (prices)
 
 Notes:
+* see [traffic dumps](dumps/readme.md)
 * no API Key needed
 * used by new DB Navigator
-* to be investigated, reverse engineering of DB Navigator needed
-* probably uses HAFAS trip IDs
+* HAFAS trip IDs
+* does not contain machine-readable cancelled info in the boards (only "Halt entfällt" string), but contains relevant remarks
+* loadFactor only on journeys (?)
 
 ## Vendo bahn.de API
 https://int.bahn.de/web/api/

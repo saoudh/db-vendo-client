@@ -15,11 +15,11 @@ What doesn't work (yet, see TODO's scattered around the code):
 
 * `journeys()` details like scheduledDays, stop/station groups, some line details ...
 * `journeys()` uses different tripIds compared to departure and arrival boards...
-* certain stop details like products for `locations()` and geopositions for boards
+* certain stop details like products for `locations()` and geopositions and remarks for boards
 * some query options/filters (e.g. direction for boards)
 * all other endpoints
 
-Feel free report anything that you stumble upon via Issues or create a PR :)
+Feel free to report anything that you stumble upon via Issues or create a PR :)
 
 Also consult the relevant **[documentation](https://github.com/public-transport/hafas-client/blob/main/docs/readme.md)** of [hafas-client](https://github.com/public-transport/hafas-client/) (but beware of the limited functionality of db-vendo-client).
 

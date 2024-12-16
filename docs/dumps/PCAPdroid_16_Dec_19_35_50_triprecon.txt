@@ -1,0 +1,17 @@
+POST /mob/trip/recon HTTP/1.1
+Accept: application/x.db.vendo.mob.verbindungssuche.v8+json
+X-Correlation-ID: 0564dcdf-edbf-4412-a147-7299f6481470_64466773-556f-4aa8-b128-0948c4d60887
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: 757b9806-028b-4b0e-bdde-2441c2e1e1ee
+Content-Type: application/x.db.vendo.mob.verbindungssuche.v8+json
+Content-Length: 1162
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"reconCtx":"¶HKI¶T$A\u003d1@O\u003dBerlin Hbf@X\u003d13369549@Y\u003d52525589@L\u003d8011160@a\u003d128@$A\u003d1@O\u003dKöln Hbf@X\u003d6958730@Y\u003d50943029@L\u003d8000207@a\u003d128@$202412161946$202412170057$ICE  842$$1$$$$$$¶KC¶#VE#2#CF#100#CA#0#CM#0#SICT#0#AM#81#AM2#0#RT#7#¶KCC¶I1ZFIzEjRVJHIzEjSElOIzAjRUNLIzUzOTc0Nnw1Mzk3NDZ8NTQwMDU3fDU0MDA1N3wwfDB8NTY1fDUzOTcyNXwxfDB8MTA1MHwwfDB8LTIxNDc0ODM2NDgjR0FNIzE2MTIyNDE5NDYjClojVk4jMSNTVCMxNzM0MDMxNzI3I1BJIzEjWkkjMTc3NjUxI1RBIzAjREEjMTYxMjI0IzFTIzgwMTAyNTUjMVQjMTkzNCNMUyM4MDAwMjA3I0xUIzEwMDU3I1BVIzgxI1JUIzEjQ0EjSUNFI1pFIzg0MiNaQiNJQ0UgIDg0MiNQQyMwI0ZSIzgwMTExNjAjRlQjMTk0NiNUTyM4MDAwMjA3I1RUIzEwMDU3Iw\u003d\u003d¶KRCC¶#VE#1#¶SC¶1_H4sIAAAAAAACA32P7UrDMBiFb0Xyu4436WcKgdiV4cfQIk4U8Udds1lJ25mmw1J6Hd6JN7AbM20ZCIrkT87JyXnet0N7oVCI8MwPkIXEhzYijmb38YwarcQ7CjtUNsUCha41XCIUgoWqRsepFiZMgDiYYA+N5l1eDCamJAAw1mZsOMUWeivbhdRqicKnDul2N8SS25vYhIoqG9TF9dyIfSqbsQKIjfrncab563YqNuRM7JbVeqqReWaSZwzzGxYJJfPy5Pxlwx8Ytm2Pug7lj8wl5rgB5SsWYL5kAWCMPeCR+bVj2LcdsLFPfJ6z1eETIADPpR7lZpRaTysuxjlSpf4EXx2+5JFroIFvw4AF6thAfmABCPj/YLHruMFv7FbopJKt2c14WjVitC6rRpWijaqmzGoUblJZTw9JWtcyr/UxK9ZVkqq0MKGu7/tvvH4lCvABAAA\u003d"}

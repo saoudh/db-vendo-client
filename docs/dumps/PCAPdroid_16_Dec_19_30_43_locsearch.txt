@@ -1,0 +1,17 @@
+POST /mob/location/search HTTP/1.1
+Accept: application/x.db.vendo.mob.location.v3+json
+X-Correlation-ID: 4f2e274e-6e5c-4711-9125-87229046bba3_64466773-556f-4aa8-b128-0948c4d60887
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: 560187ed-f13a-4654-bc62-b9f69f989563
+Content-Type: application/x.db.vendo.mob.location.v3+json
+Content-Length: 45
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"locationTypes":["ALL"],"searchTerm":"test"}

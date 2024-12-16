@@ -1,0 +1,15 @@
+GET /mob/location/details/8011160 HTTP/1.1
+Accept: application/x.db.vendo.mob.location.v3+json
+Content-Type: application/x.db.vendo.mob.location.v3+json
+X-Correlation-ID: 0564dcdf-edbf-4412-a147-7299f6481470_64466773-556f-4aa8-b128-0948c4d60887
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: b9bd5e93-e6d2-4998-bc5a-17b72ca65ca3
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
