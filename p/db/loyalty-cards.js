@@ -1,4 +1,12 @@
-import {data as c} from 'hafas-client/p/db/loyalty-cards.js'; // TODO remove hafas-client dep?
+const c = {
+	NONE: Symbol('no loyalty card'),
+	BAHNCARD: Symbol('Bahncard'),
+	VORTEILSCARD: Symbol('VorteilsCard'),
+	HALBTAXABO: Symbol('HalbtaxAbo'),
+	VOORDEELURENABO: Symbol('Voordeelurenabo'),
+	SHCARD: Symbol('SH-Card'),
+	GENERALABONNEMENT: Symbol('General-Abonnement'),
+};
 
 // see https://gist.github.com/juliuste/202bb04f450a79f8fa12a2ec3abcd72d
 const formatLoyaltyCard = (data) => {
@@ -9,26 +17,26 @@ const formatLoyaltyCard = (data) => {
 		};
 	}
 	const cls = data.class === 1 ? 'KLASSE_1' : 'KLASSE_2';
-	if (data.type === c.BAHNCARD) {
+	if (data.type.toString() === c.BAHNCARD.toString()) {
 		return {
 			art: 'BAHNCARD' + data.discount,
 			klasse: cls,
 		};
 	}
-	if (data.type === c.VORTEILSCARD) {
+	if (data.type.toString() === c.VORTEILSCARD.toString()) {
 		return {
 			art: 'A-VORTEILSCARD',
 			klasse: 'KLASSENLOS',
 		};
 	}
-	if (data.type === c.HALBTAXABO) {
+	if (data.type.toString() === c.HALBTAXABO.toString()) {
 		return {
 			art: 'CH-HALBTAXABO_OHNE_RAILPLUS',
 			klasse: 'KLASSENLOS',
 		};
 	}
 	// TODO Rest
-	if (data.type === c.GENERALABONNEMENT) {
+	if (data.type.toString() === c.GENERALABONNEMENT.toString()) {
 		return {
 			art: 'CH-GENERAL-ABONNEMENT',
 			klasse: cls,

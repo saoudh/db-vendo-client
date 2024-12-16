@@ -59,7 +59,6 @@
 		"cross-fetch": "^4.0.0",
 		"google-polyline": "^1.0.3",
 		"gps-distance": "0.0.4",
-		"hafas-client": "^6.3.2",
 		"https-proxy-agent": "^7.0.0",
 		"lodash": "^4.17.5",
 		"luxon": "^3.1.1",
