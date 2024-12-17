@@ -1,5 +1,5 @@
 {
-	"name": "db-vendo-client",
+	"name": "@public-transport/db-vendo-client",
 	"description": "Client for bahn.de public transport APIs.",
 	"version": "6.0.0",
 	"type": "module",

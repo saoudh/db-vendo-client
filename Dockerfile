@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.description="A clean REST API wrapping around the
 LABEL org.opencontainers.image.authors="Traines <git@traines.eu>"
 LABEL org.opencontainers.image.documentation="https://github.com/public-transport/db-vendo-client"
 LABEL org.opencontainers.image.source="https://github.com/public-transport/db-vendo-client"
-LABEL org.opencontainers.image.revision="6.0.0"
+LABEL org.opencontainers.image.version="6.0.0"
 LABEL org.opencontainers.image.licenses="ISC"
 WORKDIR /app
 
