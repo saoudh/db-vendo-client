@@ -1,6 +1,6 @@
 name: test
 
-on: [push, pull_request]
+on: [push, pull_request, workflow_call]
 
 env:
   npm_config_cache: /tmp/npm-cache
