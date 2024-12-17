@@ -250,21 +250,28 @@ const mutateToAddTickets = (parsed, opt, j) => {
 			.filter(s => s.typ == 'REISEANGEBOT' && !s.angebotsbeziehungList.flatMap(b => b.referenzen)
 				.find(r => r.referenzAngebotsoption == 'PFLICHT'))
 			.map((s) => {
-				return {
+				const p = {
 					name: s.name,
 					priceObj: {
 						amount: Math.round(s.preis?.betrag * 100),
 						currency: s.preis?.waehrung,
 					},
-					addData: s.teilpreis ? 'Teilpreis / partial fare' : undefined,
-					addDataTicketInfo: s.konditionsAnzeigen?.map(a => a.anzeigeUeberschrift)
-						.join('. '),
-					addDataTicketDetails: s.konditionsAnzeigen?.map(a => a.textLang)
-						.join(' '),
-					addDataTravelInfo: s.leuchtturmInfo?.text,
 					firstClass: s.klasse == 'KLASSE_1',
 					partialFare: s.teilpreis,
 				};
+				if (s.teilpreis) {
+					p.addData = 'Teilpreis / partial fare';
+				}
+				if (s.konditionsAnzeigen) {
+					p.addDataTicketInfo = s.konditionsAnzeigen?.map(a => a.anzeigeUeberschrift)
+						.join('. ');
+					p.addDataTicketDetails = s.konditionsAnzeigen?.map(a => a.textLang)
+						.join(' ');
+				}
+				if (s.leuchtturmInfo) {
+					p.addDataTravelInfo = s.leuchtturmInfo?.text;
+				}
+				return p;
 			});
 		if (opt.generateUnreliableTicketUrls) {
 			// TODO
