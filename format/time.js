@@ -10,9 +10,9 @@ const getTimezone = (profile) => {
 		timezones.set(profile, timezone);
 	}
 	return timezone;
-}
+};
 
-const formatIsoDateTime = (profile, when, includeOffset = false) => {
+const formatTime = (profile, when, includeOffset = false) => {
 	const timezone = getTimezone(profile);
 
 	return DateTime
@@ -24,7 +24,7 @@ const formatIsoDateTime = (profile, when, includeOffset = false) => {
 		.toISO({includeOffset: includeOffset, suppressMilliseconds: true});
 };
 
-const formatTime = (profile, when) => {
+const formatTimeOfDay = (profile, when) => {
 	const timezone = getTimezone(profile);
 
 	return DateTime
@@ -36,8 +36,8 @@ const formatTime = (profile, when) => {
 };
 
 export {
-	formatIsoDateTime,
-	formatTime
+	formatTime,
+	formatTimeOfDay,
 };
-	
+
 
