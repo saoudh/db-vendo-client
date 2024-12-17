@@ -213,7 +213,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.transformJourneysQuery({profile, opt}, query);
 		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
-		const journeys = res.verbindungen
+		const verbindungen = opt.results ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
+		const journeys = verbindungen
 			.map(j => profile.parseJourney(ctx, j));
 
 		return {
