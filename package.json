@@ -32,7 +32,10 @@
 		"1Maxnet1"
 	],
 	"homepage": "https://github.com/public-transport/db-vendo-client",
-	"repository": "public-transport/db-vendo-client",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/public-transport/db-vendo-client.git"
+	},
 	"bugs": "https://github.com/public-transport/db-vendo-client/issues",
 	"funding": {
 		"url": "https://github.com/sponsors/derhuerst"
@@ -102,5 +105,8 @@
 			"!@tapjs/intercept",
 			"!@tapjs/fixture"
 		]
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
 	}
 }
