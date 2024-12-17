@@ -201,10 +201,9 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// see rest.exe docs
 			// ushrp: Boolean(opt.startWithWalking),
 		};
+		query.anfrageZeitpunkt = profile.formatTime(profile, when);
 		if (journeysRef) {
 			query.pagingReference = journeysRef;
-		} else {
-			query.anfrageZeitpunkt = profile.formatTime(profile, when);
 		}
 		query.ankunftSuche = outFrwd ? 'ABFAHRT' : 'ANKUNFT';
 		if (opt.results !== null) {
