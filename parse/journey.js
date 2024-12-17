@@ -1,11 +1,24 @@
 import {parseRemarks} from './remarks.js';
 
+const parseLocationsFromCtxRecon = (ctx, j) => {
+	return j.ctxRecon
+		.split('$')
+		.map(e => ctx.profile.parseLocation(ctx, {id: e}))
+		.filter(e => e.latitude || e.location?.latitude)
+		.reduce((map, e) => {
+			map[e.id] = e;
+			map[e.name] = e;
+			return map;
+		}, {});
+};
+
 const parseJourney = (ctx, j) => { // j = raw journey
 	const {profile, opt} = ctx;
 
+	const fallbackLocations = parseLocationsFromCtxRecon(ctx, j);
 	const legs = [];
 	for (const l of j.verbindungsAbschnitte) {
-		const leg = profile.parseJourneyLeg(ctx, l, null);
+		const leg = profile.parseJourneyLeg(ctx, l, null, fallbackLocations);
 		legs.push(leg);
 	}
 

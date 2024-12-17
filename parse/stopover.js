@@ -10,7 +10,7 @@ const parseStopover = (ctx, st, date) => { // st = raw stopover
 	const depPl = profile.parsePlatform(ctx, st.gleis, st.ezGleis);
 
 	const res = {
-		stop: st.location || null,
+		stop: profile.parseLocation(ctx, st) || null,
 		arrival: arr.when,
 		plannedArrival: arr.plannedWhen,
 		arrivalDelay: arr.delay,

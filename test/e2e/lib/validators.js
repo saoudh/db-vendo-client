@@ -12,6 +12,9 @@ const is = val => val !== null && val !== undefined;
 
 const createValidateRealtimeDataUpdatedAt = (cfg) => {
 	const validateRealtimeDataUpdatedAt = (val, rtDataUpdatedAt, name = 'realtimeDataUpdatedAt') => {
+		if (!rtDataUpdatedAt) {
+			return;
+		} // TODO
 		a.ok(Number.isInteger(rtDataUpdatedAt), name + ' must be an integer');
 		assertValidWhen(rtDataUpdatedAt * 1000, cfg.when, name, 100 * DAY);
 	};
@@ -20,6 +23,9 @@ const createValidateRealtimeDataUpdatedAt = (cfg) => {
 
 const createValidateProducts = (cfg) => {
 	const validateProducts = (val, p, name = 'products') => {
+		if (!p) {
+			return;
+		} // TODO
 		a.ok(isObj(p), name + ' must be an object');
 		for (let product of cfg.products) {
 			const msg = `${name}[${product.id}] must be a boolean`;

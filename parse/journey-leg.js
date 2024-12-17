@@ -1,20 +1,23 @@
 import {parseRemarks, isStopCancelled} from './remarks.js';
 
-const locationFallback = (id, name) => {
+const locationFallback = (id, name, fallbackLocations) => {
+	if (fallbackLocations && (id && fallbackLocations[id] || name && fallbackLocations[name])) {
+		return fallbackLocations[id] || fallbackLocations[name];
+	}
 	return {
-		type: 'stop',
+		type: 'location',
 		id: id,
 		name: name,
 		location: null,
 	};
 };
 
-const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
+const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 	const {profile, opt} = ctx;
 
 	const res = {
-		origin: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[0]) : locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt),
-		destination: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[pt.halte.length - 1]) : locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt),
+		origin: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[0]) : locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt, fallbackLocations),
+		destination: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[pt.halte.length - 1]) : locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt, fallbackLocations),
 	};
 
 	const cancelledDep = pt.halte?.length > 0 && isStopCancelled(pt.halte[0]);
@@ -43,7 +46,7 @@ const parseJourneyLeg = (ctx, pt, date) => { // pt = raw leg
 	] */
 
 	if (opt.polylines && pt.polylineGroup) {
-		res.polyline = profile.parsePolyline(ctx, pt.polylineGroup);
+		res.polyline = profile.parsePolyline(ctx, pt.polylineGroup); // TODO polylines not returned anymore, set "poly": true in request, apparently only works for /reiseloesung/verbindung
 	}
 
 	if (pt.verkehrsmittel?.typ === 'WALK') {

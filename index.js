@@ -1,6 +1,7 @@
 import isObj from 'lodash/isObject.js';
 import sortBy from 'lodash/sortBy.js';
 import omit from 'lodash/omit.js';
+import distance from 'gps-distance';
 
 import {defaultProfile} from './lib/default-profile.js';
 import {validateProfile} from './lib/validate-profile.js';
@@ -190,7 +191,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			sitzplatzOnly: false,
 			abfahrtsHalt: from.lid,
 			zwischenhalte: opt.via
-				? [{id: opt.via}]
+				? [{id: opt.via.lid}]
 				: null,
 			ankunftsHalt: to.lid,
 			produktgattungen: filters,
@@ -464,7 +465,14 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res, common} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const results = res.map(loc => profile.parseLocation(ctx, loc));
+		const results = res.map(loc => {
+			const res = profile.parseLocation(ctx, loc);
+			if (res.latitude || res.location?.latitude) {
+				res.distance = Math.round(distance(location.latitude, location.longitude, res.latitude || res.location?.latitude, res.longitude || res.location?.longitude) * 1000);
+			}
+			return res;
+		});
+
 		return Number.isInteger(opt.results)
 			? results.slice(0, opt.results)
 			: results;

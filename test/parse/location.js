@@ -52,6 +52,7 @@ tap.test('parses an address correctly', (t) => {
 	t.same(address, {
 		type: 'location',
 		id: null,
+		name: 'Würzburg - Heuchelhof, Pergamonweg',
 		address: 'Würzburg - Heuchelhof, Pergamonweg',
 		latitude: 49.736794,
 		longitude: 9.952209,

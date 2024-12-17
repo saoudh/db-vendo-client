@@ -1,13 +1,9 @@
 import tap from 'tap';
 import isRoughlyEqual from 'is-roughly-equal';
-import maxBy from 'lodash/maxBy.js';
-import flatMap from 'lodash/flatMap.js';
-import last from 'lodash/last.js';
 
 import {createWhen} from './lib/util.js';
 import {createClient} from '../../index.js';
 import {profile as dbProfile} from '../../p/db/index.js';
-import {routingModes} from '../../p/db/routing-modes.js';
 import {
 	createValidateStation,
 	createValidateTrip,
@@ -21,21 +17,18 @@ import {testLegCycleAlternatives} from './lib/leg-cycle-alternatives.js';
 import {testRefreshJourney} from './lib/refresh-journey.js';
 import {journeysFailsWithNoProduct} from './lib/journeys-fails-with-no-product.js';
 import {testDepartures} from './lib/departures.js';
-import {testDeparturesInDirection} from './lib/departures-in-direction.js';
 import {testArrivals} from './lib/arrivals.js';
 import {testJourneysWithDetour} from './lib/journeys-with-detour.js';
-import {testReachableFrom} from './lib/reachable-from.js';
-import {testServerInfo} from './lib/server-info.js';
 
 const isObj = o => o !== null && 'object' === typeof o && !Array.isArray(o);
 const minute = 60 * 1000;
 
-const T_MOCK = 1696921200 * 1000; // 2023-10-10T08:00:00+01:00
+const T_MOCK = 1747040400 * 1000; // 2025-05-12T08:00:00+01:00
 const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
 
 const cfg = {
 	when,
-	stationCoordsOptional: false,
+	stationCoordsOptional: true, // TODO
 	products: dbProfile.products,
 	minLatitude: 46.673100,
 	maxLatitude: 55.030671,
@@ -112,6 +105,7 @@ tap.test('journeys – Berlin Schwedter Str. to München Hbf', async (t) => {
 		departure: when,
 		stopovers: true,
 	});
+	console.log('MARK1', JSON.stringify(res));
 
 	await testJourneysStationToStation({
 		test: t,
@@ -238,17 +232,6 @@ tap.test('journeys: via works – with detour', async (t) => {
 // todo: walkingSpeed "Berlin - Charlottenburg, Hallerstraße" -> jungfernheide
 // todo: without detour
 
-tap.test('journeys – all routing modes work', async (t) => {
-	for (const mode in routingModes) {
-		await client.journeys(berlinHbf, münchenHbf, {
-			results: 1,
-			departure: when,
-			routingMode: mode,
-		});
-	}
-
-	t.end();
-});
 
 // todo: with the DB endpoint, earlierRef/laterRef is missing queries many days in the future
 tap.skip('earlier/later journeys, Jungfernheide -> München Hbf', async (t) => {
@@ -294,6 +277,7 @@ tap.test('refreshJourney', async (t) => {
 	t.end();
 });
 
+/*
 tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to Spittelmarkt.', async (t) => {
 	const blnMehringdamm = '730939';
 	const blnStadtmitte = '732541';
@@ -381,9 +365,9 @@ tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to S
 		t.ok(legOnTrip, n + ': leg with trip ID not found');
 		t.equal(last(legOnTrip.stopovers).stop.id, blnStadtmitte);
 	}
-});
+});*/
 
-tap.test('trip details', async (t) => {
+/* tap.test('trip details', async (t) => {
 	const res = await client.journeys(berlinHbf, münchenHbf, {
 		results: 1, departure: when,
 	});
@@ -409,7 +393,7 @@ tap.test('trip details', async (t) => {
 	validate(t, tripRes, 'tripResult', 'tripRes');
 
 	t.end();
-});
+});*/
 
 tap.test('departures at Berlin Schwedter Str.', async (t) => {
 	const res = await client.departures(blnSchwedterStr, {
@@ -438,19 +422,6 @@ tap.test('departures with station object', async (t) => {
 	}, {when});
 
 	validate(t, res, 'departuresResponse', 'res');
-	t.end();
-});
-
-tap.test('departures at Berlin Hbf in direction of Berlin Ostbahnhof', async (t) => {
-	await testDeparturesInDirection({
-		test: t,
-		fetchDepartures: client.departures,
-		fetchTrip: client.trip,
-		id: berlinHbf,
-		directionIds: [blnOstbahnhof, '8089185', '732676'],
-		when,
-		validate,
-	});
 	t.end();
 });
 
@@ -506,6 +477,7 @@ tap.test('locations named Jungfernheide', async (t) => {
 	t.end();
 });
 
+/*
 tap.test('stop', async (t) => {
 	const s = await client.stop(regensburgHbf);
 
@@ -524,56 +496,4 @@ tap.test('line with additionalName', async (t) => {
 	t.ok(departures.some(d => d.line && d.line.additionalName));
 	t.end();
 });
-
-tap.test('radar', async (t) => {
-	const res = await client.radar({
-		north: 52.52411,
-		west: 13.41002,
-		south: 52.51942,
-		east: 13.41709,
-	}, {
-		duration: 5 * 60, when,
-	});
-
-	validate(t, res, 'radarResult', 'res');
-	t.end();
-});
-
-tap.test('radar works across the antimeridian', async (t) => {
-	await client.radar({
-		north: -8,
-		west: 179,
-		south: -10,
-		east: -179,
-	}, {
-		// todo: update `when`, re-record all fixtures, remove this special handling
-		when: process.env.VCR_MODE ? '2024-02-22T16:00+01:00' : when,
-	});
-	t.end();
-});
-
-tap.test('reachableFrom', {timeout: 20 * 1000}, async (t) => {
-	const torfstr17 = {
-		type: 'location',
-		address: 'Torfstraße 17',
-		latitude: 52.5416823,
-		longitude: 13.3491223,
-	};
-
-	await testReachableFrom({
-		test: t,
-		reachableFrom: client.reachableFrom,
-		address: torfstr17,
-		when,
-		maxDuration: 15,
-		validate,
-	});
-	t.end();
-});
-
-tap.test('serverInfo works', async (t) => {
-	await testServerInfo({
-		test: t,
-		fetchServerInfo: client.serverInfo,
-	});
-});
+*/

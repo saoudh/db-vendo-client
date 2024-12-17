@@ -18,6 +18,7 @@ const parseLocation = (ctx, l) => {
 		type: 'location',
 		id: (l.extId || lid.L || l.evaNumber || l.evaNo || '').replace(leadingZeros, '') || null,
 	};
+	const name = l.name || lid.O;
 
 	if (l.lat && l.lon) {
 		res.latitude = l.lat;
@@ -27,11 +28,11 @@ const parseLocation = (ctx, l) => {
 		res.longitude = lid.X / 1000000;
 	}
 
-	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo) {
+	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || lid.A == 1) {
 		const stop = {
 			type: 'stop', // TODO station
 			id: res.id,
-			name: l.name,
+			name: name,
 			location: 'number' === typeof res.latitude
 				? res
 				: null, // todo: remove `.id`
@@ -48,12 +49,11 @@ const parseLocation = (ctx, l) => {
 		return stop;
 	}
 
-	if (l.type === ADDRESS) {
-		res.address = l.name;
-	} else {
-		res.name = l.name;
+	res.name = name;
+	if (l.type === ADDRESS || lid.A == 2) {
+		res.address = name;
 	}
-	if (l.type === POI) {
+	if (l.type === POI || lid.A == 4) {
 		res.poi = true;
 	}
 
