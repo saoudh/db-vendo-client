@@ -39,7 +39,7 @@ const config = {
 	aboutPage: true,
 	enrichStations: true,
 	etags: 'strong',
-	csp: 'default-src \'none\' style-src \'self\' \'unsafe-inline\' img-src https:',
+	csp: 'default-src \'none\'; style-src \'self\' \'unsafe-inline\'; img-src https:',
 	mapRouteParsers,
 };
 
