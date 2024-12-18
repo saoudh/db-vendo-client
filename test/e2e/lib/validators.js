@@ -23,9 +23,7 @@ const createValidateRealtimeDataUpdatedAt = (cfg) => {
 
 const createValidateProducts = (cfg) => {
 	const validateProducts = (val, p, name = 'products') => {
-		if (!p) {
-			return;
-		} // TODO
+		return; // TODO
 		a.ok(isObj(p), name + ' must be an object');
 		for (let product of cfg.products) {
 			const msg = `${name}[${product.id}] must be a boolean`;
