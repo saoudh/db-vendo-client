@@ -1,13 +1,10 @@
 import isObj from 'lodash/isObject.js';
-import sortBy from 'lodash/sortBy.js';
-import omit from 'lodash/omit.js';
 import distance from 'gps-distance';
-import readStations from 'db-hafas-stations'
+import readStations from 'db-hafas-stations';
 
 import {defaultProfile} from './lib/default-profile.js';
 import {validateProfile} from './lib/validate-profile.js';
 import {INVALID_REQUEST} from './lib/errors.js';
-import {sliceLeg} from './lib/slice-leg.js';
 import {HafasError} from './lib/errors.js';
 
 // background info: https://github.com/public-transport/hafas-client/issues/286
@@ -31,25 +28,19 @@ const validateLocation = (loc, name = 'location') => {
 	}
 };
 
-const validateWhen = (when, name = 'when') => {
-	if (Number.isNaN(Number(when))) {
-		throw new TypeError(name + ' is invalid');
-	}
-};
-
 const loadEnrichedStationData = () => new Promise((resolve, reject) => {
-	const items = {}
+	const items = {};
 	readStations.full()
-	.on('data', (station) => {
-		items[station.id] = station;
-	})
-	.once('end', () => {
-		console.info('Loaded station index.');
-		resolve(items);
-	})
-	.once('error', (err) => {
-		reject(err);
-	});
+		.on('data', (station) => {
+			items[station.id] = station;
+		})
+		.once('end', () => {
+			console.info('Loaded station index.');
+			resolve(items);
+		})
+		.once('error', (err) => {
+			reject(err);
+		});
 });
 
 const createClient = (profile, userAgent, opt = {}) => {
@@ -57,9 +48,10 @@ const createClient = (profile, userAgent, opt = {}) => {
 	validateProfile(profile);
 	const common = {};
 	if (opt.enrichStations !== false) {
-		loadEnrichedStationData().then(locations => {
-			common.locations = locations;
-		});
+		loadEnrichedStationData()
+			.then(locations => {
+				common.locations = locations;
+			});
 	}
 
 	if ('string' !== typeof userAgent) {
@@ -109,7 +101,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatStationBoardReq({profile, opt}, station, resultsField);
 
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		const results = (res[resultsField] || res.items).map(res => parse(ctx, res)); // todo sort?
@@ -232,7 +224,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// TODO query.numF = opt.results;
 		}
 		const req = profile.transformJourneysQuery({profile, opt}, query);
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 		const verbindungen = opt.results ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
 		const journeys = verbindungen
@@ -263,157 +255,12 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatRefreshJourneyReq({profile, opt}, refreshToken);
 
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 
 		return {
 			journey: profile.parseJourney(ctx, res.verbindungen[0]),
 			realtimeDataUpdatedAt: null, // TODO
-		};
-	};
-
-	// Although the DB Navigator app passes the *first* stopover of the trip
-	// (instead of the previous one), it seems to work with the previous one as well.
-	const journeysFromTrip = async (fromTripId, previousStopover, to, opt = {}) => {
-		if (!isNonEmptyString(fromTripId)) {
-			throw new Error('fromTripId must be a non-empty string.');
-		}
-
-		if ('string' === typeof to) {
-			to = profile.formatStation(to);
-		} else if (isObj(to) && (to.type === 'station' || to.type === 'stop')) {
-			to = profile.formatStation(to.id);
-		} else {
-			throw new Error('to must be a valid stop or station.');
-		}
-
-		if (!isObj(previousStopover)) {
-			throw new Error('previousStopover must be an object.');
-		}
-
-		let prevStop = previousStopover.stop;
-		if (isObj(prevStop)) {
-			prevStop = profile.formatStation(prevStop.id);
-		} else if ('string' === typeof prevStop) {
-			prevStop = profile.formatStation(prevStop);
-		} else {
-			throw new Error('previousStopover.stop must be a valid stop or station.');
-		}
-
-		let depAtPrevStop = previousStopover.departure || previousStopover.plannedDeparture;
-		if (!isNonEmptyString(depAtPrevStop)) {
-			throw new Error('previousStopover.(planned)departure must be a string');
-		}
-		depAtPrevStop = Date.parse(depAtPrevStop);
-		if (Number.isNaN(depAtPrevStop)) {
-			throw new Error('previousStopover.(planned)departure is invalid');
-		}
-		if (depAtPrevStop > Date.now()) {
-			throw new Error('previousStopover.(planned)departure must be in the past');
-		}
-
-		opt = Object.assign({
-			stopovers: false, // return stations on the way?
-			transferTime: 0, // minimum time for a single transfer in minutes
-			accessibility: 'none', // 'none', 'partial' or 'complete'
-			tickets: false, // return tickets?
-			polylines: false, // return leg shapes?
-			subStops: true, // parse & expose sub-stops of stations?
-			entrances: true, // parse & expose entrances of stops/stations?
-			remarks: true, // parse & expose hints & warnings?
-		}, opt);
-
-		// make clear that `departure`/`arrival`/`when` are not supported
-		if (opt.departure) {
-			throw new Error('journeysFromTrip + opt.departure is not supported by HAFAS.');
-		}
-		if (opt.arrival) {
-			throw new Error('journeysFromTrip + opt.arrival is not supported by HAFAS.');
-		}
-		if (opt.when) {
-			throw new Error('journeysFromTrip + opt.when is not supported by HAFAS.');
-		}
-
-		const filters = [
-			profile.formatProductsFilter({profile}, opt.products || {}),
-		];
-		if (
-			opt.accessibility
-			&& profile.filters
-			&& profile.filters.accessibility
-			&& profile.filters.accessibility[opt.accessibility]
-		) {
-			filters.push(profile.filters.accessibility[opt.accessibility]);
-		}
-		// todo: support walking speed filter
-
-		// todo: are these supported?
-		// - getPT
-		// - getIV
-		// - trfReq
-		// features from `journeys()` not supported here:
-		// - `maxChg`: maximum nr of transfers
-		// - `bike`: only bike-friendly journeys
-		// - `numF`: how many journeys?
-		// - `via`: let journeys pass this station
-		// todo: find a way to support them
-
-		const query = {
-			// https://github.com/marudor/BahnhofsAbfahrten/blob/49ebf8b36576547112e61a6273bee770f0769660/packages/types/HAFAS/SearchOnTrip.ts#L16-L30
-			// todo: support search by `journey.refreshToken` (a.k.a. `ctxRecon`) via `sotMode: RC`?
-			sotMode: 'JI', // seach by trip ID (a.k.a. "JID")
-			jid: fromTripId,
-			locData: { // when & where the trip has been entered
-				loc: prevStop,
-				type: 'DEP', // todo: are there other values?
-				date: profile.formatDate(profile, depAtPrevStop),
-				time: profile.formatTime(profile, depAtPrevStop),
-			},
-			arrLocL: [to],
-			jnyFltrL: filters,
-			getPasslist: Boolean(opt.stopovers),
-			getPolyline: Boolean(opt.polylines),
-			minChgTime: opt.transferTime,
-			getTariff: Boolean(opt.tickets),
-		};
-
-		const {res, _} = await profile.request({profile, opt}, userAgent, {
-			cfg: {polyEnc: 'GPA'},
-			meth: 'SearchOnTrip',
-			req: query,
-		});
-		if (!Array.isArray(res.outConL)) {
-			return [];
-		}
-
-		const ctx = {profile, opt, common, res};
-		const journeys = res.outConL
-			.map(rawJourney => profile.parseJourney(ctx, rawJourney))
-			.map((journey) => {
-			// For the first (transit) leg, HAFAS sometimes returns *all* past
-			// stopovers of the trip, even though it should only return stopovers
-			// between the specified `depAtPrevStop` and the arrival at the
-			// interchange station. We slice the leg accordingly.
-				const fromLegI = journey.legs.findIndex(l => l.tripId === fromTripId);
-				if (fromLegI < 0) {
-					return journey;
-				}
-				const fromLeg = journey.legs[fromLegI];
-				return {
-					...journey,
-					legs: [
-						...journey.legs.slice(0, fromLegI),
-						sliceLeg(fromLeg, previousStopover.stop, fromLeg.destination),
-						...journey.legs.slice(fromLegI + 2),
-					],
-				};
-			});
-
-		return {
-			journeys,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
 		};
 	};
 
@@ -433,14 +280,13 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 		const req = profile.formatLocationsReq({profile, opt}, query);
 
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
-
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		return res.map(loc => profile.parseLocation(ctx, loc));
 	};
 
-	const stop = async (stop, opt = {}) => {
+	const stop = async (stop, opt = {}) => { // TODO
 		if ('object' === typeof stop) {
 			stop = profile.formatStation(stop.id);
 		} else if ('string' === typeof stop) {
@@ -458,7 +304,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatStopReq({profile, opt}, stop);
 
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 		if (!res || !Array.isArray(res.locL) || !res.locL[0]) {
 			throw new HafasError('invalid response, expected locL[0]', null, {
 				// This problem occurs on invalid input. 🙄
@@ -484,7 +330,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 
 		const req = profile.formatNearbyReq({profile, opt}, location);
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		const results = res.map(loc => {
@@ -515,7 +361,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatTripReq({profile, opt}, id);
 
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
+		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 
 		const trip = profile.parseTrip(ctx, res.journey);
@@ -597,7 +443,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}
 		req.jnyFltrL = [...req.jnyFltrL, ...opt.additionalFilters];
 
-		const {res, _} = await profile.request({profile, opt}, userAgent, {
+		const {res} = await profile.request({profile, opt}, userAgent, {
 			cfg: {polyEnc: 'GPA'},
 			meth: 'JourneyMatch',
 			req,
@@ -615,214 +461,6 @@ const createClient = (profile, userAgent, opt = {}) => {
 		};
 	};
 
-	const radar = async ({north, west, south, east}, opt) => {
-		if ('number' !== typeof north) {
-			throw new TypeError('north must be a number.');
-		}
-		if ('number' !== typeof west) {
-			throw new TypeError('west must be a number.');
-		}
-		if ('number' !== typeof south) {
-			throw new TypeError('south must be a number.');
-		}
-		if ('number' !== typeof east) {
-			throw new TypeError('east must be a number.');
-		}
-		// With a bounding box across the antimeridian, east (e.g. -175) might be smaller than west (e.g. 175).
-		// Likewise, across the north/south poles, north (e.g. -85) might be smaller than south (e.g. 85).
-		// In these cases, the terms north/south & east/west become rather arbitrary of couse.
-		// see also https://antimeridian.readthedocs.io/en/stable/
-		// todo: how does HAFAS handle this?
-		if (north === south) {
-			throw new Error('bbox.north must not be equal to bbox.south.');
-		}
-		if (east === west) {
-			throw new Error('bbox.east must not be equal to bbox.west.');
-		}
-
-		opt = Object.assign({
-			results: 256, // maximum number of vehicles
-			duration: 30, // compute frames for the next n seconds
-			// todo: what happens with `frames: 0`?
-			frames: 3, // nr of frames to compute
-			products: null, // optionally an object of booleans
-			polylines: true, // return a track shape for each vehicle?
-			subStops: true, // parse & expose sub-stops of stations?
-			entrances: true, // parse & expose entrances of stops/stations?
-		}, opt || {});
-		opt.when = new Date(opt.when || Date.now());
-		if (Number.isNaN(Number(opt.when))) {
-			throw new TypeError('opt.when is invalid');
-		}
-
-		const req = profile.formatRadarReq({profile, opt}, north, west, south, east);
-
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
-		if (!Array.isArray(res.jnyL)) {
-			return [];
-		}
-		const ctx = {profile, opt, common, res};
-
-		const movements = res.jnyL.map(m => profile.parseMovement(ctx, m));
-
-		return {
-			movements,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
-		};
-	};
-
-	const reachableFrom = async (address, opt = {}) => {
-		validateLocation(address, 'address');
-
-		opt = Object.assign({
-			when: Date.now(),
-			maxTransfers: 5, // maximum of 5 transfers
-			maxDuration: 20, // maximum travel duration in minutes, pass `null` for infinite
-			products: {},
-			subStops: true, // parse & expose sub-stops of stations?
-			entrances: true, // parse & expose entrances of stops/stations?
-			polylines: false, // return leg shapes?
-		}, opt);
-		if (Number.isNaN(Number(opt.when))) {
-			throw new TypeError('opt.when is invalid');
-		}
-
-		const req = profile.formatReachableFromReq({profile, opt}, address);
-
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
-		if (!Array.isArray(res.posL)) {
-			throw new HafasError('invalid response, expected posL[0]', null, {
-				shouldRetry: true,
-			});
-		}
-
-		const byDuration = [];
-		let i = 0, lastDuration = NaN;
-		for (const pos of sortBy(res.posL, 'dur')) {
-			const loc = common.locations[pos.locX];
-			if (!loc) {
-				continue;
-			}
-			if (pos.dur !== lastDuration) {
-				lastDuration = pos.dur;
-				i = byDuration.length;
-				byDuration.push({
-					duration: pos.dur,
-					stations: [loc],
-				});
-			} else {
-				byDuration[i].stations.push(loc);
-			}
-		}
-
-		return {
-			reachable: byDuration,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
-		};
-	};
-
-	const remarks = async (opt = {}) => {
-		opt = {
-			results: 100, // maximum number of remarks
-			// filter by time
-			from: Date.now(),
-			to: null,
-			products: null, // filter by affected products
-			polylines: false, // return leg shapes? (not supported by all endpoints)
-			...opt,
-		};
-
-		if (opt.from !== null) {
-			opt.from = new Date(opt.from);
-			validateWhen(opt.from, 'opt.from');
-		}
-		if (opt.to !== null) {
-			opt.to = new Date(opt.to);
-			validateWhen(opt.to, 'opt.to');
-		}
-
-		const req = profile.formatRemarksReq({profile, opt});
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
-
-		const ctx = {profile, opt, common, res};
-		const remarks = (res.msgL || [])
-			.map(w => profile.parseWarning(ctx, w));
-
-		return {
-			remarks,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
-		};
-	};
-
-	const lines = async (query, opt = {}) => {
-		if (!isNonEmptyString(query)) {
-			throw new TypeError('query must be a non-empty string.');
-		}
-
-		const req = profile.formatLinesReq({profile, opt}, query);
-		const {res, _} = await profile.request({profile, opt}, userAgent, req);
-
-		if (!Array.isArray(res.lineL)) {
-			return [];
-		}
-		const ctx = {profile, opt, common, res};
-		const lines = res.lineL.map(l => {
-			const parseDirRef = i => (res.common.dirL[i] || {}).txt || null;
-			return {
-				...omit(l.line, ['id', 'fahrtNr']),
-				id: l.lineId,
-				// todo: what is locX?
-				directions: Array.isArray(l.dirRefL)
-					? l.dirRefL.map(parseDirRef)
-					: null,
-				trips: Array.isArray(l.jnyL)
-					? l.jnyL.map(t => profile.parseTrip(ctx, t))
-					: null,
-			};
-		});
-
-		return {
-			lines,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
-		};
-	};
-
-	const serverInfo = async (opt = {}) => {
-		opt = {
-			versionInfo: true, // query HAFAS versions?
-			...opt,
-		};
-
-		const {res, _} = await profile.request({profile, opt}, userAgent, {
-			meth: 'ServerInfo',
-			req: {
-				getVersionInfo: opt.versionInfo,
-			},
-		});
-
-		const ctx = {profile, opt, common, res};
-		return {
-			// todo: what are .serverVersion & .clientVersion?
-			hciVersion: res.hciVersion || null,
-			timetableStart: res.fpB || null,
-			timetableEnd: res.fpE || null,
-			serverTime: res.sD && res.sT
-				? profile.parseDateTime(ctx, res.sD, res.sT)
-				: null,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
-		};
-	};
-
 	const client = {
 		departures,
 		arrivals,
@@ -830,31 +468,15 @@ const createClient = (profile, userAgent, opt = {}) => {
 		locations,
 		stop,
 		nearby,
-		serverInfo,
 	};
 	if (profile.trip) {
 		client.trip = trip;
 	}
-	if (profile.radar) {
-		client.radar = radar;
-	}
 	if (profile.refreshJourney) {
 		client.refreshJourney = refreshJourney;
 	}
-	if (profile.journeysFromTrip) {
-		client.journeysFromTrip = journeysFromTrip;
-	}
-	if (profile.reachableFrom) {
-		client.reachableFrom = reachableFrom;
-	}
 	if (profile.tripsByName) {
 		client.tripsByName = tripsByName;
-	}
-	if (profile.remarks !== false) {
-		client.remarks = remarks;
-	}
-	if (profile.lines !== false) {
-		client.lines = lines;
 	}
 	Object.defineProperty(client, 'profile', {value: profile});
 	return client;
