@@ -74,10 +74,12 @@ EPs:
 * angebote/fahrplan (for route planning)
 * reiseloesung/orte
 * reiseloesung/orte/nearby
+* reiseloesung/verbindung
+* reiseloesung/fahrt
 
 Notes:
 * no API Key needed
 * uses HAFAS trip IDs
 * provides loadFactor
 * no boards (?)
-
+* polylines only for /verbindung and /fahrt

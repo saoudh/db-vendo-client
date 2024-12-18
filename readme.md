@@ -10,6 +10,7 @@ This is a very early version. What works:
 * `journeys()`, `refreshJourney()` including prices
 * `locations()`, `nearby()`
 * `departures()`, `arrivals()` boards
+* `trip()`
 
 What doesn't work (yet, see TODO's scattered around the code):
 
@@ -17,7 +18,8 @@ What doesn't work (yet, see TODO's scattered around the code):
 * `journeys()` uses different tripIds compared to departure and arrival boards...
 * certain stop details like products for `locations()` and geopositions and remarks for boards
 * some query options/filters (e.g. direction for boards)
-* all other endpoints
+* polylines only in `trips()`
+* all other endpoints (`tripsByName()`, `radar()`, `journeysFromTrip()`, `reachableFrom()`, `remarks()`, `lines()`, `stop()`, `station()`)
 
 Feel free to report anything that you stumble upon via Issues or create a PR :)
 
