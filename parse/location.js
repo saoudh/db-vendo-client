@@ -7,7 +7,7 @@ const ADDRESS = 'ADR';
 const leadingZeros = /^0+/;
 
 const parseLocation = (ctx, l) => {
-	const {profile} = ctx;
+	const {profile, common} = ctx;
 
 	if (!l) {
 		return null;
@@ -29,8 +29,8 @@ const parseLocation = (ctx, l) => {
 	}
 
 	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || lid.A == 1) {
-		const stop = {
-			type: 'stop', // TODO station
+		let stop = {
+			type: 'station',
 			id: res.id,
 			name: name,
 			location: 'number' === typeof res.latitude
@@ -43,9 +43,16 @@ const parseLocation = (ctx, l) => {
 			stop.products = profile.parseProductsBitmask(ctx, l.products);
 		}
 
+		if (common && common.locations && common.locations[stop.id]) {
+			delete stop.type;
+			stop = {
+				...common.locations[stop.id],
+				...stop,
+			};
+		}
+
 		// TODO isMeta
-		// TODO station
-		// TODO entrances, lines, transitAuthority, dhid, ids
+		// TODO entrances, lines
 		return stop;
 	}
 

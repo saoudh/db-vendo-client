@@ -37,6 +37,7 @@ const config = {
 	openapiSpec: true,
 	logging: true,
 	aboutPage: true,
+	enrichStations: true,
 	etags: 'strong',
 	csp: 'default-src \'none\' style-src \'self\' \'unsafe-inline\' img-src https:',
 	mapRouteParsers,
@@ -44,7 +45,7 @@ const config = {
 
 
 const start = async () => {
-	const vendo = createClient(dbProfile, 'my-hafas-rest-api');
+	const vendo = createClient(dbProfile, 'my-hafas-rest-api', config);
 	const api = await createApi(vendo, config);
 
 	api.listen(config.port, (err) => {

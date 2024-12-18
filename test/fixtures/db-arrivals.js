@@ -2,7 +2,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-c33bba6c-a73a-3eec-8a64-76356c922ece',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '8089100',
 			name: 'Berlin Jungfernheide (S)',
 			location: null,
@@ -34,7 +34,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '8089118',
 			name: 'Berlin Beusselstraße',
 			location: null,
@@ -44,7 +44,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-89eeca5a-1768-3713-894a-dd088977f42b',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '730985',
 			name: 'Jungfernheide Bahnhof (S+U), Berlin',
 			location: null,
@@ -82,7 +82,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '732218',
 			name: 'Rudow (U), Berlin',
 			location: null,
@@ -92,7 +92,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-2dc4f2d4-a1e1-3bbf-a607-98ff71c927d0',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '730985',
 			name: 'Jungfernheide Bahnhof (S+U), Berlin',
 			location: null,
@@ -130,7 +130,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '730993',
 			name: 'Goerdelersteg, Berlin',
 			location: null,
@@ -140,7 +140,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-6fa6d37c-a1c0-3f84-bdac-0424705bffaf',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '8089100',
 			name: 'Berlin Jungfernheide (S)',
 			location: null,
@@ -172,7 +172,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '8089118',
 			name: 'Berlin Beusselstraße',
 			location: null,
@@ -182,7 +182,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-c4abf007-d667-3bf1-87a8-2d1b153c014d',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '730985',
 			name: 'Jungfernheide Bahnhof (S+U), Berlin',
 			location: null,
@@ -220,7 +220,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '732218',
 			name: 'Rudow (U), Berlin',
 			location: null,
@@ -230,7 +230,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-c8b6e3e4-6acb-3237-b89e-1fca72497555',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '8089100',
 			name: 'Berlin Jungfernheide (S)',
 			location: null,
@@ -262,7 +262,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '8089118',
 			name: 'Berlin Beusselstraße',
 			location: null,
@@ -272,7 +272,7 @@ const dbArrivals = [
 	{
 		tripId: '20241208-f9d83ab7-d603-3344-87c0-a65ecf0f8524',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '730985',
 			name: 'Jungfernheide Bahnhof (S+U), Berlin',
 			location: null,
@@ -310,7 +310,7 @@ const dbArrivals = [
 			},
 		],
 		origin: {
-			type: 'stop',
+			type: 'station',
 			id: '731176',
 			name: 'Rathaus Spandau (S+U), Berlin',
 			location: null,

@@ -2,6 +2,7 @@ import isObj from 'lodash/isObject.js';
 import sortBy from 'lodash/sortBy.js';
 import omit from 'lodash/omit.js';
 import distance from 'gps-distance';
+import readStations from 'db-hafas-stations'
 
 import {defaultProfile} from './lib/default-profile.js';
 import {validateProfile} from './lib/validate-profile.js';
@@ -36,9 +37,30 @@ const validateWhen = (when, name = 'when') => {
 	}
 };
 
+const loadEnrichedStationData = () => new Promise((resolve, reject) => {
+	const items = {}
+	readStations.full()
+	.on('data', (station) => {
+		items[station.id] = station;
+	})
+	.once('end', () => {
+		console.info('Loaded station index.');
+		resolve(items);
+	})
+	.once('error', (err) => {
+		reject(err);
+	});
+});
+
 const createClient = (profile, userAgent, opt = {}) => {
 	profile = Object.assign({}, defaultProfile, profile);
 	validateProfile(profile);
+	const common = {};
+	if (opt.enrichStations !== false) {
+		loadEnrichedStationData().then(locations => {
+			common.locations = locations;
+		});
+	}
 
 	if ('string' !== typeof userAgent) {
 		throw new TypeError('userAgent must be a string');
@@ -87,7 +109,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatStationBoardReq({profile, opt}, station, resultsField);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		const results = (res[resultsField] || res.items).map(res => parse(ctx, res)); // todo sort?
@@ -210,7 +232,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// TODO query.numF = opt.results;
 		}
 		const req = profile.transformJourneysQuery({profile, opt}, query);
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 		const verbindungen = opt.results ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
 		const journeys = verbindungen
@@ -241,7 +263,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatRefreshJourneyReq({profile, opt}, refreshToken);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 
 		return {
@@ -355,7 +377,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			getTariff: Boolean(opt.tickets),
 		};
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, {
+		const {res, _} = await profile.request({profile, opt}, userAgent, {
 			cfg: {polyEnc: 'GPA'},
 			meth: 'SearchOnTrip',
 			req: query,
@@ -411,7 +433,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 		const req = profile.formatLocationsReq({profile, opt}, query);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 
 
 		const ctx = {profile, opt, common, res};
@@ -436,7 +458,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatStopReq({profile, opt}, stop);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 		if (!res || !Array.isArray(res.locL) || !res.locL[0]) {
 			throw new HafasError('invalid response, expected locL[0]', null, {
 				// This problem occurs on invalid input. 🙄
@@ -462,7 +484,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}, opt);
 
 		const req = profile.formatNearbyReq({profile, opt}, location);
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		const results = res.map(loc => {
@@ -493,7 +515,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatTripReq({profile, opt}, id);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 
 		const trip = profile.parseTrip(ctx, res.journey);
@@ -575,7 +597,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}
 		req.jnyFltrL = [...req.jnyFltrL, ...opt.additionalFilters];
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, {
+		const {res, _} = await profile.request({profile, opt}, userAgent, {
 			cfg: {polyEnc: 'GPA'},
 			meth: 'JourneyMatch',
 			req,
@@ -635,7 +657,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatRadarReq({profile, opt}, north, west, south, east);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 		if (!Array.isArray(res.jnyL)) {
 			return [];
 		}
@@ -669,7 +691,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 		const req = profile.formatReachableFromReq({profile, opt}, address);
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 		if (!Array.isArray(res.posL)) {
 			throw new HafasError('invalid response, expected posL[0]', null, {
 				shouldRetry: true,
@@ -724,9 +746,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}
 
 		const req = profile.formatRemarksReq({profile, opt});
-		const {
-			res, common,
-		} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
 		const remarks = (res.msgL || [])
@@ -746,9 +766,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		}
 
 		const req = profile.formatLinesReq({profile, opt}, query);
-		const {
-			res, common,
-		} = await profile.request({profile, opt}, userAgent, req);
+		const {res, _} = await profile.request({profile, opt}, userAgent, req);
 
 		if (!Array.isArray(res.lineL)) {
 			return [];
@@ -783,7 +801,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			...opt,
 		};
 
-		const {res, common} = await profile.request({profile, opt}, userAgent, {
+		const {res, _} = await profile.request({profile, opt}, userAgent, {
 			meth: 'ServerInfo',
 			req: {
 				getVersionInfo: opt.versionInfo,

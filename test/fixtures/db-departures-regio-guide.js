@@ -2,7 +2,7 @@ const dbDepartures = [
 	{
 		tripId: '20241212-d1494ce6-1a01-38de-bf84-c0bceb12f503',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '8000365',
 			name: 'Dombühl',
 			location: null,
@@ -28,7 +28,7 @@ const dbDepartures = [
 		remarks: [],
 		origin: null,
 		destination: {
-			type: 'stop',
+			type: 'station',
 			id: '8000284',
 			name: 'Nürnberg Hbf',
 			location: null,
@@ -37,7 +37,7 @@ const dbDepartures = [
 	{
 		tripId: '20241212-abd01ce0-cca3-3759-aa4b-410ea4d0a720',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '682943',
 			name: 'Bahnhof, Dombühl',
 			location: null,
@@ -63,7 +63,7 @@ const dbDepartures = [
 		remarks: [],
 		origin: null,
 		destination: {
-			type: 'stop',
+			type: 'station',
 			id: '676542',
 			name: 'Gymnasium, Dinkelsbühl',
 			location: null,
@@ -72,7 +72,7 @@ const dbDepartures = [
 	{
 		tripId: '20241212-ab6272a5-4bf6-32c1-9344-b47e1fc49eeb',
 		stop: {
-			type: 'stop',
+			type: 'station',
 			id: '682943',
 			name: 'Bahnhof, Dombühl',
 			location: null,
@@ -98,7 +98,7 @@ const dbDepartures = [
 		remarks: [],
 		origin: null,
 		destination: {
-			type: 'stop',
+			type: 'station',
 			id: '683407',
 			name: 'Bahnhof, Rothenburg ob der Tauber',
 			location: null,

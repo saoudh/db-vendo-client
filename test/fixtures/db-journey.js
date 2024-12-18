@@ -3,7 +3,7 @@ const dbJourney = {
 	legs: [
 		{
 			origin: {
-				type: 'stop',
+				type: 'station',
 				id: '8000207',
 				name: 'Köln Hbf',
 				location: {
@@ -14,7 +14,7 @@ const dbJourney = {
 				},
 			},
 			destination: {
-				type: 'stop',
+				type: 'station',
 				id: '8003368',
 				name: 'Köln Messe/Deutz',
 				location: {
@@ -167,7 +167,7 @@ const dbJourney = {
 		},
 		{
 			origin: {
-				type: 'stop',
+				type: 'station',
 				id: '8003368',
 				name: 'Köln Messe/Deutz',
 				location: {
@@ -178,7 +178,7 @@ const dbJourney = {
 				},
 			},
 			destination: {
-				type: 'stop',
+				type: 'station',
 				id: '8073368',
 				name: 'Köln Messe/Deutz Gl.11-12',
 				location: {
@@ -200,7 +200,7 @@ const dbJourney = {
 		},
 		{
 			origin: {
-				type: 'stop',
+				type: 'station',
 				id: '8073368',
 				name: 'Köln Messe/Deutz Gl.11-12',
 				location: {
@@ -211,7 +211,7 @@ const dbJourney = {
 				},
 			},
 			destination: {
-				type: 'stop',
+				type: 'station',
 				id: '8000284',
 				name: 'Nürnberg Hbf',
 				location: {

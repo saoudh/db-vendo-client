@@ -4,7 +4,7 @@ const dbJourney = {
 		legs: [
 			{
 				origin: {
-					type: 'stop',
+					type: 'station',
 					id: '8011160',
 					name: 'Berlin Hbf',
 					location: {
@@ -15,7 +15,7 @@ const dbJourney = {
 					},
 				},
 				destination: {
-					type: 'stop',
+					type: 'station',
 					id: '8000080',
 					name: 'Dortmund Hbf',
 					location: {
@@ -87,7 +87,7 @@ const dbJourney = {
 			},
 			{
 				origin: {
-					type: 'stop',
+					type: 'station',
 					id: '8000080',
 					name: 'Dortmund Hbf',
 					location: {
@@ -98,7 +98,7 @@ const dbJourney = {
 					},
 				},
 				destination: {
-					type: 'stop',
+					type: 'station',
 					id: '8000207',
 					name: 'Köln Hbf',
 					location: {

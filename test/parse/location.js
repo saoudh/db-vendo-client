@@ -100,7 +100,7 @@ tap.test('parses a stop correctly', (t) => {
 
 	const stop = parse(ctx, input);
 	t.same(stop, {
-		type: 'stop',
+		type: 'station',
 		id: '8012622',
 		name: 'Perleberg',
 		location: {
@@ -133,7 +133,7 @@ tap.test('falls back to coordinates from `lid', (t) => {
 
 	const stop = parse(ctx, input);
 	t.same(stop, {
-		type: 'stop',
+		type: 'station',
 		id: '683407',
 		name: 'Bahnhof, Rothenburg ob der Tauber',
 		location: {
