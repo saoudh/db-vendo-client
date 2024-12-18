@@ -3,6 +3,7 @@
 	"refreshJourneysEndpoint": "https://int.bahn.de/web/api/angebote/recon",
 	"locationsEndpoint": "https://int.bahn.de/web/api/reiseloesung/orte",
 	"nearbyEndpoint": "https://int.bahn.de/web/api/reiseloesung/orte/nearby",
+	"tripEndpoint": "https://int.bahn.de/web/api/reiseloesung/fahrt",
 	"boardEndpoint": "https://regio-guide.de/@prd/zupo-travel-information/api/public/ri/board/",
 	"defaultLanguage": "en"
 }

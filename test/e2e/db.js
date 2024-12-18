@@ -367,7 +367,7 @@ tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to S
 	}
 });*/
 
-/* tap.test('trip details', async (t) => {
+tap.test('trip details', async (t) => {
 	const res = await client.journeys(berlinHbf, münchenHbf, {
 		results: 1, departure: when,
 	});
@@ -393,7 +393,7 @@ tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to S
 	validate(t, tripRes, 'tripResult', 'tripRes');
 
 	t.end();
-});*/
+});
 
 tap.test('departures at Berlin Schwedter Str.', async (t) => {
 	const res = await client.departures(blnSchwedterStr, {

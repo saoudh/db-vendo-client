@@ -364,13 +364,11 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 
-		const trip = profile.parseTrip(ctx, res.journey);
+		const trip = profile.parseTrip(ctx, res);
 
 		return {
 			trip,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
+			realtimeDataUpdatedAt: null, // TODO
 		};
 	};
 

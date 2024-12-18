@@ -45,7 +45,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		}
 	] */
 
-	if (opt.polylines && pt.polylineGroup) {
+	if ((opt.polylines || opt.polyline) && pt.polylineGroup) {
 		res.polyline = profile.parsePolyline(ctx, pt.polylineGroup); // TODO polylines not returned anymore, set "poly": true in request, apparently only works for /reiseloesung/verbindung
 	}
 
