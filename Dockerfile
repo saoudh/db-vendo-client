@@ -4,7 +4,6 @@ LABEL org.opencontainers.image.description="A clean REST API wrapping around the
 LABEL org.opencontainers.image.authors="Traines <git@traines.eu>"
 LABEL org.opencontainers.image.documentation="https://github.com/public-transport/db-vendo-client"
 LABEL org.opencontainers.image.source="https://github.com/public-transport/db-vendo-client"
-LABEL org.opencontainers.image.version="6.0.0"
 LABEL org.opencontainers.image.licenses="ISC"
 WORKDIR /app
 
@@ -23,4 +22,4 @@ ENV PORT 3000
 
 VOLUME /logs/
 
-CMD ["node", "api.js"]
+CMD ["/bin/sh", "-c", "node api.js >> /logs/db-vendo.log 2>&1"]
