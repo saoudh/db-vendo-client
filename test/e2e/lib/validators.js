@@ -24,11 +24,11 @@ const createValidateRealtimeDataUpdatedAt = (cfg) => {
 const createValidateProducts = (cfg) => {
 	const validateProducts = (val, p, name = 'products') => {
 		return; // TODO
-		a.ok(isObj(p), name + ' must be an object');
+		/*a.ok(isObj(p), name + ' must be an object');
 		for (let product of cfg.products) {
 			const msg = `${name}[${product.id}] must be a boolean`;
 			a.strictEqual(typeof p[product.id], 'boolean', msg);
-		}
+		}*/
 	};
 	return validateProducts;
 };
