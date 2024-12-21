@@ -120,9 +120,6 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const journeys = async (from, to, opt = {}) => {
-		from = profile.formatLocation(profile, from, 'from');
-		to = profile.formatLocation(profile, to, 'to');
-
 		if ('earlierThan' in opt && 'laterThan' in opt) {
 			throw new TypeError('opt.earlierThan and opt.laterThan are mutually exclusive.');
 		}
@@ -168,9 +165,6 @@ const createClient = (profile, userAgent, opt = {}) => {
 			remarks: true, // parse & expose hints & warnings?
 			scheduledDays: false, // parse & expose dates each journey is valid on?
 		}, opt);
-		if (opt.via) {
-			opt.via = profile.formatLocation(profile, opt.via, 'opt.via');
-		}
 
 		if (opt.when !== undefined) {
 			throw new Error('opt.when is not supported anymore. Use opt.departure/opt.arrival.');
@@ -192,38 +186,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			outFrwd = false;
 		}
 
-		const filters = profile.formatProductsFilter({profile}, opt.products || {});
-		// TODO opt.accessibility
-
-		const query = {
-			maxUmstiege: opt.transfers,
-			minUmstiegszeit: opt.transferTime,
-			deutschlandTicketVorhanden: false,
-			nurDeutschlandTicketVerbindungen: false,
-			reservierungsKontingenteVorhanden: false,
-			schnelleVerbindungen: true,
-			sitzplatzOnly: false,
-			abfahrtsHalt: from.lid,
-			zwischenhalte: opt.via
-				? [{id: opt.via.lid}]
-				: null,
-			ankunftsHalt: to.lid,
-			produktgattungen: filters,
-			bikeCarriage: opt.bike,
-			// TODO
-			// todo: this is actually "take additional stations nearby the given start and destination station into account"
-			// see rest.exe docs
-			// ushrp: Boolean(opt.startWithWalking),
-		};
-		query.anfrageZeitpunkt = profile.formatTime(profile, when);
-		if (journeysRef) {
-			query.pagingReference = journeysRef;
-		}
-		query.ankunftSuche = outFrwd ? 'ABFAHRT' : 'ANKUNFT';
-		if (opt.results !== null) {
-			// TODO query.numF = opt.results;
-		}
-		const req = profile.formatJourneysReq({profile, opt}, query);
+		const req = profile.formatJourneysReq({profile, opt}, from, to, when, outFrwd, journeysRef);
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 		const verbindungen = opt.results ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
@@ -373,90 +336,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	// todo [breaking]: rename to trips()?
-	const tripsByName = async (lineNameOrFahrtNr = '*', opt = {}) => {
-		if (!isNonEmptyString(lineNameOrFahrtNr)) {
-			throw new TypeError('lineNameOrFahrtNr must be a non-empty string.');
-		}
-		opt = Object.assign({
-			when: null,
-			fromWhen: null, untilWhen: null,
-			onlyCurrentlyRunning: true,
-			products: {},
-			currentlyStoppingAt: null,
-			lineName: null,
-			operatorNames: null,
-			additionalFilters: [], // undocumented
-		}, opt);
-
-		const req = {
-			// fields: https://github.com/marudor/BahnhofsAbfahrten/blob/f619e754f212980261eb7e2b151cd73ba0213da8/packages/types/HAFAS/JourneyMatch.ts#L4-L23
-			input: lineNameOrFahrtNr,
-			onlyCR: opt.onlyCurrentlyRunning,
-			jnyFltrL: [
-				profile.formatProductsFilter({profile}, opt.products),
-			],
-			// todo: passing `tripId` yields a `CGI_READ_FAILED` error
-			// todo: passing a stop ID as `extId` yields a `PARAMETER` error
-			// todo: `onlyRT: true` reduces the number of results, but filters recent trips 🤔
-			// todo: `onlyTN: true` yields a `NO_MATCH` error
-			// todo: useAeqi
-		};
-		if (opt.when !== null) {
-			req.date = profile.formatDate(profile, new Date(opt.when));
-			req.time = profile.formatTime(profile, new Date(opt.when));
-		}
-		// todo: fromWhen doesn't work yet, but untilWhen does
-		if (opt.fromWhen !== null) {
-			req.dateB = profile.formatDate(profile, new Date(opt.fromWhen));
-			req.timeB = profile.formatTime(profile, new Date(opt.fromWhen));
-		}
-		if (opt.untilWhen !== null) {
-			req.dateE = profile.formatDate(profile, new Date(opt.untilWhen));
-			req.timeE = profile.formatTime(profile, new Date(opt.untilWhen));
-		}
-		const filter = (mode, type, value) => ({mode, type, value});
-		if (opt.currentlyStoppingAt !== null) {
-			if (!isNonEmptyString(opt.currentlyStoppingAt)) {
-				throw new TypeError('opt.currentlyStoppingAt must be a non-empty string.');
-			}
-			req.jnyFltrL.push(filter('INC', 'STATIONS', opt.currentlyStoppingAt));
-		}
-		if (opt.lineName !== null) {
-			if (!isNonEmptyString(opt.lineName)) {
-				throw new TypeError('opt.lineName must be a non-empty string.');
-			}
-			// todo: does this target `line` or `lineId`?
-			req.jnyFltrL.push(filter('INC', 'LINE', opt.lineName));
-		}
-		if (opt.operatorNames !== null) {
-			if (
-				!Array.isArray(opt.operatorNames)
-				|| opt.operatorNames.length === 0
-				|| !opt.operatorNames.every(isNonEmptyString)
-			) {
-				throw new TypeError('opt.operatorNames must be an array of non-empty strings.');
-			}
-			// todo: is the an escaping mechanism for ","
-			req.jnyFltrL.push(filter('INC', 'OP', opt.operatorNames.join(',')));
-		}
-		req.jnyFltrL = [...req.jnyFltrL, ...opt.additionalFilters];
-
-		const {res} = await profile.request({profile, opt}, userAgent, {
-			cfg: {polyEnc: 'GPA'},
-			meth: 'JourneyMatch',
-			req,
-		});
-		// todo [breaking]: catch `NO_MATCH` errors, return []
-		const ctx = {profile, opt, common, res};
-
-		const trips = res.jnyL.map(t => profile.parseTrip(ctx, t));
-
-		return {
-			trips,
-			realtimeDataUpdatedAt: res.planrtTS && res.planrtTS !== '0'
-				? parseInt(res.planrtTS)
-				: null,
-		};
+	const tripsByName = async (_lineNameOrFahrtNr = '*', _opt = {}) => {
+		throw new Error('not implemented');
 	};
 
 	const client = {

@@ -11,8 +11,8 @@ const opt = {
 	results: null,
 	via: null,
 	stopovers: false,
-	transfers: -1,
-	transferTime: 0,
+	transfers: null,
+	transferTime: 0, 
 	accessibility: 'none',
 	bike: false,
 	walkingSpeed: 'normal',
@@ -59,6 +59,9 @@ const berlinWienQuery0 = Object.freeze(
 		reservierungsKontingenteVorhanden: false,
 		nurDeutschlandTicketVerbindungen: false,
 		deutschlandTicketVorhanden: false,
+		maxUmstiege: null,
+		zwischenhalte: null,
+		minUmstiegszeit: 0,
 	});
 
 tap.test('formats a journeys() request correctly (DB)', (t) => {
@@ -67,10 +70,7 @@ tap.test('formats a journeys() request correctly (DB)', (t) => {
 	delete _opt.age;
 	const ctx = {profile, opt: _opt};
 
-	// transformJourneysQuery() mutates its 2nd argument!
-	const query = {...berlinWienQuery0};
-	const req = profile.formatJourneysReq(ctx, query);
-
+	const req = profile.formatJourneysReq(ctx, '8098160', '8000284', new Date('2024-12-07T23:50:12+01:00'), true, null);
 	t.same(req.body, {
 		...berlinWienQuery0,
 		reisende: [
@@ -94,9 +94,7 @@ tap.test('formats a journeys() request correctly (DB)', (t) => {
 tap.test('formats a journeys() request with BC correctly (DB)', (t) => {
 	const ctx = {profile, opt};
 
-	// transformJourneysQuery() mutates its 2nd argument!
-	const query = {...berlinWienQuery0};
-	const req = profile.formatJourneysReq(ctx, query);
+	const req = profile.formatJourneysReq(ctx, '8098160', '8000284', new Date('2024-12-07T23:50:12+01:00'), true, null);
 
 	t.same(req.body, {
 		...berlinWienQuery0,
