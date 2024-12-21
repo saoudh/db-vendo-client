@@ -1,11 +1,11 @@
 import tap from 'tap';
 import {parseLocation as parse} from '../../parse/location.js';
-import {parseBitmask as parseProductsBitmask} from '../../parse/products-bitmask.js';
+import {parseProducts} from '../../parse/products.js';
 
 const profile = {
 	parseLocation: parse,
 	parseStationName: (_, name) => name.toLowerCase(),
-	parseProductsBitmask,
+	parseProducts,
 	products: [{
 		id: 'nationalExpress',
 		vendo: 'ICE',

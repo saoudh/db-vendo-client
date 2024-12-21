@@ -40,6 +40,12 @@ const parseJourney = (ctx, j) => { // j = raw journey
 		// res.scheduledDays = profile.parseScheduledDays(ctx, j.serviceDays);
 	}
 
+	res.price = profile.parsePrice(ctx, j);
+	const tickets = profile.parseTickets(ctx, j);
+	if (tickets) {
+		res.tickets = tickets;
+	}
+
 	return res;
 };
 

@@ -2,7 +2,7 @@ import tap from 'tap';
 
 import {createClient} from '../../index.js';
 import {profile as rawProfile} from '../../p/db/index.js';
-import {data as loyaltyCards} from '../../p/db/loyalty-cards.js';
+import {data as loyaltyCards} from '../../format/loyalty-cards.js';
 
 const client = createClient(rawProfile, 'public-transport/hafas-client:test');
 const {profile} = client;
@@ -69,7 +69,7 @@ tap.test('formats a journeys() request correctly (DB)', (t) => {
 
 	// transformJourneysQuery() mutates its 2nd argument!
 	const query = {...berlinWienQuery0};
-	const req = profile.transformJourneysQuery(ctx, query);
+	const req = profile.formatJourneysReq(ctx, query);
 
 	t.same(req.body, {
 		...berlinWienQuery0,
@@ -96,7 +96,7 @@ tap.test('formats a journeys() request with BC correctly (DB)', (t) => {
 
 	// transformJourneysQuery() mutates its 2nd argument!
 	const query = {...berlinWienQuery0};
-	const req = profile.transformJourneysQuery(ctx, query);
+	const req = profile.formatJourneysReq(ctx, query);
 
 	t.same(req.body, {
 		...berlinWienQuery0,

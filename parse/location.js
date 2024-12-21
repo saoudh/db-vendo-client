@@ -40,7 +40,7 @@ const parseLocation = (ctx, l) => {
 		// TODO subStops
 
 		if ('products' in l) {
-			stop.products = profile.parseProductsBitmask(ctx, l.products);
+			stop.products = profile.parseProducts(ctx, l.products);
 		}
 
 		if (common && common.locations && common.locations[stop.id]) {

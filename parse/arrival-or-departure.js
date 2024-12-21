@@ -1,5 +1,3 @@
-import {parseRemarks} from './remarks.js';
-
 const ARRIVAL = 'a';
 const DEPARTURE = 'd';
 
@@ -23,6 +21,7 @@ const createParseArrOrDep = (prefix) => {
 			remarks: [],
 			origin: profile.parseLocation(ctx, d.transport?.origin || d.origin) || null,
 			destination: profile.parseLocation(ctx, d.transport?.destination || d.destination) || null,
+			// loadFactor: profile.parseArrOrDepWithLoadFactor(ctx, d)
 		};
 
 		// TODO pos
@@ -33,7 +32,7 @@ const createParseArrOrDep = (prefix) => {
 		}
 
 		if (opt.remarks) {
-			res.remarks = parseRemarks(ctx, d);
+			res.remarks = profile.parseRemarks(ctx, d);
 		}
 		// TODO opt.stopovers
 		return res;

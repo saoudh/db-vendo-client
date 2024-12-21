@@ -96,6 +96,11 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		Object.defineProperty(res, 'canceled', {value: true});
 	}
 
+	const load = profile.parseLoadFactor(opt, pt.auslastungsmeldungen);
+	if (load) {
+		res.loadFactor = load;
+	}
+
 	return res;
 };
 

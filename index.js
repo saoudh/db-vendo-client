@@ -223,7 +223,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		if (opt.results !== null) {
 			// TODO query.numF = opt.results;
 		}
-		const req = profile.transformJourneysQuery({profile, opt}, query);
+		const req = profile.formatJourneysReq({profile, opt}, query);
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
 		const verbindungen = opt.results ? res.verbindungen.slice(0, opt.results) : res.verbindungen;

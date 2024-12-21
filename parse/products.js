@@ -1,4 +1,4 @@
-const parseBitmask = ({profile}, bitmask) => {
+const parseProducts = ({profile}, bitmask) => {
 	const res = {};
 	for (let product of profile.products) {
 		res[product.id] = Boolean(bitmask.find(p => p == product.vendo));
@@ -7,5 +7,5 @@ const parseBitmask = ({profile}, bitmask) => {
 };
 
 export {
-	parseBitmask,
+	parseProducts,
 };
