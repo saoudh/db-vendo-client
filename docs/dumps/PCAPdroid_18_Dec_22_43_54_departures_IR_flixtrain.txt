@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Wed, 18 Dec 2024 21:43:02 GMT
+Content-Type: application/x.db.vendo.mob.bahnhofstafeln.v2+json
+Content-Length: 1030
+Connection: keep-alive
+server-timing: intid;desc=3007cc29ce998300
+Server-Timing: intid;desc=3007cc29ce998300
+Server-Timing: intid;desc=3007cc29ce998300
+x-correlation-id: faddeefb-53f2-41a9-9879-e1c4edd7845f_5a24d491-8e2e-4cd8-85b5-ddd1d7d322c8
+Strict-Transport-Security: max-age=16070400; includeSubDomains
+X-XSS-Protection: 0
+server-timing: intid;desc=3007cc29ce998300
+Content-Security-Policy: frame-ancestors 'none';
+X-Content-Type-Options: nosniff
+Set-Cookie: TS01be2125=01d513bcd1778d8a6954cb4376d998b52e8b4b9edfa2de0eed859c823593d6a880ffc23b5ab8f107642d7ccfb36b5be2d8c9d6632f; Path=/; Domain=.app.vendo.noncd.db.de; Secure; HTTPOnly
+
+{"bahnhofstafelAbfahrtPositionen":[{"gleis":"2","zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#338816#TA#0#DA#181224#1S#8000096#1T#712#LS#8100003#LT#1352#PU#81#RT#1#CA#DPF#ZE#963#ZB#WB   963#PC#2#FR#8000096#FT#712#TO#8100003#TT#1352#","kurztext":"WB","mitteltext":"WB 963","abfrageOrt":{"name":"Stuttgart Hbf","locationId":"A=1@O=Stuttgart Hbf@X=9181636@Y=48784081@U=81@L=8000096@i=U×008029034@","evaNr":"8000096","stationId":"6071"},"echtzeitNotizen":[],"abgangsDatum":"2024-12-18T07:12:00+01:00","produktGattung":"IR"},{"gleis":"8","zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#203510#TA#0#DA#181224#1S#8000096#1T#717#LS#8098160#LT#1315#PU#81#RT#1#CA#DPF#ZE#1240#ZB#FLX 1240#PC#2#FR#8000096#FT#717#TO#8098160#TT#1315#","kurztext":"FLX","mitteltext":"FLX 1240","abfrageOrt":{"name":"Stuttgart Hbf","locationId":"A=1@O=Stuttgart Hbf@X=9181636@Y=48784081@U=81@L=8000096@i=U×008029034@","evaNr":"8000096","stationId":"6071"},"richtung":"Berlin Hbf","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T07:17:00+01:00","produktGattung":"IR"}]}

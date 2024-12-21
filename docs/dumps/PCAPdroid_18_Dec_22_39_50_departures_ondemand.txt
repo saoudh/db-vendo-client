@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Wed, 18 Dec 2024 21:38:58 GMT
+Content-Type: application/x.db.vendo.mob.bahnhofstafeln.v2+json
+Content-Length: 590
+Connection: keep-alive
+server-timing: intid;desc=bf069d97495f8dad
+Server-Timing: intid;desc=bf069d97495f8dad
+Server-Timing: intid;desc=bf069d97495f8dad
+x-correlation-id: faddeefb-53f2-41a9-9879-e1c4edd7845f_5a24d491-8e2e-4cd8-85b5-ddd1d7d322c8
+Strict-Transport-Security: max-age=16070400; includeSubDomains
+X-XSS-Protection: 0
+server-timing: intid;desc=bf069d97495f8dad
+Content-Security-Policy: frame-ancestors 'none';
+X-Content-Type-Options: nosniff
+Set-Cookie: TS01be2125=01d513bcd1e76575d2a4e5c74d05675d588d2a35d6e7b8b0e5cad991641ebd4a05f4c1b051774f52d1a60eac0d3365250488a0be85; Path=/; Domain=.app.vendo.noncd.db.de; Secure; HTTPOnly
+
+{"bahnhofstafelAbfahrtPositionen":[{"zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#514236#TA#0#DA#181224#1S#541958#1T#1944#LS#548569#LT#2108#PU#81#RT#1#CA#rfb#ZE#8175#ZB#RUF 8175#PC#9#FR#541958#FT#1944#TO#548569#TT#2108#","kurztext":"RUF","mitteltext":"RUF 8175","abfrageOrt":{"name":"Penzing Ortsmitte, Aidenbach","locationId":"A=1@O=Penzing Ortsmitte, Aidenbach@X=13063430@Y=48562182@U=81@L=548572@","evaNr":"548572"},"richtung":"Köching Abzw. Haidenburg Wartehäuschen, Aidenbach","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T21:03:00+01:00","produktGattung":"ANRUFPFLICHTIGEVERKEHRE"}]}

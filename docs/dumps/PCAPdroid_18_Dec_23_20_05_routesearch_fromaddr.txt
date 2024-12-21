@@ -1,0 +1,18 @@
+POST /mob/angebote/fahrplan HTTP/1.1
+Accept: application/x.db.vendo.mob.verbindungssuche.v8+json
+x-feature-reiseketten-enabled: false
+X-Correlation-ID: 84f2ab9b-d4a7-4e98-9a29-113783f0d431_5a24d491-8e2e-4cd8-85b5-ddd1d7d322c8
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: a33cf0fb-5fd8-4c2f-befa-d4c1963cf3b7
+Content-Type: application/x.db.vendo.mob.verbindungssuche.v8+json
+Content-Length: 686
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"autonomeReservierung":false,"einstiegsTypList":["STANDARD"],"klasse":"KLASSE_2","reiseHin":{"wunsch":{"abgangsLocationId":"A\u003d2@O\u003dBerlin - Bohnsdorf, Schillerstraße 10@H\u003d10@X\u003d13585128@Y\u003d52398257@U\u003d92@L\u003d980126874@B\u003d1@p\u003d1706613073@","verkehrsmittel":["ALL"],"zeitWunsch":{"reiseDatum":"2024-12-18T22:38:09.928078+01:00","zeitPunktArt":"ABFAHRT"},"zielLocationId":"A\u003d1@O\u003dBerlin Hbf@X\u003d13369549@Y\u003d52525589@U\u003d81@L\u003d8011160@B\u003d1@p\u003d1734031727@i\u003dU×008065969@"}},"reisendenProfil":{"reisende":[{"ermaessigungen":["BAHNCARD25 KLASSE_2"],"reisendenTyp":"SENIOR"}]},"reservierungsKontingenteVorhanden":false}

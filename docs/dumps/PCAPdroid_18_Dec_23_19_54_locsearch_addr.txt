@@ -1,0 +1,17 @@
+POST /mob/location/search HTTP/1.1
+Accept: application/x.db.vendo.mob.location.v3+json
+X-Correlation-ID: 0079a47f-6208-4507-9d9a-0e02802ef52c_5a24d491-8e2e-4cd8-85b5-ddd1d7d322c8
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: 205f5fd7-f96a-4e07-a47d-bb3edb8c443e
+Content-Type: application/x.db.vendo.mob.location.v3+json
+Content-Length: 52
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"locationTypes":["ALL"],"searchTerm":"schillerstr"}

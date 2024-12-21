@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Wed, 18 Dec 2024 21:42:04 GMT
+Content-Type: application/x.db.vendo.mob.bahnhofstafeln.v2+json
+Content-Length: 2498
+Connection: keep-alive
+server-timing: intid;desc=4e6f4ce0b26b14cb
+Server-Timing: intid;desc=4e6f4ce0b26b14cb
+Server-Timing: intid;desc=4e6f4ce0b26b14cb
+x-correlation-id: faddeefb-53f2-41a9-9879-e1c4edd7845f_5a24d491-8e2e-4cd8-85b5-ddd1d7d322c8
+Strict-Transport-Security: max-age=16070400; includeSubDomains
+X-XSS-Protection: 0
+server-timing: intid;desc=4e6f4ce0b26b14cb
+Content-Security-Policy: frame-ancestors 'none';
+X-Content-Type-Options: nosniff
+Set-Cookie: TS01be2125=01d513bcd1b5c4411e233c8956b40fa37e9050070c341e1782b80282d570eb1ed0cb63a2fab4db66435d0bad351471a04f949cac0d; Path=/; Domain=.app.vendo.noncd.db.de; Secure; HTTPOnly
+
+{"bahnhofstafelAbfahrtPositionen":[{"zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#989203#TA#17#DA#181224#1S#368702#1T#930#LS#936350#LT#935#PU#81#RT#1#CA#FAE#ZE#FÄ1#ZB#Fähre   #PC#6#FR#368702#FT#930#TO#936350#TT#935#","kurztext":"Fähre","mitteltext":"Fähre","abfrageOrt":{"name":"Hohe Düne Fähre, Rostock","locationId":"A=1@O=Hohe Düne Fähre, Rostock@X=12097404@Y=54176710@U=81@L=368702@","evaNr":"368702"},"richtung":"Warnemünde","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T09:30:00+01:00","produktGattung":"SCHIFF"},{"zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#417851#TA#1#DA#181224#1S#936250#1T#947#LS#939255#LT#1021#PU#81#RT#1#CA#Bus#ZE#18#ZB#Bus   18#PC#5#FR#936250#FT#947#TO#939255#TT#1021#","kurztext":"Bus","mitteltext":"Bus 18","abfrageOrt":{"name":"Hohe Düne Fähre, Rostock","locationId":"A=1@O=Hohe Düne Fähre, Rostock@X=12098627@Y=54176485@U=81@L=936250@","evaNr":"936250"},"richtung":"Dierkower Kreuz","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T09:47:00+01:00","produktGattung":"BUS"},{"zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#989203#TA#18#DA#181224#1S#368702#1T#950#LS#936350#LT#955#PU#81#RT#1#CA#FAE#ZE#FÄ1#ZB#Fähre   #PC#6#FR#368702#FT#950#TO#936350#TT#955#","kurztext":"Fähre","mitteltext":"Fähre","abfrageOrt":{"name":"Hohe Düne Fähre, Rostock","locationId":"A=1@O=Hohe Düne Fähre, Rostock@X=12097404@Y=54176710@U=81@L=368702@","evaNr":"368702"},"richtung":"Warnemünde","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T09:50:00+01:00","produktGattung":"SCHIFF"},{"zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#420342#TA#0#DA#181224#1S#936250#1T#1007#LS#842059#LT#1018#PU#81#RT#1#CA#Bus#ZE#17#ZB#Bus   17#PC#5#FR#936250#FT#1007#TO#842059#TT#1018#","kurztext":"Bus","mitteltext":"Bus 17","abfrageOrt":{"name":"Hohe Düne Fähre, Rostock","locationId":"A=1@O=Hohe Düne Fähre, Rostock@X=12098627@Y=54176485@U=81@L=936250@","evaNr":"936250"},"richtung":"Markgrafenheide Ost","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T10:07:00+01:00","produktGattung":"BUS"},{"zuglaufId":"2|#VN#1#ST#1734378327#PI#1#ZI#989203#TA#19#DA#181224#1S#368702#1T#1010#LS#936350#LT#1015#PU#81#RT#1#CA#FAE#ZE#FÄ1#ZB#Fähre   #PC#6#FR#368702#FT#1010#TO#936350#TT#1015#","kurztext":"Fähre","mitteltext":"Fähre","abfrageOrt":{"name":"Hohe Düne Fähre, Rostock","locationId":"A=1@O=Hohe Düne Fähre, Rostock@X=12097404@Y=54176710@U=81@L=368702@","evaNr":"368702"},"richtung":"Warnemünde","echtzeitNotizen":[],"abgangsDatum":"2024-12-18T10:10:00+01:00","produktGattung":"SCHIFF"}]}
