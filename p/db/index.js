@@ -22,14 +22,6 @@ const profile = {
 	parsePrice,
 	parseTickets,
 	formatTravellers,
-
-	generateUnreliableTicketUrls: false,
-	refreshJourneyUseOutReconL: true,
-	trip: true,
-	journeysFromTrip: true,
-	radar: true,
-	reachableFrom: true,
-	lines: false,
 };
 
 export {
