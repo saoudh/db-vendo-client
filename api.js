@@ -4,6 +4,7 @@ import {createHafasRestApi as createApi} from 'hafas-rest-api';
 import {loyaltyCardParser} from 'db-rest/lib/loyalty-cards.js';
 import {parseBoolean, parseInteger} from 'hafas-rest-api/lib/parse.js';
 
+// TODO product support for nearby etc?
 const mapRouteParsers = (route, parsers) => {
 	if (!route.includes('journey')) {
 		return parsers;

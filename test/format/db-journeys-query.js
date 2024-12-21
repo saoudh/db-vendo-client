@@ -12,7 +12,7 @@ const opt = {
 	via: null,
 	stopovers: false,
 	transfers: null,
-	transferTime: 0, 
+	transferTime: 0,
 	accessibility: 'none',
 	bike: false,
 	walkingSpeed: 'normal',

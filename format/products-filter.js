@@ -34,6 +34,9 @@ const formatProductsFilter = (ctx, filter, key = 'vendo') => {
 	if (!foundDeselected && key == 'ris') {
 		return undefined;
 	}
+	if (!foundDeselected && key == 'dbnav') {
+		return ['ALL'];
+	}
 
 	return products;
 };

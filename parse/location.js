@@ -13,16 +13,16 @@ const parseLocation = (ctx, l) => {
 		return null;
 	}
 
-	const lid = parse(l.id, {delimiter: '@'});
+	const lid = parse(l.id || l.locationId, {delimiter: '@'});
 	const res = {
 		type: 'location',
-		id: (l.extId || lid.L || l.evaNumber || l.evaNo || '').replace(leadingZeros, '') || null,
+		id: (l.extId || l.evaNr || lid.L || l.evaNumber || l.evaNo || '').replace(leadingZeros, '') || null,
 	};
 	const name = l.name || lid.O;
 
-	if (l.lat && l.lon) {
-		res.latitude = l.lat;
-		res.longitude = l.lon;
+	if (l.lat && l.lon || l.coordinates || l.position) {
+		res.latitude = l.lat || l.coordinates?.latitude || l.position?.latitude;
+		res.longitude = l.lon || l.coordinates?.longitude || l.position?.longitude;
 	} else if ('X' in lid && 'Y' in lid) {
 		res.latitude = lid.Y / 1000000;
 		res.longitude = lid.X / 1000000;

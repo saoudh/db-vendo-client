@@ -5,7 +5,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	to = profile.formatLocation(profile, to, 'to');
 	const filters = profile.formatProductsFilter({profile}, opt.products || {});
 	// TODO opt.accessibility
-
+	// TODO routingMode
 	let query = {
 		maxUmstiege: opt.transfers,
 		minUmstiegszeit: opt.transferTime,

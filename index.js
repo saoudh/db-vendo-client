@@ -104,7 +104,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const results = (res[resultsField] || res.items).map(res => parse(ctx, res)); // todo sort?
+		const results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen)
+			.map(res => parse(ctx, res)); // TODO sort?, slice
 
 		return {
 			[resultsField]: results,
@@ -189,7 +190,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.formatJourneysReq({profile, opt}, from, to, when, outFrwd, journeysRef);
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
-		const verbindungen = opt.results ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
+		const verbindungen = Number.isInteger(opt.results) ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
 		const journeys = verbindungen
 			.map(j => profile.parseJourney(ctx, j));
 
@@ -246,7 +247,11 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		return res.map(loc => profile.parseLocation(ctx, loc));
+		const results = res.map(loc => profile.parseLocation(ctx, loc));
+
+		return Number.isInteger(opt.results)
+			? results.slice(0, opt.results)
+			: results;
 	};
 
 	const stop = async (stop, opt = {}) => { // TODO

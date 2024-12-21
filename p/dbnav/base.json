@@ -1,0 +1,10 @@
+{
+	"journeysEndpoint": "https://app.vendo.noncd.db.de/mob/angebote/fahrplan",
+	"refreshJourneysEndpointPrice": "https://app.vendo.noncd.db.de/mob/angebote/recon/autonomereservierung",
+	"refreshJourneysEndpointPolyline": "https://app.vendo.noncd.db.de/mob/trip/recon",
+	"locationsEndpoint": "https://app.vendo.noncd.db.de/mob/location/search",
+	"nearbyEndpoint": "https://app.vendo.noncd.db.de/mob/location/nearby",
+	"tripEndpoint": "https://app.vendo.noncd.db.de/mob/zuglauf",
+	"boardEndpoint": "https://app.vendo.noncd.db.de/mob/bahnhofstafel/abfahrt",
+	"defaultLanguage": "en"
+}
