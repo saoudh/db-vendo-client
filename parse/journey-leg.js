@@ -1,5 +1,3 @@
-import {parseRemarks, isStopCancelled} from './remarks.js';
-
 const locationFallback = (id, name, fallbackLocations) => {
 	if (fallbackLocations && (id && fallbackLocations[id] || name && fallbackLocations[name])) {
 		return fallbackLocations[id] || fallbackLocations[name];
@@ -20,7 +18,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		destination: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[pt.halte.length - 1]) : locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt, fallbackLocations),
 	};
 
-	const cancelledDep = pt.halte?.length > 0 && isStopCancelled(pt.halte[0]);
+	const cancelledDep = pt.halte?.length > 0 && profile.parseCancelled(pt.halte[0]);
 	const dep = profile.parseWhen(ctx, date, pt.abfahrtsZeitpunkt, pt.ezAbfahrtsZeitpunkt, cancelledDep);
 	res.departure = dep.when;
 	res.plannedDeparture = dep.plannedWhen;
@@ -29,7 +27,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		res.prognosedDeparture = dep.prognosedWhen;
 	}
 
-	const cancelledArr = pt.halte?.length > 0 && isStopCancelled(pt.halte[pt.halte.length - 1]);
+	const cancelledArr = pt.halte?.length > 0 && profile.parseCancelled(pt.halte[pt.halte.length - 1]);
 	const arr = profile.parseWhen(ctx, date, pt.ankunftsZeitpunkt, pt.ezAnkunftsZeitpunkt, cancelledArr);
 	res.arrival = arr.when;
 	res.plannedArrival = arr.plannedWhen;
@@ -84,7 +82,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 				res.stopovers = res.stopovers.filter((x) => !x.passBy);
 			}
 			if (opt.remarks) {
-				res.remarks = parseRemarks(ctx, pt);
+				res.remarks = profile.parseRemarks(ctx, pt);
 			}
 		}
 

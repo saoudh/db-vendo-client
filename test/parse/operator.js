@@ -37,3 +37,16 @@ tap.test('parses nothing', (t) => {
 	t.same(parse(ctx, op), null);
 	t.end();
 });
+
+
+tap.test('parses dbnav operator correctly', (t) => {
+	const op = [{text: 'DB Fernverkehr AG', key: 'OP'}];
+
+	t.same(parse(ctx, op), {
+		type: 'operator',
+		id: 'db-fernverkehr-ag',
+		name: 'DB Fernverkehr AG',
+	});
+	t.end();
+});
+

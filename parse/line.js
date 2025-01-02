@@ -5,19 +5,19 @@ const parseLine = (ctx, p) => {
 	const fahrtNr = p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no;
 	const res = {
 		type: 'line',
-		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.train?.no), // TODO terrible
-		fahrtNr: fahrtNr ? String(fahrtNr) : undefined,
-		name: p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName,
+		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName + ' ' + p.train.no || p.langtext || p.mitteltext), // TODO terrible
+		fahrtNr: fahrtNr ? String(fahrtNr) : undefined, // TODO extract from zuglaufId?
+		name: p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName || p.langtext || p.mitteltext,
 		public: true,
 	};
 
 	// TODO res.adminCode
-	res.productName = p.verkehrsmittel?.kurzText || p.transport?.category || p.train?.category;
-	const foundProduct = profile.products.find(pp => pp.vendo == p.verkehrsmittel?.produktGattung || pp.ris == p.transport?.type || pp.ris == p.train?.type);
+	res.productName = p.verkehrsmittel?.kurzText || p.transport?.category || p.train?.category || p.kurztext;
+	const foundProduct = profile.products.find(pp => pp.vendo == p.verkehrsmittel?.produktGattung || pp.ris == p.transport?.type || pp.ris == p.train?.type || pp.ris_alt == p.train?.type || pp.dbnav_short == p.produktGattung);
 	res.mode = foundProduct?.mode;
 	res.product = foundProduct?.id;
 
-	res.operator = profile.parseOperator(ctx, p.verkehrsmittel?.zugattribute || p.zugattribute);
+	res.operator = profile.parseOperator(ctx, p.verkehrsmittel?.zugattribute || p.zugattribute); // TODO regio-guide op
 	return res;
 };
 

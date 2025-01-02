@@ -28,15 +28,15 @@ const parseLocation = (ctx, l) => {
 		res.longitude = lid.X / 1000000;
 	}
 
-	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || lid.A == 1) {
+	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || l.evaNr || lid.A == '1') {
 		let stop = {
 			type: 'station',
 			id: res.id,
 			name: name,
-			location: 'number' === typeof res.latitude
-				? res
-				: null, // todo: remove `.id`
 		};
+		if ('number' === typeof res.latitude) {
+			stop.location = res; // todo: remove `.id`
+		}
 		// TODO subStops
 
 		if ('products' in l) {
@@ -57,10 +57,10 @@ const parseLocation = (ctx, l) => {
 	}
 
 	res.name = name;
-	if (l.type === ADDRESS || lid.A == 2) {
+	if (l.type === ADDRESS || lid.A == '2') {
 		res.address = name;
 	}
-	if (l.type === POI || lid.A == 4) {
+	if (l.type === POI || lid.A == '4') {
 		res.poi = true;
 	}
 

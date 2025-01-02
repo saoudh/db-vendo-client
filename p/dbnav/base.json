@@ -5,6 +5,6 @@
 	"locationsEndpoint": "https://app.vendo.noncd.db.de/mob/location/search",
 	"nearbyEndpoint": "https://app.vendo.noncd.db.de/mob/location/nearby",
 	"tripEndpoint": "https://app.vendo.noncd.db.de/mob/zuglauf",
-	"boardEndpoint": "https://app.vendo.noncd.db.de/mob/bahnhofstafel/abfahrt",
+	"boardEndpoint": "https://app.vendo.noncd.db.de/mob/bahnhofstafel/",
 	"defaultLanguage": "en"
 }

@@ -1,9 +1,7 @@
-import {parseRemarks, isStopCancelled} from './remarks.js';
-
 const parseStopover = (ctx, st, date) => { // st = raw stopover
 	const {profile, opt} = ctx;
 
-	const cancelled = isStopCancelled(st);
+	const cancelled = profile.parseCancelled(st);
 	const arr = profile.parseWhen(ctx, date, st.ankunftsZeitpunkt, st.ezAnkunftsZeitpunkt, cancelled);
 	const arrPl = profile.parsePlatform(ctx, st.gleis, st.ezGleis);
 	const dep = profile.parseWhen(ctx, date, st.abfahrtsZeitpunkt, st.ezAbfahrtsZeitpunkt, cancelled);
@@ -51,7 +49,7 @@ const parseStopover = (ctx, st, date) => { // st = raw stopover
 	// TODO res.additional = true;
 
 	if (opt.remarks) {
-		res.remarks = parseRemarks(ctx, st);
+		res.remarks = profile.parseRemarks(ctx, st);
 	}
 
 	return res;

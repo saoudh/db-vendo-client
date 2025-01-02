@@ -1,27 +1,9 @@
 import tap from 'tap';
 import {parseLine as parse} from '../../parse/line.js';
+import {products} from '../../lib/products.js';
 
 const profile = {
-	products: [
-		{
-			id: 'nationalExpress',
-			mode: 'train',
-			name: 'InterCityExpress',
-			short: 'ICE',
-			vendo: 'ICE',
-			ris: 'HIGH_SPEED_TRAIN',
-			default: true,
-		},
-		{
-			id: 'bus',
-			mode: 'bus',
-			name: 'Bus',
-			short: 'B',
-			vendo: 'BUS',
-			ris: 'BUS',
-			default: true,
-		},
-	],
+	products: products,
 	parseOperator: _ => null,
 };
 const ctx = {
@@ -166,6 +148,42 @@ tap.test('parses ris entry correctly', (t) => {
 		product: 'nationalExpress',
 		productName: 'RB',
 		mode: 'train',
+		operator: null,
+	};
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+
+
+tap.test('parses dbnav ruf correctly', (t) => {
+	const input = {zuglaufId: 'foo', kurztext: 'RUF', mitteltext: 'RUF 9870', produktGattung: 'ANRUFPFLICHTIGEVERKEHRE'};
+	const expected = {
+		type: 'line',
+		id: 'ruf-9870',
+		name: 'RUF 9870',
+		fahrtNr: undefined,
+		public: true,
+		product: 'taxi',
+		productName: 'RUF',
+		mode: 'taxi',
+		operator: null,
+	};
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+
+tap.test('parses regio guide ruf correctly', (t) => {
+	const input = {train: {journeyId: 'foo', category: 'RUF', type: 'SHUTTLE', no: 47403, lineName: '9870'}, category: 'SHUTTLE', administration: {id: 'vrn062', operatorCode: 'DPN', operatorName: 'Nahreisezug'}};
+	const expected = {
+		type: 'line',
+		id: 'ruf-9870-47403',
+		name: 'RUF 9870',
+		fahrtNr: '47403',
+		public: true,
+		product: 'taxi',
+		productName: 'RUF',
+		mode: 'taxi',
 		operator: null,
 	};
 

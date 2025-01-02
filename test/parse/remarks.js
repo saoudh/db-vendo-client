@@ -190,3 +190,36 @@ tap.test('parses ris attributes correctly', (t) => {
 	t.same(parse(ctx, input), expected);
 	t.end();
 });
+
+tap.test('parses dbnav attributes correctly', (t) => {
+	const input = {
+		echtzeitNotizen: [{text: 'Halt entfällt'}],
+		himNotizen: [{text: 'Coach 27 is closed to passengers today.', prio: 'NORMAL', ueberschrift: 'Information.', letzteAktualisierung: '2024-12-16T08:35:53+00:00'}],
+		attributNotizen: [{text: 'Komfort Check-in possible (visit bahn.de/kci for more information)', key: 'CK', priority: 200}, {text: 'DB Fernverkehr AG', key: 'OP'}],
+	};
+	const expected = [
+		{
+			code: undefined,
+			summary: 'Halt entfällt',
+			text: 'Halt entfällt',
+			type: 'warning',
+		},
+		{
+			code: undefined,
+			summary: 'Information.',
+			text: 'Coach 27 is closed to passengers today.',
+			modified: '2024-12-16T09:35:53+01:00',
+			type: 'status',
+		},
+		{
+			code: 'CK',
+			summary: 'Komfort Check-in possible (visit bahn.de/kci for more information)',
+			text: 'Komfort Check-in possible (visit bahn.de/kci for more information)',
+			type: 'hint',
+		},
+	];
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+

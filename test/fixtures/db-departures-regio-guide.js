@@ -5,7 +5,6 @@ const dbDepartures = [
 			type: 'station',
 			id: '8000365',
 			name: 'Dombühl',
-			location: null,
 		},
 		when: '2024-12-12T12:34:00+01:00',
 		plannedWhen: '2024-12-12T12:34:00+01:00',
@@ -16,7 +15,7 @@ const dbDepartures = [
 		provenance: null,
 		line: {
 			type: 'line',
-			id: '88617',
+			id: 're-90-88617',
 			fahrtNr: '88617',
 			name: 'RE 90',
 			public: true,
@@ -31,7 +30,6 @@ const dbDepartures = [
 			type: 'station',
 			id: '8000284',
 			name: 'Nürnberg Hbf',
-			location: null,
 		},
 	},
 	{
@@ -40,7 +38,6 @@ const dbDepartures = [
 			type: 'station',
 			id: '682943',
 			name: 'Bahnhof, Dombühl',
-			location: null,
 		},
 		when: '2024-12-12T12:50:00+01:00',
 		plannedWhen: '2024-12-12T12:50:00+01:00',
@@ -51,7 +48,7 @@ const dbDepartures = [
 		provenance: null,
 		line: {
 			type: 'line',
-			id: '2221',
+			id: 'bus-813-2221',
 			fahrtNr: '2221',
 			name: 'Bus 813',
 			public: true,
@@ -66,7 +63,6 @@ const dbDepartures = [
 			type: 'station',
 			id: '676542',
 			name: 'Gymnasium, Dinkelsbühl',
-			location: null,
 		},
 	},
 	{
@@ -75,7 +71,6 @@ const dbDepartures = [
 			type: 'station',
 			id: '682943',
 			name: 'Bahnhof, Dombühl',
-			location: null,
 		},
 		when: '2024-12-12T12:50:00+01:00',
 		plannedWhen: '2024-12-12T12:50:00+01:00',
@@ -86,7 +81,7 @@ const dbDepartures = [
 		provenance: null,
 		line: {
 			type: 'line',
-			id: '2177',
+			id: 'bus-807-2177',
 			fahrtNr: '2177',
 			name: 'Bus 807',
 			public: true,
@@ -101,7 +96,6 @@ const dbDepartures = [
 			type: 'station',
 			id: '683407',
 			name: 'Bahnhof, Rothenburg ob der Tauber',
-			location: null,
 		},
 	},
 ];

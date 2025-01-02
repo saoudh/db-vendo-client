@@ -3,44 +3,53 @@ import flatMap from 'lodash/flatMap.js';
 const parseRemarks = (ctx, ref) => {
 	// TODO ereignisZusammenfassung, priorisierteMeldungen?
 	return flatMap([
-		ref.risNotizen || [],
-		ref.himMeldungen || [],
-		ref.meldungenAsObject || [],
-		ref.verkehrsmittel?.zugattribute || [],
-		ref.messages || [],
-		ref.attributes || [],
 		ref.disruptions || [],
+		ref.risNotizen || [],
+		ref.echtzeitNotizen && ref.echtzeitNotizen.map(e => {
+			e.prio = 'HOCH'; return e;
+		}) || [],
+		ref.himMeldungen || [],
+		ref.himNotizen || [],
+		ref.serviceNotiz && [ref.serviceNotiz] || [],
+		ref.messages || [],
+		ref.meldungenAsObject || [],
+		ref.attributNotizen || [],
+		ref.attributes || [],
+		ref.verkehrsmittel?.zugattribute || [],
 	])
 		.map(remark => {
-			if (remark.kategorie) {
+			if (remark.kategorie || remark.priority) {
 				const res = ctx.profile.parseHintByCode(remark);
 				if (res) {
 					return res;
 				}
 			}
 			let type = 'hint';
-			if (remark.prioritaet || remark.type) {
+			if (remark.prioritaet || remark.prio || remark.type) {
 				type = 'status';
 			}
-			if (!remark.kategorie && remark.key || remark.disruptionID || remark.prioritaet && remark.prioritaet == 'HOCH') {
+			if (!remark.priority && !remark.kategorie && remark.key || remark.disruptionID
+				|| remark.prioritaet && remark.prioritaet == 'HOCH' || remark.prio && remark.prio == 'HOCH' || remark.priority && remark.priority < 100) {
 				type = 'warning';
 			}
 			let res = {
 				code: remark.code || remark.key,
-				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || Object.values(remark.descriptions || {})
+				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text
+				|| Object.values(remark.descriptions || {})
 					.shift()?.textShort,
-				text: remark.nachrichtLang || remark.value || remark.text || Object.values(remark.descriptions || {})
+				text: remark.nachrichtLang || remark.value || remark.text
+				|| Object.values(remark.descriptions || {})
 					.shift()?.text,
 				type: type,
 			};
-			if (remark.modDateTime) {
-				res.modified = ctx.profile.parseDateTime(ctx, null, remark.modDateTime);
+			if (remark.modDateTime || remark.letzteAktualisierung) {
+				res.modified = ctx.profile.parseDateTime(ctx, null, remark.modDateTime || remark.letzteAktualisierung);
 			}
 			// TODO fromStops, toStops = routeIdxFrom ??
 			// TODO prio
 			return res;
 		})
-		.filter(remark => remark.code != 'BEF');
+		.filter(remark => remark.code != 'BEF' && remark.code != 'OP');
 };
 
 /*
@@ -189,11 +198,15 @@ const parseRemarks = (ctx, ref) => {
     ]
 */
 
-const isStopCancelled = (ref) => {
-	return Boolean(ref.risNotizen.find(r => r.key == 'text.realtime.stop.cancelled' || r.type == 'HALT_AUSFALL'));
+const parseCancelled = (ref) => {
+	return ref.canceled || ref.cancelled || (ref.risNotizen || ref.echtzeitNotizen) && Boolean((ref.risNotizen || ref.echtzeitNotizen).find(r => r.key == 'text.realtime.stop.cancelled'
+		|| r.type == 'HALT_AUSFALL'
+		|| r.text == 'Halt entfällt'
+		|| r.text == 'Stop cancelled',
+	));
 };
 
 export {
 	parseRemarks,
-	isStopCancelled,
+	parseCancelled,
 };
