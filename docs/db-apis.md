@@ -46,7 +46,7 @@ Notes:
 * loadFactor for some regional services, not for long distance services
 * boards up to 12 hours
 
-## Vendo Navigator API
+## Vendo/Movas Navigator API
 https://app.vendo.noncd.db.de/mob/
 
 EPs:
@@ -56,7 +56,7 @@ EPs:
 * angebote/fahrplan (for route planning)
 * zuglauf
 * zuglaeufe/ICE_947/halte/by-abfahrt/8000207_2024 (coach sequence)
-* angebote/recon/autonomereservierung (prices)
+* angebote/recon (tickets)
 
 Notes:
 * see [traffic dumps](dumps/)
@@ -67,7 +67,7 @@ Notes:
 * does not contain machine-readable cancelled info in the boards (only "Halt entfällt" string), but contains relevant remarks
 * loadFactor only on journeys (?)
 
-## Vendo bahn.de API
+## Vendo/Movas bahn.de API
 https://int.bahn.de/web/api/
 
 EPs:
@@ -76,10 +76,11 @@ EPs:
 * reiseloesung/orte/nearby
 * reiseloesung/verbindung
 * reiseloesung/fahrt
+* reiseloesung/abfahrten?datum=2024-12-30&zeit=11:55:00&ortExtId=8011160&ortId=A%3D1%40O%3DBerlin+Hbf%40X%3D13369549%40Y%3D52525589%40U%3D80%40L%3D8011160%40i%3DU%C3%97008065969%40&mitVias=true&maxVias=8&verkehrsmittel[]=ICE&verkehrsmittel[]=EC_IC&verkehrsmittel[]=IR&verkehrsmittel[]=REGIONAL
+* reiseloesung/ankuenfte
 
 Notes:
 * no API Key needed
 * uses HAFAS trip IDs
 * provides loadFactor
-* no boards (?)
 * polylines only for /verbindung and /fahrt

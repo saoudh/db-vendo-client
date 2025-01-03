@@ -41,7 +41,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 		method: 'post',
 	};
 };
-
+// TODO poly conditional other endpoint
 const formatRefreshJourneyReq = (ctx, refreshToken) => {
 	const {profile} = ctx;
 	let query = {
