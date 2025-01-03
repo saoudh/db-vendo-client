@@ -1,8 +1,6 @@
 import {getHeaders} from './header.js';
 
 const formatBaseJourneysReq = (ctx) => {
-	const {opt} = ctx;
-
 	// TODO opt.accessibility
 	// TODO routingMode
 	const travellers = ctx.profile.formatTravellers(ctx);
@@ -19,7 +17,7 @@ const formatBaseJourneysReq = (ctx) => {
 						t.ermaessigungen[0].art + ' ' + t.ermaessigungen[0].klasse,
 					],
 					reisendenTyp: t.typ,
-					alter: opt.age,
+					alter: t.alter.length && parseInt(t.alter[0]) || undefined,
 				};
 			}),
 		},
