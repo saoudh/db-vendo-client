@@ -1,0 +1,18 @@
+POST /mob/angebote/fahrplan HTTP/1.1
+Accept: application/x.db.vendo.mob.verbindungssuche.v8+json
+x-feature-reiseketten-enabled: false
+X-Correlation-ID: 68f7ceba-70e7-4a88-b9b0-454809655314_3fbcc823-2a69-46f4-9484-6d94b1c0116a
+X-Device-Os-Name: Android
+X-Device-Os-Version: 32
+X-Device-Model: Google Pixel 3a
+X-App-Version: 24.32.2
+Accept-Language: en,de
+X-INSTANA-ANDROID: 4779d837-2aa8-4613-9904-8f950367c3c0
+Content-Type: application/x.db.vendo.mob.verbindungssuche.v8+json
+Content-Length: 1120
+Host: app.vendo.noncd.db.de
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.12.0
+
+{"autonomeReservierung":false,"einstiegsTypList":["STANDARD"],"klasse":"KLASSE_2","reiseHin":{"wunsch":{"abgangsLocationId":"A\u003d1@O\u003dMünchen Hbf@X\u003d11558339@Y\u003d48140229@U\u003d81@L\u003d8000261@B\u003d1@p\u003d1734722398@i\u003dU×008020347@","verkehrsmittel":["ALL"],"zeitWunsch":{"reiseDatum":"2025-01-02T15:21:31.877957+01:00","zeitPunktArt":"ABFAHRT"},"zielLocationId":"A\u003d1@O\u003dStuttgart Hbf@X\u003d9181636@Y\u003d48784081@U\u003d81@L\u003d8000096@B\u003d1@p\u003d1734722398@i\u003dU×008029034@"}},"reisendenProfil":{"reisende":[{"ermaessigungen":["CH-GENERAL-ABONNEMENT KLASSE_2","CH-GENERAL-ABONNEMENT KLASSE_1","CH-HALBTAXABO_OHNE_RAILPLUS KLASSENLOS","A-VORTEILSCARD KLASSENLOS"],"reisendenTyp":"SENIOR"},{"ermaessigungen":["CH-GENERAL-ABONNEMENT KLASSE_2","CH-GENERAL-ABONNEMENT KLASSE_1","CH-HALBTAXABO_OHNE_RAILPLUS KLASSENLOS","A-VORTEILSCARD KLASSENLOS"],"reisendenTyp":"SENIOR"},{"ermaessigungen":["KLIMATICKET_OE KLASSENLOS","NL-40_OHNE_RAILPLUS KLASSENLOS","BAHNCARD100 KLASSE_1","BAHNCARD100 KLASSE_2"],"reisendenTyp":"ERWACHSENER"}]},"reservierungsKontingenteVorhanden":false}
