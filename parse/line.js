@@ -2,12 +2,12 @@ import slugg from 'slugg';
 
 const parseLine = (ctx, p) => {
 	const profile = ctx.profile;
-	const fahrtNr = p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no;
+	const fahrtNr = p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no || p.verkehrsmittelNummer || ((p.mitteltext || '') + ' ').split(' ')[1];
 	const res = {
 		type: 'line',
 		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName + ' ' + p.train.no || p.langtext || p.mitteltext), // TODO terrible
-		fahrtNr: fahrtNr ? String(fahrtNr) : undefined, // TODO extract from zuglaufId?
-		name: p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName || p.langtext || p.mitteltext,
+		fahrtNr: String(fahrtNr),
+		name: p.verkehrsmittel?.langText || p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName || p.langtext || p.mitteltext,
 		public: true,
 	};
 
@@ -17,7 +17,7 @@ const parseLine = (ctx, p) => {
 	res.mode = foundProduct?.mode;
 	res.product = foundProduct?.id;
 
-	res.operator = profile.parseOperator(ctx, p.verkehrsmittel?.zugattribute || p.zugattribute); // TODO regio-guide op
+	res.operator = profile.parseOperator(ctx, p.verkehrsmittel?.zugattribute || p.zugattribute || p.attributNotizen); // TODO regio-guide op
 	return res;
 };
 

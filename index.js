@@ -195,8 +195,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 			.map(j => profile.parseJourney(ctx, j));
 
 		return {
-			earlierRef: res.verbindungReference?.earlier || null,
-			laterRef: res.verbindungReference?.later || null,
+			earlierRef: res.verbindungReference?.earlier || res.frueherContext || null,
+			laterRef: res.verbindungReference?.later || res.spaeterContext || null,
 			journeys,
 			realtimeDataUpdatedAt: null, // TODO
 		};
@@ -223,7 +223,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const ctx = {profile, opt, common, res};
 
 		return {
-			journey: profile.parseJourney(ctx, res.verbindungen[0]),
+			journey: profile.parseJourney(ctx, res.verbindungen && res.verbindungen[0] || res),
 			realtimeDataUpdatedAt: null, // TODO
 		};
 	};

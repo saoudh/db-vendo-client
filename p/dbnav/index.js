@@ -3,13 +3,12 @@ const require = createRequire(import.meta.url);
 
 const baseProfile = require('./base.json');
 import {products} from '../../lib/products.js';
-// import {formatJourneysReq, formatRefreshJourneyReq} from './journeys-req.js';
+import {formatJourneysReq, formatRefreshJourneyReq} from './journeys-req.js';
+import {formatTripReq} from './trip-req.js';
 import {formatLocationFilter} from './location-filter.js';
 import {formatLocationsReq} from './locations-req.js';
 import {formatNearbyReq} from './nearby-req.js';
 import {formatStationBoardReq} from './station-board-req.js';
-// import {formatTravellers} from './travellers.js';
-// import {parseTickets, parsePrice} from './tickets.js';
 
 const profile = {
 	...baseProfile,
@@ -17,15 +16,13 @@ const profile = {
 	timezone: 'Europe/Berlin',
 
 	products,
-	// formatJourneysReq,
-	// formatRefreshJourneyReq,
+	formatJourneysReq,
+	formatRefreshJourneyReq,
+	formatTripReq,
 	formatNearbyReq,
 	formatLocationsReq,
 	formatStationBoardReq,
 	formatLocationFilter,
-	// parsePrice,
-	// parseTickets,
-	// formatTravellers,
 };
 
 export {

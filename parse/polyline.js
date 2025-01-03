@@ -1,10 +1,11 @@
 import maxBy from 'lodash/maxBy.js';
 
 const parsePolyline = (ctx, p) => { // p = raw polylineGroup
-	if (p.polylineDescriptions.length < 1) {
+	const desc = p.polylineDescriptions || p.polylineDesc;
+	if (desc.length < 1) {
 		return null;
 	}
-	const points = maxBy(p.polylineDescriptions, d => d.coordinates.length).coordinates; // TODO initial and final poly?
+	const points = maxBy(desc, d => d.coordinates.length).coordinates; // TODO initial and final poly?
 	if (points.length === 0) {
 		return null;
 	}
@@ -14,7 +15,7 @@ const parsePolyline = (ctx, p) => { // p = raw polylineGroup
 		properties: {},
 		geometry: {
 			type: 'Point',
-			coordinates: [ll.lng, ll.lat],
+			coordinates: [ll.lng || ll.longitude, ll.lat || ll.latitude],
 		},
 	}));
 

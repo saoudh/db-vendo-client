@@ -195,7 +195,7 @@ const parseHintByCode = (raw) => {
 	const hint = hintsByCode[raw.key.trim()
 		.toLowerCase()];
 	if (hint) {
-		return Object.assign({text: raw.value}, hint);
+		return Object.assign({text: raw.value || raw.text}, hint);
 	}
 	return null;
 };

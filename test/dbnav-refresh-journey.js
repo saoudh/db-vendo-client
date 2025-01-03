@@ -7,26 +7,34 @@ import tap from 'tap';
 
 import {createClient} from '../index.js';
 import {profile as rawProfile} from '../p/db/index.js';
-const res = require('./fixtures/dbnav-departures.json');
-import {dbnavDepartures as expected} from './fixtures/dbnav-departures.js';
+const res = require('./fixtures/dbnav-refresh-journey.json');
+import {dbNavJourney as expected} from './fixtures/dbnav-refresh-journey.js';
 
 const client = createClient(rawProfile, 'public-transport/hafas-client:test');
 const {profile} = client;
 
 const opt = {
-	direction: null,
-	duration: 10,
-	linesOfStops: true,
+	results: null,
+	via: null,
+	stopovers: false,
+	transfers: -1,
+	transferTime: 0,
+	accessibility: 'none',
+	bike: false,
+	tickets: true,
+	polylines: true,
 	remarks: true,
-	stopovers: true,
-	includeRelatedStations: true,
-	when: '2019-08-19T20:30:00+02:00',
+	walkingSpeed: 'normal',
+	startWithWalking: true,
+	scheduledDays: false,
+	departure: '2020-04-10T20:33+02:00',
 	products: {},
 };
 
-tap.test('parses a dbnav departure correctly', (t) => {
+tap.test('parses a refresh journey correctly (DB)', (t) => {
 	const ctx = {profile, opt, common: null, res};
-	const departures = res.bahnhofstafelAbfahrtPositionen.map(d => profile.parseDeparture(ctx, d));
-	t.same(departures, expected);
+	const journey = profile.parseJourney(ctx, res);
+
+	t.same(journey, expected.journey);
 	t.end();
 });

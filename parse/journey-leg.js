@@ -14,12 +14,12 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 	const {profile, opt} = ctx;
 
 	const res = {
-		origin: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[0]) : locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt, fallbackLocations),
-		destination: pt.halte?.length > 0 ? profile.parseLocation(ctx, pt.halte[pt.halte.length - 1]) : locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt, fallbackLocations),
+		origin: pt.halte?.length > 0 && profile.parseLocation(ctx, pt.halte[0].ort || pt.halte[0]) || pt.abgangsOrt?.name && profile.parseLocation(ctx, pt.abgangsOrt) || locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt, fallbackLocations),
+		destination: pt.halte?.length > 0 && profile.parseLocation(ctx, pt.halte[pt.halte.length - 1].ort || pt.halte[pt.halte.length - 1]) || pt.ankunftsOrt?.name && profile.parseLocation(ctx, pt.ankunftsOrt) || locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt, fallbackLocations),
 	};
 
 	const cancelledDep = pt.halte?.length > 0 && profile.parseCancelled(pt.halte[0]);
-	const dep = profile.parseWhen(ctx, date, pt.abfahrtsZeitpunkt, pt.ezAbfahrtsZeitpunkt, cancelledDep);
+	const dep = profile.parseWhen(ctx, date, pt.abfahrtsZeitpunkt || pt.abgangsDatum || pt.halte?.length > 0 && pt.halte[0].abgangsDatum, pt.ezAbfahrtsZeitpunkt || pt.ezAbgangsDatum || pt.halte?.length > 0 && pt.halte[0].ezAbgangsDatum, cancelledDep);
 	res.departure = dep.when;
 	res.plannedDeparture = dep.plannedWhen;
 	res.departureDelay = dep.delay;
@@ -28,7 +28,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 	}
 
 	const cancelledArr = pt.halte?.length > 0 && profile.parseCancelled(pt.halte[pt.halte.length - 1]);
-	const arr = profile.parseWhen(ctx, date, pt.ankunftsZeitpunkt, pt.ezAnkunftsZeitpunkt, cancelledArr);
+	const arr = profile.parseWhen(ctx, date, pt.ankunftsZeitpunkt || pt.ankunftsDatum || pt.halte?.length > 0 && pt.halte[pt.halte.length - 1].ankunftsDatum, pt.ezAnkunftsZeitpunkt || pt.ezAnkunftsDatum || pt.halte?.length > 0 && pt.halte[pt.halte.length - 1].ezAkunftsDatum, cancelledArr);
 	res.arrival = arr.when;
 	res.plannedArrival = arr.plannedWhen;
 	res.arrivalDelay = arr.delay;
@@ -47,15 +47,24 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		res.polyline = profile.parsePolyline(ctx, pt.polylineGroup); // TODO polylines not returned anymore, set "poly": true in request, apparently only works for /reiseloesung/verbindung
 	}
 
-	if (pt.verkehrsmittel?.typ === 'WALK') {
+	const type = pt.verkehrsmittel?.typ || pt.typ;
+	if (type == 'WALK' || type == 'FUSSWEG' || type == 'TRANSFER') { // TODO invert default?
+		if (res.origin?.id == res.destination?.id) {
+			res.arrival = res.departure;
+			res.plannedArrival = res.plannedDeparture;
+			res.arrivalDelay = res.departureDelay;
+		}
 		res.public = true;
 		res.walking = true;
 		res.distance = pt.distanz || null;
+		if (type == 'TRANSFER') {
+			res.transfer = true;
+		}
 		// TODO res.transfer, res.checkin
 	} else {
-		res.tripId = pt.journeyId;
+		res.tripId = pt.journeyId || pt.zuglaufId;
 		res.line = profile.parseLine(ctx, pt) || null;
-		res.direction = pt.verkehrsmittel?.richtung || null;
+		res.direction = pt.verkehrsmittel?.richtung || pt.richtung || null;
 
 		// TODO res.currentLocation
 		if (pt.halte?.length > 0) {
@@ -89,12 +98,12 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		// TODO cycle, alternatives
 	}
 
-	if (cancelledDep || cancelledArr) {
+	if (cancelledDep || cancelledArr || pt.cancelled || pt.canceled) {
 		res.cancelled = true;
 		Object.defineProperty(res, 'canceled', {value: true});
 	}
 
-	const load = profile.parseLoadFactor(opt, pt.auslastungsmeldungen);
+	const load = profile.parseLoadFactor(opt, pt.auslastungsmeldungen || pt.auslastungsInfos);
 	if (load) {
 		res.loadFactor = load;
 	}

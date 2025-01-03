@@ -6,8 +6,6 @@ import {products} from '../../lib/products.js';
 import {formatJourneysReq, formatRefreshJourneyReq} from './journeys-req.js';
 import {formatLocationFilter} from './location-filter.js';
 import {formatLocationsReq} from './locations-req.js';
-import {formatTravellers} from './travellers.js';
-import {parseTickets, parsePrice} from './tickets.js';
 
 const profile = {
 	...baseProfile,
@@ -19,9 +17,6 @@ const profile = {
 	formatRefreshJourneyReq,
 	formatLocationsReq,
 	formatLocationFilter,
-	parsePrice,
-	parseTickets,
-	formatTravellers,
 };
 
 export {

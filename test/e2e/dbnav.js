@@ -3,7 +3,7 @@ import isRoughlyEqual from 'is-roughly-equal';
 
 import {createWhen} from './lib/util.js';
 import {createClient} from '../../index.js';
-import {profile as dbProfile} from '../../p/db/index.js';
+import {profile as dbProfile} from '../../p/dbnav/index.js';
 import {
 	createValidateStation,
 	createValidateTrip,

@@ -84,6 +84,7 @@ const dbJourney = {
 						type: 'hint',
 					},
 				],
+				loadFactor: 'low-to-medium',
 			},
 			{
 				origin: {
@@ -167,6 +168,7 @@ const dbJourney = {
 						summary: 'Intercity 2',
 					},
 				],
+				loadFactor: 'low-to-medium',
 			},
 		],
 		refreshToken: 'T$A=1@O=Berlin Hbf@X=13369549@Y=52525589@L=8011160@a=128@$A=1@O=Dortmund Hbf@X=7459294@Y=51517899@L=8000080@a=128@$202412180022$202412180521$ICE  101$$1$$$$$$§T$A=1@O=Dortmund Hbf@X=7459294@Y=51517899@L=8000080@a=128@$A=1@O=Köln Hbf@X=6958730@Y=50943029@L=8000207@a=128@$202412180536$202412180647$IC  2040$$1$$$$$$',

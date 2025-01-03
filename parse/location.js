@@ -28,7 +28,8 @@ const parseLocation = (ctx, l) => {
 		res.longitude = lid.X / 1000000;
 	}
 
-	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || l.evaNr || lid.A == '1') {
+	// addresses and pois might also have fake evaNr sometimes!
+	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || lid.A == '1') {
 		let stop = {
 			type: 'station',
 			id: res.id,

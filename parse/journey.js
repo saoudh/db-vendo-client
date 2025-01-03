@@ -1,7 +1,7 @@
 import {parseRemarks} from './remarks.js';
 
 const parseLocationsFromCtxRecon = (ctx, j) => {
-	return j.ctxRecon
+	return (j.ctxRecon || j.kontext)
 		.split('$')
 		.map(e => ctx.profile.parseLocation(ctx, {id: e}))
 		.filter(e => e.latitude || e.location?.latitude)
@@ -12,9 +12,9 @@ const parseLocationsFromCtxRecon = (ctx, j) => {
 		}, {});
 };
 
-const parseJourney = (ctx, j) => { // j = raw journey
+const parseJourney = (ctx, jj) => { // j = raw journey
 	const {profile, opt} = ctx;
-
+	const j = jj.verbindung || jj;
 	const fallbackLocations = parseLocationsFromCtxRecon(ctx, j);
 	const legs = [];
 	for (const l of j.verbindungsAbschnitte) {
@@ -25,7 +25,7 @@ const parseJourney = (ctx, j) => { // j = raw journey
 	const res = {
 		type: 'journey',
 		legs,
-		refreshToken: j.ctxRecon || null,
+		refreshToken: j.ctxRecon || j.kontext || null,
 	};
 
 	// TODO freq
@@ -40,8 +40,8 @@ const parseJourney = (ctx, j) => { // j = raw journey
 		// res.scheduledDays = profile.parseScheduledDays(ctx, j.serviceDays);
 	}
 
-	res.price = profile.parsePrice(ctx, j);
-	const tickets = profile.parseTickets(ctx, j);
+	res.price = profile.parsePrice(ctx, jj);
+	const tickets = profile.parseTickets(ctx, jj);
 	if (tickets) {
 		res.tickets = tickets;
 	}

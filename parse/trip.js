@@ -6,7 +6,7 @@ const parseTrip = (ctx, t) => { // t = raw trip
 	trip.id = trip.tripId; // TODO journeyId
 	delete trip.tripId;
 	delete trip.reachable;
-	trip.cancelled = t.cancelled;
+	trip.cancelled = profile.parseCancelled(t);
 
 	// TODO opt.scheduledDays
 	return trip;

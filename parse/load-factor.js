@@ -13,7 +13,7 @@ const parseLoadFactor = (opt, auslastung) => {
 		? 'KLASSE_1'
 		: 'KLASSE_2';
 	const load = auslastung.find(a => a.klasse === cls)?.stufe;
-	return load && loadFactors[load.r] || null;
+	return load && loadFactors[load] || null;
 };
 
 const parseArrOrDepWithLoadFactor = (ctx, d) => {

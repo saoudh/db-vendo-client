@@ -40,7 +40,7 @@ tap.test('parses ICE leg correctly', (t) => {
 	const expected = {
 		type: 'line',
 		id: 'ice-229',
-		fahrtNr: 229,
+		fahrtNr: '229',
 		name: 'ICE 229',
 		public: true,
 		product: 'nationalExpress',
@@ -71,7 +71,7 @@ tap.test('parses Bus trip correctly', (t) => {
 	const expected = {
 		type: 'line',
 		id: '',
-		fahrtNr: undefined,
+		fahrtNr: '',
 		name: 'Bus 807',
 		public: true,
 		product: undefined,
@@ -142,7 +142,7 @@ tap.test('parses ris entry correctly', (t) => {
 	const expected = {
 		type: 'line',
 		id: 'rb-51-15538',
-		fahrtNr: 15538,
+		fahrtNr: '15538',
 		name: 'RB 51 (15538)',
 		public: true,
 		product: 'nationalExpress',
@@ -162,7 +162,7 @@ tap.test('parses dbnav ruf correctly', (t) => {
 		type: 'line',
 		id: 'ruf-9870',
 		name: 'RUF 9870',
-		fahrtNr: undefined,
+		fahrtNr: '9870',
 		public: true,
 		product: 'taxi',
 		productName: 'RUF',
