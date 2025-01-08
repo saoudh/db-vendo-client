@@ -48,7 +48,17 @@ Strictly speaking, permission is necessary to use this library with the DB APIs.
 
 ## Usage
 
-See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with `hafas-rest-api` in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API.
+Use it as a dependency, e.g. just replacing [hafas-client](https://github.com/public-transport/hafas-client/):
+
+```
+npm i db-vendo-client
+```
+
+See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with `hafas-rest-api` in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API:
+
+```
+docker run -e USER_AGENT=my-awesome-program -p 3000:3000 ghcr.io/public-transport/db-vendo-client
+```
 
 There are [community-maintained TypeScript typings available as `@types/hafas-client`](https://www.npmjs.com/package/@types/hafas-client). 
 

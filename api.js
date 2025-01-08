@@ -46,7 +46,7 @@ const config = {
 
 
 const start = async () => {
-	const vendo = createClient(dbProfile, 'my-hafas-rest-api', config);
+	const vendo = createClient(dbProfile, process.env.USER_AGENT || process.env.HOSTNAME || 'link-to-your-project-or-email', config);
 	const api = await createApi(vendo, config);
 
 	api.listen(config.port, (err) => {
