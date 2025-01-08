@@ -17,9 +17,6 @@ ADD . /app
 
 EXPOSE 3000
 
-ENV HOSTNAME v6.db.transport.rest
 ENV PORT 3000
 
-VOLUME /logs/
-
-CMD ["/bin/sh", "-c", "node api.js >> /logs/db-vendo.log 2>&1"]
+CMD ["node", "api.js"]
