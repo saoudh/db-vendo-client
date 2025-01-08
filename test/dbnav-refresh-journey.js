@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 import tap from 'tap';
 
 import {createClient} from '../index.js';
-import {profile as rawProfile} from '../p/db/index.js';
+import {profile as rawProfile} from '../p/dbnav/index.js';
 const res = require('./fixtures/dbnav-refresh-journey.json');
 import {dbNavJourney as expected} from './fixtures/dbnav-refresh-journey.js';
 

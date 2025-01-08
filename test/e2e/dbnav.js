@@ -476,7 +476,6 @@ tap.test('locations named Jungfernheide', async (t) => {
 	t.end();
 });
 
-/*
 tap.test('stop', async (t) => {
 	const s = await client.stop(regensburgHbf);
 
@@ -486,6 +485,7 @@ tap.test('stop', async (t) => {
 	t.end();
 });
 
+/*
 tap.test('line with additionalName', async (t) => {
 	const {departures} = await client.departures(potsdamHbf, {
 		when,

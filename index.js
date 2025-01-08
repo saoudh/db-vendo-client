@@ -4,8 +4,6 @@ import readStations from 'db-hafas-stations';
 
 import {defaultProfile} from './lib/default-profile.js';
 import {validateProfile} from './lib/validate-profile.js';
-import {INVALID_REQUEST} from './lib/errors.js';
-import {HafasError} from './lib/errors.js';
 
 // background info: https://github.com/public-transport/hafas-client/issues/286
 const FORBIDDEN_USER_AGENTS = [
@@ -254,12 +252,10 @@ const createClient = (profile, userAgent, opt = {}) => {
 			: results;
 	};
 
-	const stop = async (stop, opt = {}) => { // TODO
-		if ('object' === typeof stop) {
-			stop = profile.formatStation(stop.id);
-		} else if ('string' === typeof stop) {
-			stop = profile.formatStation(stop);
-		} else {
+	const stop = async (stop, opt = {}) => {
+		if (isObj(stop) && stop.id) {
+			stop = stop.id;
+		} else if ('string' !== typeof stop) {
 			throw new TypeError('stop must be an object or a string.');
 		}
 
@@ -273,15 +269,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.formatStopReq({profile, opt}, stop);
 
 		const {res} = await profile.request({profile, opt}, userAgent, req);
-		if (!res || !Array.isArray(res.locL) || !res.locL[0]) {
-			throw new HafasError('invalid response, expected locL[0]', null, {
-				// This problem occurs on invalid input. 🙄
-				code: INVALID_REQUEST,
-			});
-		}
-
 		const ctx = {profile, opt, res, common};
-		return profile.parseLocation(ctx, res.locL[0]);
+		return profile.parseStop(ctx, res, stop);
 	};
 
 	const nearby = async (location, opt = {}) => {

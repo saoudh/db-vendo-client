@@ -16,9 +16,9 @@ What doesn't work (yet, see TODO's scattered around the code):
 
 * `journeys()` details like scheduledDays, stop/station groups, some line details ...
 * loadFactor and other details in boards
-* certain stop details like products for `locations()` and geopositions and remarks for boards – this can be remedied by turning on `enrichStations` in the options, enriching location info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
+* certain stop details like products for `locations()` and geopositions and remarks for boards – this can be remedied by turning on `enrichStations` in the config, enriching location info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
 * some query options/filters (e.g. routingMode for journeys, direction for boards)
-* all other endpoints (`tripsByName()`, `radar()`, `journeysFromTrip()`, `reachableFrom()`, `remarks()`, `lines()`, `stop()`, `station()`)
+* all other endpoints (`tripsByName()`, `radar()`, `journeysFromTrip()`, `reachableFrom()`, `remarks()`, `lines()`, `station()`)
 
 Depending on the configured profile, db-vendo-client will use multiple different DB APIs that offer varying functionality, so choose wisely:
 
@@ -26,11 +26,12 @@ Depending on the configured profile, db-vendo-client will use multiple different
 | -------------         | -------------     | ------------- |
 | no API key required   | ✅                | ✅ |
 | max duration boards   | 12h | 1h |
-| remarks               | not for boards | ✅ |
+| remarks               | not for boards | ✅ (still no `remarks()` endpoint) |
 | cancelled trips       | not contained in boards | contained with cancelled flag |
 | tickets               | only for `refreshJourney()` | only for `refreshJourney()`, mutually exclusive with polylines |
 | polylines             | only for `trip()` | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
 | trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards | HAFAS trip ids |
+| `stop()`              | ❌ | ✅ |
 | assumed backend API stability | less stable | more stable |
 
 Feel free to report anything that you stumble upon via Issues or create a PR :)
@@ -54,7 +55,7 @@ Use it as a dependency, e.g. just replacing [hafas-client](https://github.com/pu
 npm i db-vendo-client
 ```
 
-See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with `hafas-rest-api` in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API:
+See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with [hafas-rest-api](https://github.com/public-transport/hafas-rest-api/) in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API:
 
 ```
 docker run -e USER_AGENT=my-awesome-program -p 3000:3000 ghcr.io/public-transport/db-vendo-client
