@@ -56,7 +56,7 @@ Use it as a dependency, e.g. just replacing [hafas-client](https://github.com/pu
 npm i db-vendo-client
 ```
 
-See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with [hafas-rest-api](https://github.com/public-transport/hafas-rest-api/) in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API:
+See an example in [api.js](api.js). It shows how you can use `db-vendo-client` together with [hafas-rest-api](https://github.com/public-transport/hafas-rest-api/) in order to run a [FPTF](https://github.com/public-transport/friendly-public-transport-format) API server. The [Dockerfile](Dockerfile) serves this API (using the `db` profile):
 
 ```
 docker run -e USER_AGENT=my-awesome-program -p 3000:3000 ghcr.io/public-transport/db-vendo-client

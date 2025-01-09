@@ -33,7 +33,7 @@ const config = {
 	name: 'db-vendo-client',
 	description: 'db-vendo-client',
 	homepage: 'https://github.com/public-transport/db-vendo-client',
-	version: '6.1.2',
+	version: '6.2.0',
 	docsLink: 'https://github.com/public-transport/db-vendo-client',
 	openapiSpec: true,
 	logging: true,
