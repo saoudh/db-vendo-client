@@ -1,5 +1,6 @@
 import {createClient} from './index.js';
 import {profile as dbProfile} from './p/db/index.js';
+import {profile as dbnavProfile} from './p/dbnav/index.js';
 import {createHafasRestApi as createApi} from 'hafas-rest-api';
 import {loyaltyCardParser} from 'db-rest/lib/loyalty-cards.js';
 import {parseBoolean, parseInteger} from 'hafas-rest-api/lib/parse.js';
@@ -33,7 +34,7 @@ const config = {
 	name: 'db-vendo-client',
 	description: 'db-vendo-client',
 	homepage: 'https://github.com/public-transport/db-vendo-client',
-	version: '6.2.0',
+	version: '6.3.0',
 	docsLink: 'https://github.com/public-transport/db-vendo-client',
 	openapiSpec: true,
 	logging: true,
@@ -46,7 +47,11 @@ const config = {
 
 
 const start = async () => {
-	const vendo = createClient(dbProfile, process.env.USER_AGENT || process.env.HOSTNAME || 'link-to-your-project-or-email', config);
+	const vendo = createClient(
+		process.env.DB_PROFILE == 'db' ? dbProfile : dbnavProfile,
+		process.env.USER_AGENT || 'link-to-your-project-or-email',
+		config,
+	);
 	const api = await createApi(vendo, config);
 
 	api.listen(config.port, (err) => {

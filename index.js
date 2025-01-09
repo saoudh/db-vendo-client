@@ -10,6 +10,7 @@ const FORBIDDEN_USER_AGENTS = [
 	'my-awesome-program', // previously used in readme.md, p/*/readme.md & docs/*.md
 	'hafas-client-example', // previously used in p/*/example.js
 	'link-to-your-project-or-email', // now used throughout
+	'db-vendo-client',
 ];
 
 const isNonEmptyString = str => 'string' === typeof str && str.length > 0;
