@@ -11,13 +11,16 @@ const parseLine = (ctx, p) => {
 		public: true,
 	};
 
-	// TODO res.adminCode
+	const adminCode = p.administrationId || p.administration?.id || p.administration?.administrationID;
+	if (adminCode) {
+		res.adminCode = adminCode;
+	}
 	res.productName = p.verkehrsmittel?.kurzText || p.transport?.category || p.train?.category || p.kurztext;
 	const foundProduct = profile.products.find(pp => pp.vendo == p.verkehrsmittel?.produktGattung || pp.ris == p.transport?.type || pp.ris == p.train?.type || pp.ris_alt == p.train?.type || pp.dbnav_short == p.produktGattung);
 	res.mode = foundProduct?.mode;
 	res.product = foundProduct?.id;
 
-	res.operator = profile.parseOperator(ctx, p.verkehrsmittel?.zugattribute || p.zugattribute || p.attributNotizen); // TODO regio-guide op
+	res.operator = profile.parseOperator(ctx, p.verkehrsmittel?.zugattribute || p.zugattribute || p.attributNotizen || p.administration);
 	return res;
 };
 

@@ -32,6 +32,7 @@ Depending on the configured profile, db-vendo-client will use multiple different
 | polylines             | only for `trip()` | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
 | trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids |
 | line.id/fahrtNr used  | unreliable/route id for journeys, actual fahrtNr for boards | unreliable/route id |
+| adminCode/operator    | adminCode only for boards | only for `journeys()` |
 | `stop()`              | ❌ | ✅ |
 | assumed backend API stability | less stable | more stable |
 

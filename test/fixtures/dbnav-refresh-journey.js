@@ -41,6 +41,7 @@ const dbNavJourney = {
 					productName: 'RB',
 					mode: 'train',
 					product: 'regional',
+					adminCode: 'V6RB__',
 					operator: {
 						type: 'operator',
 						id: 'vlexx',
@@ -151,6 +152,7 @@ const dbNavJourney = {
 					productName: 'IC',
 					mode: 'train',
 					product: 'national',
+					adminCode: '80____',
 					operator: {
 						type: 'operator',
 						id: 'db-fernverkehr-ag',

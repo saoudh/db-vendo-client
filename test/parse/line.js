@@ -184,6 +184,7 @@ tap.test('parses regio guide ruf correctly', (t) => {
 		product: 'taxi',
 		productName: 'RUF',
 		mode: 'taxi',
+		adminCode: 'vrn062',
 		operator: null,
 	};
 

@@ -22,7 +22,12 @@ const dbArrivals = [
 			productName: 'S',
 			mode: 'train',
 			product: 'suburban',
-			operator: null,
+			adminCode: '08',
+			operator: {
+				type: 'operator',
+				id: 'S',
+				name: 'DB Regio, S-Bahn Berlin',
+			},
 		},
 		remarks: [
 			{
@@ -62,7 +67,12 @@ const dbArrivals = [
 			productName: 'U',
 			mode: 'train',
 			product: 'subway',
-			operator: null,
+			adminCode: 'vbbBVU',
+			operator: {
+				type: 'operator',
+				id: 'DPN',
+				name: 'Nahreisezug',
+			},
 		},
 		remarks: [
 			{
@@ -108,7 +118,12 @@ const dbArrivals = [
 			productName: 'Bus',
 			mode: 'bus',
 			product: 'bus',
-			operator: null,
+			adminCode: 'vbbBVB',
+			operator: {
+				type: 'operator',
+				id: 'DPN',
+				name: 'Nahreisezug',
+			},
 		},
 		remarks: [
 			{
@@ -154,7 +169,12 @@ const dbArrivals = [
 			productName: 'S',
 			mode: 'train',
 			product: 'suburban',
-			operator: null,
+			adminCode: '08',
+			operator: {
+				type: 'operator',
+				id: 'S',
+				name: 'DB Regio, S-Bahn Berlin',
+			},
 		},
 		remarks: [
 			{
@@ -194,7 +214,12 @@ const dbArrivals = [
 			productName: 'U',
 			mode: 'train',
 			product: 'subway',
-			operator: null,
+			adminCode: 'vbbBVU',
+			operator: {
+				type: 'operator',
+				id: 'DPN',
+				name: 'Nahreisezug',
+			},
 		},
 		remarks: [
 			{
@@ -240,7 +265,12 @@ const dbArrivals = [
 			productName: 'S',
 			mode: 'train',
 			product: 'suburban',
-			operator: null,
+			adminCode: '08',
+			operator: {
+				type: 'operator',
+				id: 'S',
+				name: 'DB Regio, S-Bahn Berlin',
+			},
 		},
 		remarks: [
 			{
@@ -280,7 +310,12 @@ const dbArrivals = [
 			productName: 'U',
 			mode: 'train',
 			product: 'subway',
-			operator: null,
+			adminCode: 'vbbBVU',
+			operator: {
+				type: 'operator',
+				id: 'DPN',
+				name: 'Nahreisezug',
+			},
 		},
 		remarks: [
 			{

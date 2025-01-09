@@ -4,6 +4,13 @@ const parseOperator = (ctx, zugattrib) => {
 	if (!zugattrib) {
 		return null;
 	}
+	if (zugattrib.operatorName) {
+		return {
+			type: 'operator',
+			id: zugattrib.operatorCode,
+			name: zugattrib.operatorName,
+		};
+	}
 	const bef = zugattrib.find(z => z.key == 'BEF' || z.key == 'OP');
 	if (!bef) {
 		return null;
