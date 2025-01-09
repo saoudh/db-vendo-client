@@ -31,7 +31,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	from = profile.formatLocation(profile, from, 'from');
 	to = profile.formatLocation(profile, to, 'to');
 	const filters = profile.formatProductsFilter({profile}, opt.products || {}, 'dbnav');
-	const transfers = profile.formatTransfers(opt.transfers) ?? undefined; // `dbnav` does not allow `undefined` here
+	const transfers = profile.formatTransfers(opt.transfers) ?? undefined; // `dbnav` does not allow `null` here
 	// TODO opt.accessibility
 	// TODO routingMode
 	let query = formatBaseJourneysReq(ctx);
