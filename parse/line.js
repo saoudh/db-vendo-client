@@ -2,12 +2,12 @@ import slugg from 'slugg';
 
 const parseLine = (ctx, p) => {
 	const profile = ctx.profile;
-	const fahrtNr = p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no || ((p.risZuglaufId || '') + '_').split('_')[1] || p.verkehrsmittelNummer || ((p.mitteltext || '') + ' ').split(' ')[1];
+	const fahrtNr = p.verkehrsmittel?.nummer || p.transport?.number || p.train?.no || ((p.risZuglaufId || '') + '_').split('_')[1] || p.verkehrsmittelNummer || ((p.mitteltext || '') + ' ').split(' ')[1] || ((p.zugName || '') + ' ').split(' ')[1];
 	const res = {
 		type: 'line',
-		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName + ' ' + p.train.no || p.langtext || p.mitteltext), // TODO terrible
+		id: slugg(p.verkehrsmittel?.langText || p.transport?.journeyDescription || p.risZuglaufId || p.train && p.train.category + ' ' + p.train.lineName + ' ' + p.train.no || p.langtext || p.mitteltext || p.zugName), // TODO terrible
 		fahrtNr: String(fahrtNr),
-		name: p.verkehrsmittel?.langText || p.verkehrsmittel?.name || p.zugName || p.transport?.journeyDescription || p.train && p.train.category + ' ' + p.train.lineName || p.langtext || p.mitteltext,
+		name: p.verkehrsmittel?.langText || p.verkehrsmittel?.name || p.zugName || p.transport && p.transport.category + ' ' + p.transport.line || p.train && p.train.category + ' ' + p.train.lineName || p.mitteltext || p.langtext,
 		public: true,
 	};
 

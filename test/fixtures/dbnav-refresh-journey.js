@@ -34,9 +34,9 @@ const dbNavJourney = {
 				tripId: '2|#VN#1#ST#1735585219#PI#1#ZI#888642#TA#1#DA#30125#1S#8000105#1T#1756#LS#8000007#LT#1921#PU#81#RT#1#CA#DPN#ZE#29266#ZB#RB 29266#PC#3#FR#8000105#FT#1756#TO#8000007#TT#1921#',
 				line: {
 					type: 'line',
-					id: 'rb-31-29266',
+					id: 'rb-29266',
 					fahrtNr: '29266',
-					name: 'RB 31 (29266)',
+					name: 'RB 31',
 					public: true,
 					productName: 'RB',
 					mode: 'train',
