@@ -3,7 +3,7 @@ import {createClient} from '../../index.js'
 import {profile as dbProfile} from './index.js'
 
 // Pick a descriptive user agent! hafas-client won't work with this string.
-const client = createClient(dbProfile, 'hafas-client-example')
+const client = createClient(dbProfile, 'hafas-client-example', {enrichStations: true})
 
 const berlinJungfernheide = '8011167'
 const münchenHbf = '8000261'

@@ -10,7 +10,7 @@ import {profile as rawProfile} from '../p/db/index.js';
 const res = require('./fixtures/db-arrivals.json');
 import {dbArrivals as expected} from './fixtures/db-arrivals.js';
 
-const client = createClient(rawProfile, 'public-transport/hafas-client:test');
+const client = createClient(rawProfile, 'public-transport/hafas-client:test', {enrichStations: false});
 const {profile} = client;
 
 const opt = {

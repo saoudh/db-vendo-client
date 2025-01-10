@@ -82,7 +82,7 @@ const assertValidTickets = (test, tickets) => {
 	}
 };
 
-const client = createClient(dbProfile, 'public-transport/hafas-client:test');
+const client = createClient(dbProfile, 'public-transport/hafas-client:test', {enrichStations: false});
 
 const berlinHbf = '8011160';
 const münchenHbf = '8000261';

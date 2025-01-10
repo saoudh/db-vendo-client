@@ -10,7 +10,7 @@ import {profile as rawProfile} from '../p/dbnav/index.js';
 const res = require('./fixtures/dbnav-stop.json');
 import {dbnavDepartures as expected} from './fixtures/dbnav-stop.js';
 
-const client = createClient(rawProfile, 'public-transport/hafas-client:test');
+const client = createClient(rawProfile, 'public-transport/hafas-client:test', {enrichStations: false});
 const {profile} = client;
 
 const opt = {
