@@ -126,6 +126,12 @@ if (process.env.VCR_MODE && !process.env.VCR_OFF) {
 			},
 		},
 	});
+	// using exclude above would still require re-recording everything...
+	polly.server.any().on('request', req => {
+		if (req.hasHeader('X-Correlation-ID')) {
+			req.setHeader('X-Correlation-ID', ['null']);
+		}
+	});
 
 	tap.teardown(async () => {
 		await polly.stop();
