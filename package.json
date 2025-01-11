@@ -13,7 +13,8 @@
 		"parse",
 		"format",
 		"p",
-		"docs"
+		"docs",
+		"!docs/dumps/*"
 	],
 	"author": "Traines <git@traines.eu>",
 	"contributors": [
