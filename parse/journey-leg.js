@@ -48,7 +48,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 	}
 
 	const type = pt.verkehrsmittel?.typ || pt.typ;
-	if (type == 'WALK' || type == 'FUSSWEG' || type == 'TRANSFER') { // TODO invert default?
+	if (type == 'WALK' || type == 'FUSSWEG' || type == 'TRANSFER') {
 		if (res.origin?.id == res.destination?.id) {
 			res.arrival = res.departure;
 			res.plannedArrival = res.plannedDeparture;
@@ -60,7 +60,7 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 		if (type == 'TRANSFER') {
 			res.transfer = true;
 		}
-		// TODO res.transfer, res.checkin
+		// TODO res.checkin
 	} else {
 		res.tripId = pt.journeyId || pt.zuglaufId;
 		res.line = profile.parseLine(ctx, pt) || null;

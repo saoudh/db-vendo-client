@@ -1,5 +1,22 @@
 import {parseRemarks} from './remarks.js';
 
+const createFakeWalkingLeg = (prevLeg, leg) => {
+	const fakeWalkingLeg = {
+		origin: prevLeg.destination,
+		destination: leg.origin,
+	};
+	fakeWalkingLeg.departure = prevLeg.arrival;
+	fakeWalkingLeg.plannedDeparture = prevLeg.plannedArrival;
+	fakeWalkingLeg.departureDelay = prevLeg.delay;
+	fakeWalkingLeg.arrival = fakeWalkingLeg.departure;
+	fakeWalkingLeg.plannedArrival = fakeWalkingLeg.plannedDeparture;
+	fakeWalkingLeg.arrivalDelay = fakeWalkingLeg.departureDelay;
+	fakeWalkingLeg.public = true;
+	fakeWalkingLeg.walking = true;
+	fakeWalkingLeg.distance = null;
+	return fakeWalkingLeg;
+}
+
 const parseLocationsFromCtxRecon = (ctx, j) => {
 	return (j.ctxRecon || j.kontext)
 		.split('$')
@@ -19,6 +36,10 @@ const parseJourney = (ctx, jj) => { // j = raw journey
 	const legs = [];
 	for (const l of j.verbindungsAbschnitte) {
 		const leg = profile.parseJourneyLeg(ctx, l, null, fallbackLocations);
+		if (legs.length > 0 && !legs[legs.length-1].walking && !leg.walking) {
+			const fakeWalkingLeg = createFakeWalkingLeg(legs[legs.length - 1], leg);
+			legs.push(fakeWalkingLeg);
+		}
 		legs.push(leg);
 	}
 

@@ -100,6 +100,39 @@ const dbJourney = {
 				},
 				destination: {
 					type: 'station',
+					id: '8000080',
+					name: 'Dortmund Hbf',
+					location: {
+						type: 'location',
+						id: '8000080',
+						latitude: 51.517899,
+						longitude: 7.459294,
+					},
+				},
+				departure: '2024-12-18T05:21:00+01:00',
+				plannedDeparture: '2024-12-18T05:21:00+01:00',
+				departureDelay: null,
+				arrival: '2024-12-18T05:21:00+01:00',
+				plannedArrival: '2024-12-18T05:21:00+01:00',
+				arrivalDelay: null,
+				public: true,
+				walking: true,
+				distance: null,
+			},
+			{
+				origin: {
+					type: 'station',
+					id: '8000080',
+					name: 'Dortmund Hbf',
+					location: {
+						type: 'location',
+						id: '8000080',
+						latitude: 51.517899,
+						longitude: 7.459294,
+					},
+				},
+				destination: {
+					type: 'station',
 					id: '8000207',
 					name: 'Köln Hbf',
 					location: {
