@@ -15,7 +15,7 @@ const createFakeWalkingLeg = (prevLeg, leg) => {
 	fakeWalkingLeg.walking = true;
 	fakeWalkingLeg.distance = null;
 	return fakeWalkingLeg;
-}
+};
 
 const parseLocationsFromCtxRecon = (ctx, j) => {
 	return (j.ctxRecon || j.kontext)
@@ -36,7 +36,7 @@ const parseJourney = (ctx, jj) => { // j = raw journey
 	const legs = [];
 	for (const l of j.verbindungsAbschnitte) {
 		const leg = profile.parseJourneyLeg(ctx, l, null, fallbackLocations);
-		if (legs.length > 0 && !legs[legs.length-1].walking && !leg.walking) {
+		if (legs.length > 0 && !legs[legs.length - 1].walking && !leg.walking) {
 			const fakeWalkingLeg = createFakeWalkingLeg(legs[legs.length - 1], leg);
 			legs.push(fakeWalkingLeg);
 		}

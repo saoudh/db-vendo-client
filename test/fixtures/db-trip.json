@@ -1,1 +1,444 @@
-{"reisetag":"2025-01-17","regulaereVerkehrstage":"daily","zugName":"ag 84100","halte":[{"id":"A=1@O=München Flughafen Terminal@X=11785973@Y=48353732@U=81@L=8004168@i=U×008020658@","abfahrtsZeitpunkt":"2025-01-17T15:16:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"1","name":"München Flughafen Terminal","risNotizen":[],"bahnhofsInfoId":"1822","extId":"8004168","routeIdx":0,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=München Flughafen Besucherpark@X=11764183@Y=48352095@U=81@L=8004167@i=U×008020657@","abfahrtsZeitpunkt":"2025-01-17T15:18:00","ankunftsZeitpunkt":"2025-01-17T15:18:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"1","name":"München Flughafen Besucherpark","risNotizen":[],"bahnhofsInfoId":"1823","extId":"8004167","routeIdx":1,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Freising@X=11744542@Y=48395199@U=81@L=8002078@i=U×008020487@","abfahrtsZeitpunkt":"2025-01-17T15:29:00","ankunftsZeitpunkt":"2025-01-17T15:28:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"4","name":"Freising","risNotizen":[],"bahnhofsInfoId":"1908","extId":"8002078","routeIdx":2,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Moosburg@X=11930385@Y=48470331@U=81@L=8004084@i=U×008020471@","abfahrtsZeitpunkt":"2025-01-17T15:38:00","ankunftsZeitpunkt":"2025-01-17T15:37:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"1","name":"Moosburg","risNotizen":[],"bahnhofsInfoId":"4172","extId":"8004084","routeIdx":3,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Landshut(Bay)Hbf@X=12135932@Y=48547494@U=81@L=8000217@i=U×008026353@","abfahrtsZeitpunkt":"2025-01-17T15:53:00","ankunftsZeitpunkt":"2025-01-17T15:50:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"5","name":"Landshut(Bay)Hbf","risNotizen":[],"bahnhofsInfoId":"3513","extId":"8000217","routeIdx":4,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Ergoldsbach@X=12201877@Y=48693865@U=81@L=8001835@i=U×008026349@","abfahrtsZeitpunkt":"2025-01-17T16:06:00","ankunftsZeitpunkt":"2025-01-17T16:05:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"1","name":"Ergoldsbach","risNotizen":[],"bahnhofsInfoId":"1640","extId":"8001835","routeIdx":5,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Neufahrn(Niederbay)@X=12190460@Y=48729885@U=81@L=8000688@i=U×008026340@","abfahrtsZeitpunkt":"2025-01-17T16:10:00","ankunftsZeitpunkt":"2025-01-17T16:09:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"2","name":"Neufahrn(Niederbay)","risNotizen":[],"bahnhofsInfoId":"4390","extId":"8000688","routeIdx":6,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Eggmühl@X=12182190@Y=48836497@U=81@L=8001679@i=U×008026334@","abfahrtsZeitpunkt":"2025-01-17T16:20:00","ankunftsZeitpunkt":"2025-01-17T16:19:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"3","name":"Eggmühl","risNotizen":[],"bahnhofsInfoId":"1478","extId":"8001679","routeIdx":7,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Hagelstadt@X=12214830@Y=48895862@U=81@L=8002506@i=U×008026333@","abfahrtsZeitpunkt":"2025-01-17T16:26:00","ankunftsZeitpunkt":"2025-01-17T16:25:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"2","name":"Hagelstadt","risNotizen":[],"bahnhofsInfoId":"2455","extId":"8002506","routeIdx":8,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Köfering@X=12208753@Y=48931720@U=81@L=8003357@i=U×008026332@","abfahrtsZeitpunkt":"2025-01-17T16:30:00","ankunftsZeitpunkt":"2025-01-17T16:29:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"2","name":"Köfering","risNotizen":[],"bahnhofsInfoId":"3308","extId":"8003357","routeIdx":9,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Obertraubling@X=12169992@Y=48967533@U=81@L=8004592@i=U×008026331@","abfahrtsZeitpunkt":"2025-01-17T16:34:00","ankunftsZeitpunkt":"2025-01-17T16:33:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"2","name":"Obertraubling","risNotizen":[],"bahnhofsInfoId":"4699","extId":"8004592","routeIdx":10,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"84100"},{"id":"A=1@O=Regensburg Hbf@X=12099615@Y=49011670@U=81@L=8000309@i=U×008026294@","abfahrtsZeitpunkt":"2025-01-17T16:45:00","ankunftsZeitpunkt":"2025-01-17T16:41:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"5","name":"Regensburg Hbf","risNotizen":[],"bahnhofsInfoId":"5169","extId":"8000309","routeIdx":11,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"63070"},{"id":"A=1@O=Beratzhausen@X=11807853@Y=49092843@U=81@L=8000882@i=U×008026302@","abfahrtsZeitpunkt":"2025-01-17T17:02:00","ankunftsZeitpunkt":"2025-01-17T17:02:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"2","name":"Beratzhausen","risNotizen":[],"bahnhofsInfoId":"0491","extId":"8000882","routeIdx":12,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"63070"},{"id":"A=1@O=Parsberg@X=11723354@Y=49164352@U=81@L=8004755@i=U×008026304@","abfahrtsZeitpunkt":"2025-01-17T17:09:00","ankunftsZeitpunkt":"2025-01-17T17:08:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"2","name":"Parsberg","risNotizen":[],"bahnhofsInfoId":"4868","extId":"8004755","routeIdx":13,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"63070"},{"id":"A=1@O=Neumarkt(Oberpf)@X=11456986@Y=49273220@U=81@L=8004305@i=U×008022353@","abfahrtsZeitpunkt":"2025-01-17T17:26:00","ankunftsZeitpunkt":"2025-01-17T17:25:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"1","name":"Neumarkt(Oberpf)","risNotizen":[],"bahnhofsInfoId":"4416","extId":"8004305","routeIdx":14,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"63070"},{"id":"A=1@O=Nürnberg Hbf@X=11082989@Y=49445615@U=81@L=8000284@i=U×008022193@","ankunftsZeitpunkt":"2025-01-17T17:49:00","auslastungsmeldungen":[{"klasse":"KLASSE_1","stufe":0},{"klasse":"KLASSE_2","stufe":0}],"gleis":"13","name":"Nürnberg Hbf","risNotizen":[],"bahnhofsInfoId":"4593","extId":"8000284","routeIdx":15,"priorisierteMeldungen":[],"adminID":"S9","kategorie":"ag","nummer":"63070"}],"himMeldungen":[],"risNotizen":[],"zugattribute":[{"kategorie":"BARRIEREFREI","key":"EA","value":"Behindertengerechte Ausstattung"},{"kategorie":"FAHRRADMITNAHME","key":"FB","value":"Number of bicycles conveyed limited"},{"kategorie":"INFORMATION","key":"ZR","value":"vertraglicher Beförderer DB Regio","teilstreckenHinweis":"(München Flughafen Terminal - Regensburg Hbf)"},{"kategorie":"INFORMATION","key":"LS","value":"power sockets for laptop"},{"kategorie":"INFORMATION","key":"KL","value":"air conditioning"},{"kategorie":"INFORMATION","key":"WV","value":"Wifi available"}],"priorisierteMeldungen":[],"abfahrtsZeitpunkt":"2025-01-17T15:16:00","ankunftsZeitpunkt":"2025-01-17T17:49:00","cancelled":false}
+{
+    "reisetag": "2025-01-17",
+    "regulaereVerkehrstage": "daily",
+    "zugName": "ag 84100",
+    "halte": [
+        {
+            "id": "A=1@O=München Flughafen Terminal@X=11785973@Y=48353732@U=81@L=8004168@i=U×008020658@",
+            "abfahrtsZeitpunkt": "2025-01-17T15:16:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "1",
+            "name": "München Flughafen Terminal",
+            "risNotizen": [],
+            "bahnhofsInfoId": "1822",
+            "extId": "8004168",
+            "routeIdx": 0,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=München Flughafen Besucherpark@X=11764183@Y=48352095@U=81@L=8004167@i=U×008020657@",
+            "abfahrtsZeitpunkt": "2025-01-17T15:18:00",
+            "ankunftsZeitpunkt": "2025-01-17T15:18:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "1",
+            "name": "München Flughafen Besucherpark",
+            "risNotizen": [],
+            "bahnhofsInfoId": "1823",
+            "extId": "8004167",
+            "routeIdx": 1,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Freising@X=11744542@Y=48395199@U=81@L=8002078@i=U×008020487@",
+            "abfahrtsZeitpunkt": "2025-01-17T15:29:00",
+            "ankunftsZeitpunkt": "2025-01-17T15:28:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "4",
+            "name": "Freising",
+            "risNotizen": [],
+            "bahnhofsInfoId": "1908",
+            "extId": "8002078",
+            "routeIdx": 2,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Moosburg@X=11930385@Y=48470331@U=81@L=8004084@i=U×008020471@",
+            "abfahrtsZeitpunkt": "2025-01-17T15:38:00",
+            "ankunftsZeitpunkt": "2025-01-17T15:37:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "1",
+            "name": "Moosburg",
+            "risNotizen": [],
+            "bahnhofsInfoId": "4172",
+            "extId": "8004084",
+            "routeIdx": 3,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Landshut(Bay)Hbf@X=12135932@Y=48547494@U=81@L=8000217@i=U×008026353@",
+            "abfahrtsZeitpunkt": "2025-01-17T15:53:00",
+            "ankunftsZeitpunkt": "2025-01-17T15:50:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "5",
+            "name": "Landshut(Bay)Hbf",
+            "risNotizen": [],
+            "bahnhofsInfoId": "3513",
+            "extId": "8000217",
+            "routeIdx": 4,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Ergoldsbach@X=12201877@Y=48693865@U=81@L=8001835@i=U×008026349@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:06:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:05:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "1",
+            "name": "Ergoldsbach",
+            "risNotizen": [],
+            "bahnhofsInfoId": "1640",
+            "extId": "8001835",
+            "routeIdx": 5,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Neufahrn(Niederbay)@X=12190460@Y=48729885@U=81@L=8000688@i=U×008026340@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:10:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:09:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "2",
+            "name": "Neufahrn(Niederbay)",
+            "risNotizen": [],
+            "bahnhofsInfoId": "4390",
+            "extId": "8000688",
+            "routeIdx": 6,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Eggmühl@X=12182190@Y=48836497@U=81@L=8001679@i=U×008026334@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:20:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:19:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "3",
+            "name": "Eggmühl",
+            "risNotizen": [],
+            "bahnhofsInfoId": "1478",
+            "extId": "8001679",
+            "routeIdx": 7,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Hagelstadt@X=12214830@Y=48895862@U=81@L=8002506@i=U×008026333@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:26:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:25:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "2",
+            "name": "Hagelstadt",
+            "risNotizen": [],
+            "bahnhofsInfoId": "2455",
+            "extId": "8002506",
+            "routeIdx": 8,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Köfering@X=12208753@Y=48931720@U=81@L=8003357@i=U×008026332@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:30:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:29:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "2",
+            "name": "Köfering",
+            "risNotizen": [],
+            "bahnhofsInfoId": "3308",
+            "extId": "8003357",
+            "routeIdx": 9,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Obertraubling@X=12169992@Y=48967533@U=81@L=8004592@i=U×008026331@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:34:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:33:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "2",
+            "name": "Obertraubling",
+            "risNotizen": [],
+            "bahnhofsInfoId": "4699",
+            "extId": "8004592",
+            "routeIdx": 10,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "84100"
+        },
+        {
+            "id": "A=1@O=Regensburg Hbf@X=12099615@Y=49011670@U=81@L=8000309@i=U×008026294@",
+            "abfahrtsZeitpunkt": "2025-01-17T16:45:00",
+            "ankunftsZeitpunkt": "2025-01-17T16:41:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "5",
+            "name": "Regensburg Hbf",
+            "risNotizen": [],
+            "bahnhofsInfoId": "5169",
+            "extId": "8000309",
+            "routeIdx": 11,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "63070"
+        },
+        {
+            "id": "A=1@O=Beratzhausen@X=11807853@Y=49092843@U=81@L=8000882@i=U×008026302@",
+            "abfahrtsZeitpunkt": "2025-01-17T17:02:00",
+            "ankunftsZeitpunkt": "2025-01-17T17:02:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "2",
+            "name": "Beratzhausen",
+            "risNotizen": [],
+            "bahnhofsInfoId": "0491",
+            "extId": "8000882",
+            "routeIdx": 12,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "63070"
+        },
+        {
+            "id": "A=1@O=Parsberg@X=11723354@Y=49164352@U=81@L=8004755@i=U×008026304@",
+            "abfahrtsZeitpunkt": "2025-01-17T17:09:00",
+            "ankunftsZeitpunkt": "2025-01-17T17:08:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "2",
+            "name": "Parsberg",
+            "risNotizen": [],
+            "bahnhofsInfoId": "4868",
+            "extId": "8004755",
+            "routeIdx": 13,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "63070"
+        },
+        {
+            "id": "A=1@O=Neumarkt(Oberpf)@X=11456986@Y=49273220@U=81@L=8004305@i=U×008022353@",
+            "abfahrtsZeitpunkt": "2025-01-17T17:26:00",
+            "ankunftsZeitpunkt": "2025-01-17T17:25:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "1",
+            "name": "Neumarkt(Oberpf)",
+            "risNotizen": [],
+            "bahnhofsInfoId": "4416",
+            "extId": "8004305",
+            "routeIdx": 14,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "63070"
+        },
+        {
+            "id": "A=1@O=Nürnberg Hbf@X=11082989@Y=49445615@U=81@L=8000284@i=U×008022193@",
+            "ankunftsZeitpunkt": "2025-01-17T17:49:00",
+            "auslastungsmeldungen": [
+                {
+                    "klasse": "KLASSE_1",
+                    "stufe": 0
+                },
+                {
+                    "klasse": "KLASSE_2",
+                    "stufe": 0
+                }
+            ],
+            "gleis": "13",
+            "name": "Nürnberg Hbf",
+            "risNotizen": [],
+            "bahnhofsInfoId": "4593",
+            "extId": "8000284",
+            "routeIdx": 15,
+            "priorisierteMeldungen": [],
+            "adminID": "S9",
+            "kategorie": "ag",
+            "nummer": "63070"
+        }
+    ],
+    "himMeldungen": [],
+    "risNotizen": [],
+    "zugattribute": [
+        {
+            "kategorie": "BARRIEREFREI",
+            "key": "EA",
+            "value": "Behindertengerechte Ausstattung"
+        },
+        {
+            "kategorie": "FAHRRADMITNAHME",
+            "key": "FB",
+            "value": "Number of bicycles conveyed limited"
+        },
+        {
+            "kategorie": "INFORMATION",
+            "key": "ZR",
+            "value": "vertraglicher Beförderer DB Regio",
+            "teilstreckenHinweis": "(München Flughafen Terminal - Regensburg Hbf)"
+        },
+        {
+            "kategorie": "INFORMATION",
+            "key": "LS",
+            "value": "power sockets for laptop"
+        },
+        {
+            "kategorie": "INFORMATION",
+            "key": "KL",
+            "value": "air conditioning"
+        },
+        {
+            "kategorie": "INFORMATION",
+            "key": "WV",
+            "value": "Wifi available"
+        }
+    ],
+    "priorisierteMeldungen": [],
+    "abfahrtsZeitpunkt": "2025-01-17T15:16:00",
+    "ankunftsZeitpunkt": "2025-01-17T17:49:00",
+    "cancelled": false
+}
