@@ -27,14 +27,16 @@ const validateLocation = (loc, name = 'location') => {
 	}
 };
 
-const loadEnrichedStationData = () => new Promise((resolve, reject) => {
+const loadEnrichedStationData = (profile) => new Promise((resolve, reject) => {
 	const items = {};
 	readStations.full()
 		.on('data', (station) => {
 			items[station.id] = station;
 		})
 		.once('end', () => {
-			console.info('Loaded station index.');
+			if (profile.DEBUG) {
+				console.log('Loaded station index.');
+			}
 			resolve(items);
 		})
 		.once('error', (err) => {
@@ -47,7 +49,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 	validateProfile(profile);
 	const common = {};
 	if (opt.enrichStations !== false) {
-		loadEnrichedStationData()
+		loadEnrichedStationData(profile)
 			.then(locations => {
 				common.locations = locations;
 			});
