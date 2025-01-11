@@ -216,6 +216,25 @@ tap.test('parses dbnav attributes correctly', (t) => {
 			summary: 'Komfort Check-in possible (visit bahn.de/kci for more information)',
 			text: 'Komfort Check-in possible (visit bahn.de/kci for more information)',
 			type: 'hint',
+			priority: 200,
+		},
+	];
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});
+
+tap.test('parses dbnav ruf attributes correctly', (t) => {
+	const input = {
+		attributNotizen: [{text: 'Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)', key: 'cB', priority: 1}],
+	};
+	const expected = [
+		{
+			code: 'cB',
+			summary: 'Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)',
+			text: 'Tel. 0981-9714925, Anmeldung bis 90 Min. vor Abfahrt (Mo-So: 9-15 Uhr)',
+			type: 'warning',
+			priority: 1,
 		},
 	];
 

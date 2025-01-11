@@ -194,6 +194,7 @@ const dbNavJourney = {
 						summary: 'Einstieg mit Rollstuhl stufenfrei',
 						text: 'Einstieg mit Rollstuhl stufenfrei',
 						type: 'hint',
+						priority: 560,
 					},
 					{
 						text: 'Intercity 2: visit www.bahn.de/ic2 for more information',

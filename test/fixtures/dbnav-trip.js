@@ -80,6 +80,7 @@ const dbTrip = {
 						summary: 'As ag 84100 heading towards Nürnberg Hbf from here',
 						text: 'As ag 84100 heading towards Nürnberg Hbf from here',
 						type: 'hint',
+						priority: 100,
 					},
 				],
 			},
@@ -373,6 +374,7 @@ const dbTrip = {
 						summary: 'As ag 63070 heading towards Nürnberg Hbf from here',
 						text: 'As ag 63070 heading towards Nürnberg Hbf from here',
 						type: 'hint',
+						priority: 100,
 					},
 				],
 			},
@@ -487,6 +489,7 @@ const dbTrip = {
 				summary: 'vertraglicher Beförderer DB Regio (München Flughafen Terminal - Regensburg Hbf)',
 				text: 'vertraglicher Beförderer DB Regio (München Flughafen Terminal - Regensburg Hbf)',
 				type: 'hint',
+				priority: 150,
 			},
 			{
 				text: 'Number of bicycles conveyed limited',
@@ -499,6 +502,7 @@ const dbTrip = {
 				summary: 'Behindertengerechte Ausstattung',
 				text: 'Behindertengerechte Ausstattung',
 				type: 'hint',
+				priority: 560,
 			},
 			{
 				text: 'power sockets for laptop',

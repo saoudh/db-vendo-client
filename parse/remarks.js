@@ -45,8 +45,10 @@ const parseRemarks = (ctx, ref) => {
 			if (remark.modDateTime || remark.letzteAktualisierung) {
 				res.modified = ctx.profile.parseDateTime(ctx, null, remark.modDateTime || remark.letzteAktualisierung);
 			}
+			if (remark.priority) {
+				res.priority = remark.priority;
+			}
 			// TODO fromStops, toStops = routeIdxFrom ??
-			// TODO prio
 			return res;
 		})
 		.filter(remark => remark.code != 'BEF' && remark.code != 'OP');
