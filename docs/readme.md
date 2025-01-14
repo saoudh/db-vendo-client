@@ -1,19 +1,19 @@
-# `hafas-client` documentation
+# `db-vendo-client` documentation
 
 **[API documentation](api.md)**
 
-## Migrating from an old `hafas-client` version
+## Migrating from an old (v5) `hafas-client` version
 
-- [`4` → `5` migration guide](migrating-to-5.md)
+`db-vendo-client` tries to be as compatible as possible with `hafas-client` v6. If you were still on v5 or earlier, see the [`5` → `6` migration guide](https://github.com/public-transport/hafas-client/blob/main/docs/migrating-to-6.md) of `hafas-client`.
 
 ## Throttling requests
 
 There's opt-in support for throttling requests to the endpoint.
 
 ```js
-import {createClient} from 'hafas-client'
-import {withThrottling} from 'hafas-client/throttle.js'
-import {profile as dbProfile} from 'hafas-client/p/db/index.js'
+import {createClient} from 'db-vendo-client'
+import {withThrottling} from 'db-vendo-client/throttle.js'
+import {profile as dbProfile} from 'db-vendo-client/p/db/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
 
@@ -37,9 +37,9 @@ const client = createClient(throttledDbProfile, userAgent)
 There's opt-in support for retrying failed requests to the endpoint.
 
 ```js
-import {createClient} from 'hafas-client'
-import {withRetrying} from 'hafas-client/retry.js'
-import {profile as dbProfile} from 'hafas-client/p/db/index.js'
+import {createClient} from 'db-vendo-client'
+import {withRetrying} from 'db-vendo-client/retry.js'
+import {profile as dbProfile} from 'db-vendo-client/p/db/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
 
@@ -61,27 +61,12 @@ const client = createClient(retryingDbProfile, userAgent)
 
 ## User agent randomization
 
-By default, `hafas-client` randomizes the client name that you pass into `createClient`, and sends it as [`User-Agent`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent) in a randomized form:
-
-```js
-import {createClient} from 'hafas-client'
-// …
-
-const userAgent = 'my-awesome-program'
-const client = createClient(someProfile, userAgent)
-
-await client.journeys(/* … */)
-// User-Agent: my-awee70429some-pre70429ogram
-await client.journeys(/* … */)
-// User-Agent: my-awesom9bb8e2e-prog9bb8e2ram
-```
-
-You can turn this off by setting `profile.randomizeUserAgent` to `false`:
+By default, `db-vendo-client` does not randomize the client name that you pass into `createClient`, and sends it as [`User-Agent`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent) as it is. At least DB Navigator always sends the same user agent as well (cf. `dbnav` profile).  You can turn on randomization by setting `profile.randomizeUserAgent` to `false`:
 
 ```js
 const client = createClient({
 	...someProfile,
-	randomizeUserAgent: false,
+	randomizeUserAgent: true,
 }, userAgent)
 ```
 
@@ -92,8 +77,8 @@ You can use `profile.logRequest` and `profile.logResponse` to process the raw [F
 As an example, we can implement a custom logger:
 
 ```js
-import {createClient} from 'hafas-client'
-import {profile as dbProfile} from 'hafas-client/p/db/index.js'
+import {createClient} from 'db-vendo-client'
+import {profile as dbProfile} from 'db-vendo-client/p/db/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
 
@@ -140,15 +125,12 @@ The default `profile.logRequest` [`console.error`](https://nodejs.org/docs/lates
 
 ## Error handling
 
-Unexpected errors – e.g. due to bugs in `hafas-client` itself – aside, its methods may reject with the following errors:
+Unexpected errors – e.g. due to bugs in `db-vendo-client` itself – aside, its methods may reject with the following errors:
 
+- `Error` – A generic error, e.g. if the DB backend returned a HTTP error.
 - `HafasError` – A generic error to signal that something HAFAS-related went wrong, either in the client, or in the HAFAS endpoint.
-- `HafasAccessDeniedError` – The HAFAS endpoint has rejected your request because you're not allowed to access it (or the specific API call). Subclass of `HafasError`.
-- `HafasInvalidRequestError` – The HAFAS endpoint reports that an invalid request has been sent. Subclass of `HafasError`.
-- `HafasNotFoundError` – The HAFAS endpoint does not know about such stop/trip/etc. Subclass of `HafasError`.
-- `HafasServerError` – An error occured within the HAFAS endpoint, so that it can't fulfill the request; For example, this happens when HAFAS' internal backend is unavailable. Subclass of `HafasError`.
 
-Each error has the following properties:
+Each `HafasError` error has the following properties:
 
 - `isHafasError` – Always `true`. Allows you to differente HAFAS-related errors from e.g. network errors.
 - `code` – A string representing the error type for all other error classes, e.g. `INVALID_REQUEST` for `HafasInvalidRequestError`. `null` for plain `HafasError`s.
@@ -158,27 +140,11 @@ Each error has the following properties:
 - `url` – The URL of the request.
 - `response` – The [Fetch API `Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 
-To check **if an error from `hafas-client` is HAFAS-specific, use `error instanceof HafasError`**:
 
-```js
-import {HafasError} from 'hafas-client/lib/errors.js'
+## Using `db-vendo-client` from another language
 
-try {
-	await client.journeys(/* … */)
-} catch (err) {
-	if (err instanceof HafasError) {
-		// HAFAS-specific error
-	} else {
-		// different error, e.g. network (ETIMEDOUT, ENETDOWN)
-	}
-}
-```
-
-To determine **if you should automatically retry an error, use `!error.causedByServer`**.
-
-## Using `hafas-client` from another language
-
-If you want to use `hafas-client` to access HAFAS APIs but work with non-Node.js environments, you can use [`hafas-client-rpc`](https://github.com/derhuerst/hafas-client-rpc) to create a [JSON-RPC](https://www.jsonrpc.org) interface that you can send commands to.
+If you want to use `db-vendo-client` to access DB APIs but work with non-Node.js environments, you can use it together with [hafas-rest-api](https://github.com/public-transport/hafas-rest-api) to create a REST API(see the [root readme](https://github.com/public-transport/db-vendo-client/tree/main#usage) and the Docker image). 
+Or use [`hafas-client-rpc`](https://github.com/derhuerst/hafas-client-rpc) to create a [JSON-RPC](https://www.jsonrpc.org) interface that you can send commands to.
 
 ## Writing a profile
 

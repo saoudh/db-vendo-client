@@ -76,7 +76,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		if (!profile.departuresGetPasslist && 'stopovers' in opt) {
 			throw new Error('opt.stopovers is not supported by this endpoint');
 		}
-		if (!profile.departuresStbFltrEquiv && 'includeRelatedStations' in opt) {
+		if (!profile.departuresStbFltrEquiv && 'includeRelatedStations' in opt) { // TODO artificially filter?
 			throw new Error('opt.includeRelatedStations is not supported by this endpoint');
 		}
 

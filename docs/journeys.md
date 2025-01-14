@@ -53,11 +53,11 @@ With `opt`, you can override the default options, which look like this:
 	stopovers: false, // return stations on the way?
 	transfers: -1, // Maximum nr of transfers. Default: Let HAFAS decide.
 	transferTime: 0, // minimum time for a single transfer in minutes
-	accessibility: 'none', // 'none', 'partial' or 'complete'
+	accessibility: 'none', // not supported
 	bike: false, // only bike-friendly journeys
-	walkingSpeed: 'normal', // 'slow', 'normal', 'fast'
+	walkingSpeed: 'normal', // not supported
 	// Consider walking to nearby stations at the beginning of a journey?
-	startWithWalking: true,
+	startWithWalking: true, // always true (?)
 	products: {
 		// these entries may vary from profile to profile
 		suburban: true,
@@ -65,15 +65,19 @@ With `opt`, you can override the default options, which look like this:
 		tram: true,
 		bus: true,
 		ferry: true,
-		express: true,
+		nationalExpress: true,
+		national: true,
 		regional: true
+		regionalExpress: true // this is actually FlixTrain and co.
 	},
-	tickets: false, // return tickets? only available with some profiles
-	polylines: false, // return a shape for each leg?
-	subStops: true, // parse & expose sub-stops of stations?
-	entrances: true, // parse & expose entrances of stops/stations?
+	tickets: false, // return tickets? only available for [refreshJourney](refresh-journey.md)
+	polylines: false, // return a shape for each leg? only available for [refreshJourney](refresh-journey.md)
+	subStops: true, // not supported
+	entrances: true, // not supported
 	remarks: true, // parse & expose hints & warnings?
-	scheduledDays: false, // parse which days each journey is valid on
+	scheduledDays: false, // not yet supported
+	firstClass: true // first or second class for tickets
+	loyaltyCard: '' // BahnCards etc., see below
 	language: 'en', // language to get results in
 }
 ```
@@ -82,17 +86,16 @@ With `opt`, you can override the default options, which look like this:
 
 *Note:* As stated in the [*Friendly Public Transport Format* v2 draft spec](https://github.com/public-transport/friendly-public-transport-format/blob/3bd36faa721e85d9f5ca58fb0f38cdbedb87bbca/spec/readme.md), the returned `departure` and `arrival` times include the current delay. The `departureDelay`/`arrivalDelay` fields express how much they differ from the schedule.
 
-As an example, we're going to use the [VBB profile](../p/vbb):
 
 ```js
-import {createClient} 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
+import {createClient} 'db-vendo-client'
+import {profile as vbbProfile} from 'db-vendo-client/p/vbb/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
 const client = createClient(vbbProfile, userAgent)
 
-// Hauptbahnhof to Heinrich-Heine-Str.
-await client.journeys('900000003201', '900000100008', {
+// Frankfurt to Stuttgart
+await client.journeys('8000105', '8000096', {
 	results: 1,
 	stopovers: true
 })
@@ -101,7 +104,7 @@ await client.journeys('900000003201', '900000100008', {
 `journeys()` will resolve with an object with the following fields:
 - `journeys`
 - `earlierRef`/`laterRef` – pass them as `opt.earlierThan`/`opt.laterThan` into another `journeys()` call to retrieve the next "page" of journeys
-- `realtimeDataUpdatedAt` – a UNIX timestamp reflecting the latest moment when (at least some of) the response's realtime data have been updated
+- `realtimeDataUpdatedAt` – is currently not set in db-vendo-client, because the upstream APIs don't provide it.
 
 This object might look like this:
 
@@ -276,44 +279,6 @@ This object might look like this:
 	realtimeDataUpdatedAt: 1531259400, // 2018-07-10T23:50:00+02
 }
 ```
-
-Some [profiles](../p) are able to parse the ticket information, if returned by the API. For example, if you pass `tickets: true` with the [VBB profile](../p/vbb), each `journey` will have a tickets array that looks like this:
-
-```js
-[ {
-	name: 'Berlin Tarifgebiet A-B: Einzelfahrausweis – Regeltarif',
-	price: 2.8,
-	tariff: 'Berlin',
-	coverage: 'AB',
-	variant: 'adult',
-	amount: 1
-}, {
-	name: 'Berlin Tarifgebiet A-B: Einzelfahrausweis – Ermäßigungstarif',
-	price: 1.7,
-	tariff: 'Berlin',
-	coverage: 'AB',
-	variant: 'reduced',
-	amount: 1,
-	reduced: true
-}, /* … */ {
-	name: 'Berlin Tarifgebiet A-B: Tageskarte – Ermäßigungstarif',
-	price: 4.7,
-	tariff: 'Berlin',
-	coverage: 'AB',
-	variant: '1 day, reduced',
-	amount: 1,
-	reduced: true,
-	fullDay: true
-}, /* … */ {
-	name: 'Berlin Tarifgebiet A-B: 4-Fahrten-Karte – Regeltarif',
-	price: 9,
-	tariff: 'Berlin',
-	coverage: 'AB',
-	variant: '4x adult',
-	amount: 4
-} ]
-```
-
 If a journey leg has been cancelled, a `cancelled: true` will be added. Also, `departure`/`departureDelay`/`departurePlatform` and `arrival`/`arrivalDelay`/`arrivalPlatform` will be `null`.
 
 To get more journeys earlier/later than the current set of results, pass `earlierRef`/`laterRef` into `opt.earlierThan`/`opt.laterThan`. For example, query *later* journeys as follows:
@@ -339,19 +304,16 @@ departure of last journey 2017-12-17T19:07:00+01:00
 departure of first (later) journey 2017-12-17T19:19:00+01:00
 ```
 
-If you pass `polylines: true`, each journey leg will have a `polyline` field. Refer to [the section in the `trip()` docs](trip.md#polyline-option) for details.
-
-If you pass `scheduledDays: true`, each journey will have a `scheduledDays` object looking like this:
+## Using the `loyaltyCard` option
 
 ```js
-{
-	'2018-01-01': true,
-	'2018-01-02': false,
-	// …
-	'2018-10-12': true,
-	'2018-10-13': true,
-	// …
-	'2019-01-02': false,
-	'2019-01-03': false
-}
+import {data as loyaltyCards} from 'db-vendo-client/format/loyalty-cards.js' // see there for a list
+
+hafas.journeys(from, to, {
+	loyaltyCard: {type: data.BAHNCARD, discount: 25}
+})
 ```
+
+## The `routingMode` option
+
+The `routingMode` option is not supported by db-vendo-client. The behavior will be the same as the `HYBRID` mode of hafas-client, i.e. cancelled trains/infeasible journeys will also be contained for informational purpose.

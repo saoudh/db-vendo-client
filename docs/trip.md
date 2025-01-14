@@ -2,19 +2,16 @@
 
 This method can be used to refetch information about a trip – a vehicle stopping at a set of stops at specific times.
 
-*Note*: This method is not supported by every profile/endpoint.
-
 Let's say you used [`journeys`](journeys.md) and now want to get more up-to-date data about the arrival/departure of a leg. You'd pass in the trip ID from `leg.tripId`, e.g. `'1|24983|22|86|18062017'`, and the name of the line from `leg.line.name` like this:
 
 ```js
-import {createClient} from 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
+import {createClient} from 'db-vendo-client'
+import {profile as vbbProfile} from 'db-vendo-client/p/dbnav/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
 const client = createClient(vbbProfile, userAgent)
 
-// Hauptbahnhof to Heinrich-Heine-Str.
-const {journeys} = client.journeys('900000003201', '900000100008', {results: 1})
+const {journeys} = client.journeys('8000096', '8000105', {results: 1})
 const leg = journeys[0].legs[0]
 
 await client.trip(leg.tripId)
@@ -25,9 +22,9 @@ With `opt`, you can override the default options, which look like this:
 ```js
 {
 	stopovers: true, // return stations on the way?
-	polyline: false, // return a shape for the trip?
-	subStops: true, // parse & expose sub-stops of stations?
-	entrances: true, // parse & expose entrances of stops/stations?
+	polyline: false, // return a shape for the trip? only supported with HAFAS trip id (i.e. not with a trip id from a departure/arrival board of the `db` profile)
+	subStops: true, // not supported
+	entrances: true, // not supported
 	remarks: true, // parse & expose hints & warnings?
 	language: 'en' // language to get results in
 }
@@ -37,11 +34,10 @@ With `opt`, you can override the default options, which look like this:
 
 *Note:* As stated in the [*Friendly Public Transport Format* v2 draft spec](https://github.com/public-transport/friendly-public-transport-format/blob/3bd36faa721e85d9f5ca58fb0f38cdbedb87bbca/spec/readme.md), the returned `departure` and `arrival` times include the current delay. The `departureDelay`/`arrivalDelay` fields express how much they differ from the schedule.
 
-As an example, we're going to use the [VBB profile](../p/vbb):
 
 ```js
-import {createClient} from 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
+import {createClient} from 'db-vendo-client'
+import {profile as vbbProfile} from 'db-vendo-client/p/dbnav/index.js'
 
 const client = createClient(vbbProfile)
 
@@ -53,7 +49,7 @@ const {
 })
 ```
 
-`realtimeDataUpdatedAt` is a UNIX timestamp reflecting the latest moment when (at least some of) the response's realtime data have been updated.
+`realtimeDataUpdatedAt` is currently not set in db-vendo-client, because the upstream APIs don't provide it.
 
 When running the code above, `trip` looked like this:
 
@@ -142,9 +138,9 @@ When running the code above, `trip` looked like this:
 
 ### `polyline` option
 
-If you pass `polyline: true`, the trip will have a `polyline` field, containing a [GeoJSON](http://geojson.org) [`FeatureCollection`](https://tools.ietf.org/html/rfc7946#section-3.3) of [`Point`s](https://tools.ietf.org/html/rfc7946#appendix-A.1). Every `Point` next to a station will have `properties` containing the station's metadata.
+Only supported with HAFAS trip id (i.e. not with a trip id from a departure/arrival board of the `db` profile).
 
-We'll look at an example for *U6* from *Alt-Mariendorf* to *Alt-Tegel*, taken from the [VBB profile](../p/vbb):
+If you pass `polyline: true`, the trip will have a `polyline` field, containing a [GeoJSON](http://geojson.org) [`FeatureCollection`](https://tools.ietf.org/html/rfc7946#section-3.3) of [`Point`s](https://tools.ietf.org/html/rfc7946#appendix-A.1). 
 
 ```js
 {
@@ -152,12 +148,6 @@ We'll look at an example for *U6* from *Alt-Mariendorf* to *Alt-Tegel*, taken fr
 	features: [
 		{
 			type: 'Feature',
-			properties: {
-				type: 'station',
-				id: '900000070301',
-				name: 'U Alt-Mariendorf',
-				/* … */
-			},
 			geometry: {
 				type: 'Point',
 				coordinates: [13.3875, 52.43993] // longitude, latitude
@@ -166,12 +156,6 @@ We'll look at an example for *U6* from *Alt-Mariendorf* to *Alt-Tegel*, taken fr
 		/* … */
 		{
 			type: 'Feature',
-			properties: {
-				type: 'station',
-				id: '900000017101',
-				name: 'U Mehringdamm',
-				/* … */
-			},
 			geometry: {
 				type: 'Point',
 				coordinates: [13.38892, 52.49448] // longitude, latitude
@@ -189,12 +173,6 @@ We'll look at an example for *U6* from *Alt-Mariendorf* to *Alt-Tegel*, taken fr
 		},
 		{
 			type: 'Feature',
-			properties: {
-				type: 'station',
-				id: '900000089301',
-				name: 'U Alt-Tegel',
-				/* … */
-			},
 			geometry: {
 				type: 'Point',
 				coordinates: [13.28406, 52.58915] // longitude, latitude

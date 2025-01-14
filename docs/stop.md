@@ -1,5 +1,7 @@
 # `stop(id, [opt])`
 
+This endpoint is only available with `dbnav` profile.
+
 `id` must be in one of these formats:
 
 ```js
@@ -23,8 +25,8 @@ With `opt`, you can override the default options, which look like this:
 
 ```js
 {
-	subStops: true, // parse & expose sub-stops of stations?
-	entrances: true, // parse & expose entrances of stops/stations?
+	subStops: true, // not supported
+	entrances: true, // not supported
 	linesOfStops: false, // parse & expose lines at the stop/station?
 	language: 'en' // language to get results in
 }

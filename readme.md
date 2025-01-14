@@ -8,7 +8,7 @@
 This is a very early version. What works:
 
 * `journeys()`, `refreshJourney()` including tickets
-* `locations()`, `nearby()`, `stop()`
+* `locations()`, `nearby()`,
 * `departures()`, `arrivals()` boards
 * `trip()`
 
@@ -38,8 +38,7 @@ Depending on the configured profile, db-vendo-client will use multiple different
 
 Feel free to report anything that you stumble upon via Issues or create a PR :)
 
-Also consult the relevant **[documentation](https://github.com/public-transport/hafas-client/blob/main/docs/readme.md)** of [hafas-client](https://github.com/public-transport/hafas-client/) (but beware of the limited functionality of db-vendo-client).
-
+Also consult the **[documentation](docs/readme.md)**.
 
 ## Background
 

@@ -6,14 +6,14 @@ With `opt`, you can override the default options, which look like this:
 
 ```js
 {
-	  fuzzy:     true // find only exact matches?
+	  fuzzy:     true // not supported
 	, results:   5 // how many search results?
 	, stops:     true // return stops/stations?
 	, addresses: true
 	, poi:       true // points of interest
-	, subStops: true // parse & expose sub-stops of stations?
-	, entrances: true // parse & expose entrances of stops/stations?
-	, linesOfStops: false // parse & expose lines at each stop/station?
+	, subStops: true // not supported
+	, entrances: true // not supported
+	, linesOfStops: false // not supported
 	, language: 'en' // language to get results in
 }
 ```
@@ -23,8 +23,8 @@ With `opt`, you can override the default options, which look like this:
 As an example, we're going to use the [VBB profile](../p/vbb):
 
 ```js
-import {createClient} from 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
+import {createClient} from 'db-vendo-client'
+import {profile as vbbProfile} from 'db-vendo-client/p/vbb/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
 const client = createClient(vbbProfile, userAgent)

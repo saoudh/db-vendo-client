@@ -24,58 +24,47 @@ With `opt`, you can override the default options, which look like this:
 ```js
 {
 	when:      new Date(),
-	direction: null, // only show departures heading to this station
-	line: null, // filter by line ID
+	direction: null, // not supported
+	line: null, // not supported
 	duration:  10, // show departures for the next n minutes
 	results: null, // max. number of results; `null` means "whatever HAFAS wants"
-	subStops: true, // parse & expose sub-stops of stations?
-	entrances: true, // parse & expose entrances of stops/stations?
-	linesOfStops: false, // parse & expose lines at the stop/station?
+	subStops: true, // not supported
+	entrances: true, // not supported
+	linesOfStops: false, // not supported
 	remarks: true, // parse & expose hints & warnings?
 	stopovers: false, // fetch & parse previous/next stopovers?
 	// departures at related stations
 	// e.g. those that belong together on the metro map.
-	includeRelatedStations: true,
+	includeRelatedStations: true, // only true supported
 	language: 'en' // language to get results in
 }
 ```
-
-If you pass an object `opt.products`, its fields will partially override the default products defined in the profile. An example with the [BVG profile](../p/bvg):
-
-```js
-import {createClient} from 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
-
-const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
-const client = createClient(vbbProfile, userAgent)
-
-// will query with these products: suburban, subway, bus, express, regional
-await client.departures('900000024101', {products: {tram: false, ferry: false}})
-```
+The maximum supported duration is 720 for `db` and 60 for `dbnav` profile.
+If you pass an object `opt.products`, its fields will partially override the default products defined in the profile. 
 
 ## Response
 
 *Note:* As stated in the [*Friendly Public Transport Format* v2 draft spec](https://github.com/public-transport/friendly-public-transport-format/blob/3bd36faa721e85d9f5ca58fb0f38cdbedb87bbca/spec/readme.md), the `when` field includes the current delay. The `delay` field, if present, expresses how much the former differs from the schedule.
 
-You may pass a departure's `tripId` into [`trip(id, lineName, [opt])`](trip.md) to get details on the whole trip.
+You may pass a departure's `tripId` into [`trip(id, lineName, [opt])`](trip.md) to get details on the whole trip. For the `dbnav` profile HAFAS trip ids will be returned, for the `db` profile, RIS trip ids will be returned, then the `trip()` endpoint support both id types.
 
-As an example, we're going to use the [VBB profile](../p/vbb):
+For `db` profile, cancelled trips will not be contained in the response!
 
 ```js
-import {createClient} from 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
+import {createClient} from 'db-vendo-client'
+import {profile as dbnavProfile} from 'db-vendo-client/p/dbnav/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
-const client = createClient(vbbProfile, userAgent)
+const client = createClient(dbnavProfile, userAgent)
 
 // S Charlottenburg
 const {
 	departures,
 	realtimeDataUpdatedAt,
-} = await client.departures('900000024101', {duration: 3})
+} = await client.departures('8089165', {duration: 3})
 ```
 
-`realtimeDataUpdatedAt` is a UNIX timestamp reflecting the latest moment when (at least some) of the response's realtime data have been updated.
+`realtimeDataUpdatedAt` is currently not set in db-vendo-client, because the upstream APIs don't provide it.
 
 `departures` may look like this:
 
@@ -87,11 +76,11 @@ const {
 	// Depending on the HAFAS endpoint, the destination may be present:
 	destination: {
 		type: 'stop',
-		id: '900000029101',
+		id: '8089165',
 		name: 'S Spandau',
 		location: {
 			type: 'location',
-			id: '900029101',
+			id: '8089165',
 			latitude: 52.534794,
 			longitude: 13.197477
 		},
