@@ -3,10 +3,10 @@ const parseTrip = (ctx, t, id) => { // t = raw trip
 
 	// pretend the trip is a leg in a journey
 	const trip = profile.parseJourneyLeg(ctx, t);
-	trip.id = trip.tripId || id; // TODO journeyId
+	trip.id = trip.tripId || id;
 	delete trip.tripId;
 	delete trip.reachable;
-	trip.cancelled = profile.parseCancelled(t);
+	trip.cancelled = Boolean(profile.parseCancelled(t));
 
 	// TODO opt.scheduledDays
 	return trip;

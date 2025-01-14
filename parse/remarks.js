@@ -10,6 +10,7 @@ const parseRemarks = (ctx, ref) => {
 		}) || [],
 		ref.himMeldungen || [],
 		ref.himNotizen || [],
+		ref.hims || [],
 		ref.serviceNotiz && [ref.serviceNotiz] || [],
 		ref.messages || [],
 		ref.meldungenAsObject || [],
@@ -33,11 +34,11 @@ const parseRemarks = (ctx, ref) => {
 				type = 'warning';
 			}
 			let res = {
-				code: remark.code || remark.key,
-				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text
+				code: remark.code || remark.key || remark.id,
+				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || remark.shortText
 				|| Object.values(remark.descriptions || {})
 					.shift()?.textShort,
-				text: remark.nachrichtLang || remark.value || remark.text
+				text: remark.nachrichtLang || remark.value || remark.text || remark.caption
 				|| Object.values(remark.descriptions || {})
 					.shift()?.text,
 				type: type,
@@ -201,7 +202,7 @@ const parseRemarks = (ctx, ref) => {
 */
 
 const parseCancelled = (ref) => {
-	return ref.canceled || ref.cancelled || (ref.risNotizen || ref.echtzeitNotizen) && Boolean((ref.risNotizen || ref.echtzeitNotizen).find(r => r.key == 'text.realtime.stop.cancelled'
+	return ref.canceled || ref.cancelled || ref.journeyCancelled || (ref.risNotizen || ref.echtzeitNotizen) && Boolean((ref.risNotizen || ref.echtzeitNotizen).find(r => r.key == 'text.realtime.stop.cancelled'
 		|| r.type == 'HALT_AUSFALL'
 		|| r.text == 'Halt entfällt'
 		|| r.text == 'Stop cancelled',

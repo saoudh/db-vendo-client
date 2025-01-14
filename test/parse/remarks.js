@@ -242,3 +242,54 @@ tap.test('parses dbnav ruf attributes correctly', (t) => {
 	t.end();
 });
 
+
+tap.test('parses regio guide trip attributes correctly', (t) => {
+	const input = {
+		messages: [
+			{
+				code: '51',
+				text: 'verspätetes Personal aus vorheriger Fahrt',
+				textShort: 'verspätetes Personal aus vorheriger Fahrt',
+			},
+		],
+		hims: [
+			{
+				id: '1',
+				caption: 'Bahnhof Hanau Hbf beeinträchtigt. Verspätungen und Teilausfälle wahrscheinlich. Grund: Entschärfung einer Fliegerbombe.',
+				shortText: 'Bahnhof Hanau Hbf beeinträchtigt. Verspätungen und Teilausfälle wahrscheinlich. Grund: Entschärfung einer Fliegerbombe.',
+				captionHtml: 'Bahnhof Hanau Hbf beeinträchtigt. Verspätungen und Teilausfälle wahrscheinlich. Grund: Entschärfung einer Fliegerbombe.',
+				shortTextHtml: 'Bahnhof Hanau Hbf beeinträchtigt. Verspätungen und Teilausfälle wahrscheinlich. Grund: Entschärfung einer Fliegerbombe.',
+			},
+			{
+				id: '6',
+				caption: 'Lüneburg: Aufzug Gl. 2/3 bis April 2025 aufgrund von Neubau außer Betrieb.',
+				shortText: 'Lüneburg: Aufzug Gl. 2/3 bis April 2025 aufgrund von Neubau außer Betrieb.',
+				captionHtml: 'Lüneburg: Aufzug Gl. 2/3 bis April 2025 aufgrund von Neubau außer Betrieb.',
+				shortTextHtml: 'Lüneburg: Aufzug Gl. 2/3 bis April 2025 aufgrund von Neubau außer Betrieb.',
+			},
+		],
+	};
+	const expected = [
+		{
+			code: '1',
+			summary: 'Bahnhof Hanau Hbf beeinträchtigt. Verspätungen und Teilausfälle wahrscheinlich. Grund: Entschärfung einer Fliegerbombe.',
+			text: 'Bahnhof Hanau Hbf beeinträchtigt. Verspätungen und Teilausfälle wahrscheinlich. Grund: Entschärfung einer Fliegerbombe.',
+			type: 'hint',
+		},
+		{
+			code: '6',
+			summary: 'Lüneburg: Aufzug Gl. 2/3 bis April 2025 aufgrund von Neubau außer Betrieb.',
+			text: 'Lüneburg: Aufzug Gl. 2/3 bis April 2025 aufgrund von Neubau außer Betrieb.',
+			type: 'hint',
+		},
+		{
+			code: '51',
+			summary: 'verspätetes Personal aus vorheriger Fahrt',
+			text: 'verspätetes Personal aus vorheriger Fahrt',
+			type: 'hint', // TODO?
+		},
+	];
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});

@@ -15,12 +15,17 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 
 	const stops = pt.halte?.length && pt.halte || pt.stops?.length && pt.stops || [];
 	const res = {
-		origin: stops.length && profile.parseLocation(ctx, stops[0].ort || stops[0].station || stops[0]) || pt.abgangsOrt?.name && profile.parseLocation(ctx, pt.abgangsOrt) || locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt, fallbackLocations),
-		destination: stops.length && profile.parseLocation(ctx, stops[stops.length - 1].ort || stops[stops.length - 1].station || stops[stops.length - 1]) || pt.ankunftsOrt?.name && profile.parseLocation(ctx, pt.ankunftsOrt) || locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt, fallbackLocations),
+		origin: stops.length && profile.parseLocation(ctx, stops[0].ort || stops[0].station || stops[0])
+		|| pt.abgangsOrt?.name && profile.parseLocation(ctx, pt.abgangsOrt)
+		|| locationFallback(pt.abfahrtsOrtExtId, pt.abfahrtsOrt, fallbackLocations),
+		destination: stops.length && profile.parseLocation(ctx, stops[stops.length - 1].ort || stops[stops.length - 1].station || stops[stops.length - 1])
+		|| pt.ankunftsOrt?.name && profile.parseLocation(ctx, pt.ankunftsOrt)
+		|| locationFallback(pt.ankunftsOrtExtId, pt.ankunftsOrt, fallbackLocations),
 	};
 
 	const cancelledDep = stops.length && profile.parseCancelled(stops[0]);
-	const dep = profile.parseWhen(ctx, date, pt.abfahrtsZeitpunkt || pt.abgangsDatum || stops.length && stops[0].abgangsDatum, pt.ezAbfahrtsZeitpunkt || pt.ezAbgangsDatum || stops.length && stops[0].ezAbgangsDatum, cancelledDep);
+	const dep = profile.parseWhen(ctx, date, pt.abfahrtsZeitpunkt || pt.abgangsDatum || stops.length && (stops[0].abgangsDatum || stops[0].departureTime?.target), pt.ezAbfahrtsZeitpunkt || pt.ezAbgangsDatum || stops.length && (stops[0].ezAbgangsDatum || stops[0].departureTime?.timeType != 'SCHEDULE' && stops[0].departureTime?.predicted), cancelledDep,
+	);
 	res.departure = dep.when;
 	res.plannedDeparture = dep.plannedWhen;
 	res.departureDelay = dep.delay;
@@ -29,7 +34,8 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 	}
 
 	const cancelledArr = stops.length && profile.parseCancelled(stops[stops.length - 1]);
-	const arr = profile.parseWhen(ctx, date, pt.ankunftsZeitpunkt || pt.ankunftsDatum || stops.length && stops[stops.length - 1].ankunftsDatum, pt.ezAnkunftsZeitpunkt || pt.ezAnkunftsDatum || stops.length && stops[stops.length - 1].ezAnkunftsDatum, cancelledArr);
+	const arr = profile.parseWhen(ctx, date, pt.ankunftsZeitpunkt || pt.ankunftsDatum || stops.length && (stops[stops.length - 1].ankunftsDatum || stops[stops.length - 1].arrivalTime?.target), pt.ezAnkunftsZeitpunkt || pt.ezAnkunftsDatum || stops.length && (stops[stops.length - 1].ezAnkunftsDatum || stops[stops.length - 1].arrivalTime?.timeType != 'SCHEDULE' && stops[stops.length - 1].arrivalTime?.predicted), cancelledArr,
+	);
 	res.arrival = arr.when;
 	res.plannedArrival = arr.plannedWhen;
 	res.arrivalDelay = arr.delay;
@@ -69,9 +75,13 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 
 		// TODO res.currentLocation
 		// TODO trainStartDate?
-		
+
 		if (stops.length) {
-			const arrPl = profile.parsePlatform(ctx, stops[stops.length - 1].gleis, stops[stops.length - 1].ezGleis, cancelledArr);
+			const arrPl = profile.parsePlatform(ctx,
+				stops[stops.length - 1].gleis || stops[stops.length - 1].track?.target,
+				stops[stops.length - 1].ezGleis || stops[stops.length - 1].track?.prediction,
+				cancelledArr,
+			);
 			res.arrivalPlatform = arrPl.platform;
 			res.plannedArrivalPlatform = arrPl.plannedPlatform;
 			if (arrPl.prognosedPlatform) {
@@ -79,7 +89,11 @@ const parseJourneyLeg = (ctx, pt, date, fallbackLocations) => { // pt = raw leg
 			}
 			// res.arrivalPrognosisType = null; // TODO
 
-			const depPl = profile.parsePlatform(ctx, stops[0].gleis, stops[0].ezGleis, cancelledDep);
+			const depPl = profile.parsePlatform(ctx,
+				stops[0].gleis || stops[0].track?.target,
+				stops[0].ezGleis || stops[0].track?.prediction,
+				cancelledDep,
+			);
 			res.departurePlatform = depPl.platform;
 			res.plannedDeparturePlatform = depPl.plannedPlatform;
 			if (depPl.prognosedPlatform) {
