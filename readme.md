@@ -8,7 +8,7 @@
 This is a very early version. What works:
 
 * `journeys()`, `refreshJourney()` including tickets
-* `locations()`, `nearby()`
+* `locations()`, `nearby()`, `stop()`
 * `departures()`, `arrivals()` boards
 * `trip()`
 
@@ -28,8 +28,8 @@ Depending on the configured profile, db-vendo-client will use multiple different
 | max duration boards   | 12h | 1h |
 | remarks               | not for boards | ✅ (still no `remarks()` endpoint) |
 | cancelled trips       | not contained in boards | contained with cancelled flag |
-| tickets               | only for `refreshJourney()` | only for `refreshJourney()`, mutually exclusive with polylines |
-| polylines             | only for `trip()` | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
+| tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines |
+| polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
 | trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids |
 | line.id/fahrtNr used  | unreliable/route id for journeys/`trip()`, actual fahrtNr for boards | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` |
 | adminCode/operator    | adminCode only for boards | only for journeys |
