@@ -143,13 +143,10 @@ Each `HafasError` error has the following properties:
 
 ## Using `db-vendo-client` from another language
 
-If you want to use `db-vendo-client` to access DB APIs but work with non-Node.js environments, you can use it together with [hafas-rest-api](https://github.com/public-transport/hafas-rest-api) to create a REST API(see the [root readme](https://github.com/public-transport/db-vendo-client/tree/main#usage) and the Docker image). 
+If you want to use `db-vendo-client` to access DB APIs but work with non-Node.js environments, you can use it together with [hafas-rest-api](https://github.com/public-transport/hafas-rest-api) to create a REST API (see the [root readme](https://github.com/public-transport/db-vendo-client/tree/main#usage) and the Docker image). 
 Or use [`hafas-client-rpc`](https://github.com/derhuerst/hafas-client-rpc) to create a [JSON-RPC](https://www.jsonrpc.org) interface that you can send commands to.
 
-## Writing a profile
 
-Check [the guide](writing-a-profile.md).
+## General documentation and notes for DB APIs
 
-## General documentation for `mgate.exe` APIs
-
-[`hafas-mgate-api.md`](hafas-mgate-api.md)
+[`db-apis.md`](db-apis.md)

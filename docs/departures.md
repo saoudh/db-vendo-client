@@ -46,7 +46,7 @@ If you pass an object `opt.products`, its fields will partially override the def
 
 *Note:* As stated in the [*Friendly Public Transport Format* v2 draft spec](https://github.com/public-transport/friendly-public-transport-format/blob/3bd36faa721e85d9f5ca58fb0f38cdbedb87bbca/spec/readme.md), the `when` field includes the current delay. The `delay` field, if present, expresses how much the former differs from the schedule.
 
-You may pass a departure's `tripId` into [`trip(id, lineName, [opt])`](trip.md) to get details on the whole trip. For the `dbnav` profile HAFAS trip ids will be returned, for the `db` profile, RIS trip ids will be returned, then the `trip()` endpoint support both id types.
+You may pass a departure's `tripId` into [`trip(id, lineName, [opt])`](trip.md) to get details on the whole trip. For the `dbnav` profile HAFAS trip ids will be returned, for the `db` profile, RIS trip ids will be returned, then the `trip()` endpoint supports both id types.
 
 For `db` profile, cancelled trips will not be contained in the response!
 

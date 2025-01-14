@@ -76,8 +76,8 @@ With `opt`, you can override the default options, which look like this:
 	entrances: true, // not supported
 	remarks: true, // parse & expose hints & warnings?
 	scheduledDays: false, // not yet supported
-	firstClass: true // first or second class for tickets
-	loyaltyCard: '' // BahnCards etc., see below
+	firstClass: false, // first or second class for tickets
+	loyaltyCard: null, // BahnCards etc., see below
 	language: 'en', // language to get results in
 }
 ```
@@ -89,10 +89,10 @@ With `opt`, you can override the default options, which look like this:
 
 ```js
 import {createClient} 'db-vendo-client'
-import {profile as vbbProfile} from 'db-vendo-client/p/vbb/index.js'
+import {profile as dbProfile} from 'db-vendo-client/p/db/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
-const client = createClient(vbbProfile, userAgent)
+const client = createClient(dbProfile, userAgent)
 
 // Frankfurt to Stuttgart
 await client.journeys('8000105', '8000096', {
@@ -316,4 +316,4 @@ hafas.journeys(from, to, {
 
 ## The `routingMode` option
 
-The `routingMode` option is not supported by db-vendo-client. The behavior will be the same as the `HYBRID` mode of hafas-client, i.e. cancelled trains/infeasible journeys will also be contained for informational purpose.
+The `routingMode` option is not supported by db-vendo-client. The behavior will be the same as the [`HYBRID` mode of hafas-client](https://github.com/public-transport/hafas-client/blob/main/p/db/readme.md#using-the-routingmode-option), i.e. cancelled trains/infeasible journeys will also be contained for informational purpose.

@@ -34,14 +34,13 @@ With `opt`, you can override the default options, which look like this:
 
 ## Response
 
-As an example, we're going to use the [VBB profile](../p/vbb):
 
 ```js
 import {createClient} from 'hafas-client'
-import {profile as vbbProfile} from 'hafas-client/p/vbb/index.js'
+import {profile as dbProfile} from 'hafas-client/p/db/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
-const client = createClient(vbbProfile, userAgent)
+const client = createClient(dbProfile, userAgent)
 
 await client.stop('900000042101') // U Spichernstr.
 ```
@@ -74,11 +73,6 @@ The result may look like this:
 		product: 'subway',
 		public: true,
 		name: 'U1',
-		symbol: 'U',
-		nr: 1,
-		metro: false,
-		express: false,
-		night: false
 	},
 	// …
 	{
@@ -88,21 +82,6 @@ The result may look like this:
 		product: 'bus',
 		public: true,
 		name: 'N9',
-		symbol: 'N',
-		nr: 9,
-		metro: false,
-		express: false,
-		night: true
 	} ]
 }
-```
-
-If the endpoint returns a list of entrances for a station, the resulting station object will have an `entrances` array looking similar to this:
-
-```js
-[
-	{type: 'location', latitude: 47.411069, longitude: 10.277412},
-	{type: 'location', latitude: 47.410493, longitude: 10.277223},
-	{type: 'location', latitude: 47.410754, longitude: 10.278023}
-]
 ```

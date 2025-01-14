@@ -20,14 +20,13 @@ With `opt`, you can override the default options, which look like this:
 
 ## Response
 
-As an example, we're going to use the [VBB profile](../p/vbb):
 
 ```js
 import {createClient} from 'db-vendo-client'
-import {profile as vbbProfile} from 'db-vendo-client/p/vbb/index.js'
+import {profile as dbnavProfile} from 'db-vendo-client/p/dbnav/index.js'
 
 const userAgent = 'link-to-your-project-or-email' // adapt this to your project!
-const client = createClient(vbbProfile, userAgent)
+const client = createClient(dbnavProfile, userAgent)
 
 await client.locations('Alexanderplatz', {results: 3})
 ```
