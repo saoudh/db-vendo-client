@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
   title: db-vendo-client
-  description: Schema for db-vendo-client/hafas-client's Friendy Public Transport Format API
+  description: Schema for db-vendo-client/hafas-rest-api's Friendy Public Transport Format REST API
   contact:
     url: https://github.com/public-transport/db-vendo-client
-  version: 6
+  version: '6'
 paths:
   /stops/{id}:
     get:
@@ -69,7 +69,7 @@ paths:
             format: date-time
         - name: direction
           in: query
-          description: Filter departures by direction.
+          description: not supported
           schema:
             type: string
         - name: duration
@@ -85,7 +85,7 @@ paths:
             type: integer
         - name: linesOfStops
           in: query
-          description: Parse & return lines of each stop/station?
+          description: not supported
           schema:
             type: boolean
             default: false
@@ -149,7 +149,7 @@ paths:
             format: date-time
         - name: direction
           in: query
-          description: Filter departures by direction.
+          description: not supported
           schema:
             type: string
         - name: duration
@@ -165,7 +165,7 @@ paths:
             type: integer
         - name: linesOfStops
           in: query
-          description: Parse & return lines of each stop/station?
+          description: not supported
           schema:
             type: boolean
             default: false
@@ -308,7 +308,7 @@ paths:
             default: 0
         - name: accessibility
           in: query
-          description: '`partial` or `complete`. – Default: *not accessible*'
+          description: not supported
           schema:
             type: string
         - name: bike
@@ -319,13 +319,13 @@ paths:
             default: false
         - name: startWithWalking
           in: query
-          description: Consider walking to nearby stations at the beginning of a journey?
+          description: not supported
           schema:
             type: boolean
             default: true
         - name: walkingSpeed
           in: query
-          description: '`slow`, `normal` or `fast`.'
+          description: not supported
           schema:
             type: string
             default: normal
@@ -335,25 +335,25 @@ paths:
               - fast
         - name: tickets
           in: query
-          description: Return information about available tickets?
+          description: Return information about available tickets? only supported for /journeys/{ref}
           schema:
             type: boolean
             default: false
         - name: polylines
           in: query
-          description: Fetch & parse a shape for each journey leg?
+          description: Fetch & parse a shape for each journey leg? only supported for /journeys/{ref}
           schema:
             type: boolean
             default: false
         - name: subStops
           in: query
-          description: Parse & return sub-stops of stations?
+          description: not supported
           schema:
             type: boolean
             default: true
         - name: entrances
           in: query
-          description: Parse & return entrances of stops/stations?
+          description: not supported
           schema:
             type: boolean
             default: true
@@ -461,7 +461,7 @@ paths:
             default: true
         - name: polyline
           in: query
-          description: Fetch & parse the geographic shape of the trip?
+          description: Fetch & parse the geographic shape of the trip? (does not work for RIS trip ids from boards of db profile)
           schema:
             type: boolean
             default: false
@@ -527,7 +527,7 @@ paths:
             default: false
         - name: linesOfStops
           in: query
-          description: Parse & expose lines at each stop/station?
+          description: not supported
           schema:
             type: boolean
             default: false
@@ -652,25 +652,25 @@ paths:
             default: false
         - name: tickets
           in: query
-          description: Return information about available tickets?
+          description: Return information about available tickets? mutually exclusive with polylines
           schema:
             type: boolean
             default: false
         - name: polylines
           in: query
-          description: Fetch & parse a shape for each journey leg?
+          description: Fetch & parse a shape for each journey leg? mutually exclusive with tickets
           schema:
             type: boolean
             default: false
         - name: subStops
           in: query
-          description: Parse & return sub-stops of stations?
+          description: not supported
           schema:
             type: boolean
             default: true
         - name: entrances
           in: query
-          description: Parse & return entrances of stops/stations?
+          description: not supported
           schema:
             type: boolean
             default: true
@@ -1962,7 +1962,7 @@ components:
           default: '''none'''
           type: string
         tickets:
-          description: return tickets?
+          description: return tickets? only available with some profiles
           default: false
           type: boolean
         polylines:
@@ -2142,19 +2142,19 @@ components:
           default: false
           type: boolean
         polylines:
-          description: return a shape for each leg?
+          description: return a shape for each leg? mutually exclusive with tickets
           default: false
           type: boolean
         tickets:
-          description: return tickets? only available with some profiles
+          description: return tickets? mutually exclusive with polylines
           default: false
           type: boolean
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         remarks:
@@ -2464,4 +2464,4 @@ components:
           default: true
 externalDocs:
   description: human-readable docs
-  url: http://example.org
+  url: https://github.com/public-transport/db-vendo-client/blob/main/docs/api.md
