@@ -66,7 +66,8 @@ docker run \
     ghcr.io/public-transport/db-vendo-client
 ```
 
-You may want to generate a client for your programming language for this REST API using the [OpenAPI schema](openapi.yaml) ([open in Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/public-transport/db-vendo-client/refs/heads/master/docs/openapi.yaml)). Note that some profile-specific details like tickets are missing from this API definition.
+You may want to generate a client for your programming language for this REST API using the [OpenAPI schema](docs/openapi.yaml) ([open in Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/public-transport/db-vendo-client/refs/heads/main/docs/openapi.yaml)). Note 
+that this to be seen more as a starting point for implementation, e.g. some profile-specific details like tickets are missing from this API definition.
 
 There are [community-maintained TypeScript typings available as `@types/hafas-client`](https://www.npmjs.com/package/@types/hafas-client). 
 
