@@ -69,6 +69,7 @@ Notes:
 * does not contain machine-readable cancelled info in the boards (only "Halt entfällt" string), but contains relevant remarks
 * loadFactor only on journeys (?)
 * polylines only for zuglauf and trip/recon
+* limited remarks on boards
 
 ## Vendo/Movas bahn.de API
 https://int.bahn.de/web/api/

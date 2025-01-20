@@ -1,6 +1,6 @@
 # db-vendo-client
 
-**A client for the new "vendo"/"movas" bahn.de APIs, a drop-in replacement for [hafas-client](https://github.com/public-transport/hafas-client/).**
+**A client for the new "vendo"/"movas" Deutsche Bahn APIs, a drop-in replacement for [hafas-client](https://github.com/public-transport/hafas-client/).**
 
 ![ISC-licensed](https://img.shields.io/github/license/public-transport/db-vendo-client.svg)
 [![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
@@ -26,8 +26,8 @@ Depending on the configured profile, db-vendo-client will use multiple different
 | -------------         | -------------     | ------------- |
 | no API key required   | ✅                | ✅ |
 | max duration boards   | 12h | 1h |
-| remarks               | not for boards | ✅ (still no `remarks()` endpoint) |
-| cancelled trips       | not contained in boards | contained with cancelled flag |
+| remarks               | not for boards | only limited remarks for boards (still no `remarks()` endpoint) |
+| cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag |
 | tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines |
 | polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
 | trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids |
@@ -42,7 +42,7 @@ Also consult the **[documentation](docs/readme.md)**.
 
 ## Background
 
-After DB has switched to the new "vendo"/"movas" platform for bahn.de and DB Navigator, the old [HAFAS](https://de.wikipedia.org/wiki/HAFAS) API (see [hafas-client](https://github.com/public-transport/hafas-client/)) seems to become less and less reliable (server unreachable, missing prices, etc.) This project aims to enable easy switching to the new APIs. However, not all information will be available from the new APIs.
+After DB has switched to the new "vendo"/"movas" platform for bahn.de and DB Navigator, the old [HAFAS](https://de.wikipedia.org/wiki/HAFAS) API (see [hafas-client](https://github.com/public-transport/hafas-client/)) seems now to have been shut off. This project aims to enable easy switching to the new APIs. However, not all information will be available from the new APIs.
 
 Actually, db-vendo-client is a wrapper around multiple different APIs, currently the bahn.de API for route planning and the regio-guide RIS API for boards for the `db` profile and the DB Navigator API for the `dbnav` profile. See some [notes about the various new APIs at DB](docs/db-apis.md).
 
@@ -67,9 +67,12 @@ docker run \
 ```
 
 You may want to generate a client for your programming language for this REST API using the [OpenAPI schema](docs/openapi.yaml) ([open in Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/public-transport/db-vendo-client/refs/heads/main/docs/openapi.yaml)). Note 
-that this to be seen more as a starting point for implementation, e.g. some profile-specific details like tickets are missing from this API definition.
+that this is to be seen more as a starting point for implementation, e.g. some profile-specific details like tickets are missing from this API definition.
 
 There are [community-maintained TypeScript typings available as `@types/hafas-client`](https://www.npmjs.com/package/@types/hafas-client). 
+
+> [!IMPORTANT]
+> Depending on your use case, it is very important that you employ caching, either with a simple [HTTP proxy cache](https://github.com/traines-source/time-space-train-planner/blob/master/deployments/nginx-cache.conf) in front of the REST API or by using [cached-hafas-client](https://github.com/public-transport/cached-hafas-client) (where, of course, you can just drop in a `db-vendo-client` instead of a `hafas-client` instance). Also see [db-rest](https://github.com/derhuerst/db-rest), which does this and some more plumbing.
 
 ## Related Projects
 

@@ -1,6 +1,8 @@
 # `db-vendo-client` documentation
 
-**[API documentation](api.md)**
+**[JS API documentation](api.md)**
+
+[REST API OpenAPI schema](openapi.yaml) ([open in Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/public-transport/db-vendo-client/refs/heads/main/docs/openapi.yaml))
 
 ## Migrating from an old (v5) `hafas-client` version
 
