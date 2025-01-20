@@ -30,13 +30,15 @@ const parseLocationsFromCtxRecon = (ctx, j) => {
 };
 
 const trimJourneyId = (journeyId) => {
-	if (!journeyId) return null;
+	if (!journeyId) {
+		return null;
+	}
 	const endOfHafasId = journeyId.lastIndexOf('$');
 	if (endOfHafasId != -1) {
-		return journeyId.substring(0, endOfHafasId+1);
+		return journeyId.substring(0, endOfHafasId + 1);
 	}
 	return journeyId;
-}
+};
 
 const parseJourney = (ctx, jj) => { // j = raw journey
 	const {profile, opt} = ctx;
