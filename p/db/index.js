@@ -1,25 +1,66 @@
 import {createRequire} from 'module';
 const require = createRequire(import.meta.url);
-
-const baseProfile = require('./base.json');
+const dbnavBase = require('../dbnav/base.json');
+const dbregioguideBase = require('../dbregioguide/base.json');
 import {products} from '../../lib/products.js';
-import {formatJourneysReq, formatRefreshJourneyReq} from './journeys-req.js';
+
+// journeys()
+import {formatJourneysReq} from '../dbnav/journeys-req.js';
+const {journeysEndpoint} = dbnavBase;
+
+// refreshJourneys()
+import {formatRefreshJourneyReq} from '../dbnav/journeys-req.js';
+const {refreshJourneysEndpointTickets, refreshJourneysEndpointPolyline} = dbnavBase;
+
+// locations()
+import {formatLocationsReq} from '../dbnav/locations-req.js';
+import {formatLocationFilter} from '../dbnav/location-filter.js';
+const {locationsEndpoint} = dbnavBase;
+
+// stop()
+import {formatStopReq} from '../dbnav/stop-req.js';
+import {parseStop} from '../dbnav/parse-stop.js';
+const {stopEndpoint} = dbnavBase;
+
+// nearby()
+import {formatNearbyReq} from '../dbnav/nearby-req.js';
+const {nearbyEndpoint} = dbnavBase;
+
+// trip()
 import {formatTripReq} from './trip-req.js';
-import {formatLocationFilter} from './location-filter.js';
-import {formatLocationsReq} from './locations-req.js';
+const tripEndpoint_dbnav = dbnavBase.tripEndpoint;
+const tripEndpoint_dbregioguide = dbregioguideBase.tripEndpoint;
+
+// arrivals(), departures()
+const {boardEndpoint} = dbregioguideBase;
 
 const profile = {
-	...baseProfile,
 	locale: 'de-DE',
 	timezone: 'Europe/Berlin',
 
 	products,
+
 	formatJourneysReq,
+	journeysEndpoint,
+
 	formatRefreshJourneyReq,
+	refreshJourneysEndpointTickets, refreshJourneysEndpointPolyline,
+
+	formatLocationsReq, formatLocationFilter,
+	locationsEndpoint,
+
+	formatStopReq, parseStop,
+	stopEndpoint,
+
+	formatNearbyReq,
+	nearbyEndpoint,
+
 	formatTripReq,
-	formatLocationsReq,
-	formatLocationFilter,
+	tripEndpoint_dbnav, tripEndpoint_dbregioguide,
+
+	boardEndpoint,
 };
+
 
 export {
 	profile,

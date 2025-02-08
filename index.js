@@ -32,6 +32,7 @@ const loadEnrichedStationData = (profile) => new Promise((resolve, reject) => {
 	readStations.full()
 		.on('data', (station) => {
 			items[station.id] = station;
+			items[station.name] = station;
 		})
 		.once('end', () => {
 			if (profile.DEBUG) {
@@ -105,7 +106,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen)
+		const results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen || res.entries)
 			.map(res => parse(ctx, res)); // TODO sort?, slice
 
 		return {

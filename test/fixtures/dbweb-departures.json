@@ -1,0 +1,189 @@
+{
+	"entries": [
+		{
+			"bahnhofsId": "8000295",
+			"zeit": "2025-02-08T15:31:00",
+			"ezZeit": "2025-02-08T16:05:00",
+			"gleis": "2",
+			"ueber": [
+				"Osterburken",
+				"Möckmühl",
+				"Bad Friedrichshall Hbf",
+				"Neckarsulm",
+				"Heilbronn Hbf",
+				"Bietigheim-Bissingen",
+				"Ludwigsburg",
+				"Stuttgart Hbf"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#315246#TA#0#DA#80225#1S#8000260#1T#1437#LS#8000096#LT#1653#PU#80#RT#1#CA#DPN#ZE#19073#ZB#RE 19073#PC#3#FR#8000260#FT#1437#TO#8000096#TT#1653#",
+			"meldungen": [],
+			"verkehrmittel": {
+				"name": "RE 19073",
+				"kurzText": "RE",
+				"mittelText": "RE 8",
+				"langText": "RE 19073",
+				"produktGattung": "REGIONAL"
+			},
+			"terminus": "Stuttgart Hbf"
+		},
+		{
+			"bahnhofsId": "508987",
+			"zeit": "2025-02-08T16:20:00",
+			"ueber": [
+				"Bahnhof, Osterburken",
+				"Rathaus, Osterburken",
+				"RIO, Osterburken",
+				"Merchingen Ort, Ravenstein",
+				"Hüngheim Ort, Ravenstein",
+				"Oberwittstadt Ort, Ravenstein",
+				"Unterwittstadt Ort, Ravenstein",
+				"Erlenbach, Ravenstein"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#500575#TA#0#DA#80225#1S#508987#1T#1620#LS#506182#LT#1655#PU#80#RT#1#CA#Bus#ZE#844#ZB#Bus  844#PC#5#FR#508987#FT#1620#TO#506182#TT#1655#",
+			"meldungen": [],
+			"verkehrmittel": {
+				"name": "Bus 844",
+				"linienNummer": "844",
+				"kurzText": "Bus",
+				"mittelText": "Bus 844",
+				"langText": "Bus 844",
+				"produktGattung": "BUS"
+			},
+			"terminus": "Erlenbach"
+		},
+		{
+			"bahnhofsId": "8000295",
+			"zeit": "2025-02-08T16:27:00",
+			"ezZeit": "2025-02-08T16:27:00",
+			"gleis": "4",
+			"ueber": [
+				"Osterburken",
+				"Lauda",
+				"Würzburg Hbf"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#315248#TA#0#DA#80225#1S#8000096#1T#1506#LS#8000260#LT#1721#PU#80#RT#1#CA#DPN#ZE#19074#ZB#RE 19074#PC#3#FR#8000096#FT#1506#TO#8000260#TT#1721#",
+			"meldungen": [],
+			"verkehrmittel": {
+				"name": "RE 19074",
+				"kurzText": "RE",
+				"mittelText": "RE 8",
+				"langText": "RE 19074",
+				"produktGattung": "REGIONAL"
+			},
+			"terminus": "Würzburg Hbf"
+		},
+		{
+			"bahnhofsId": "8000295",
+			"zeit": "2025-02-08T16:31:00",
+			"ezZeit": "2025-02-08T16:39:00",
+			"gleis": "2",
+			"ueber": [
+				"Osterburken",
+				"Möckmühl",
+				"Bad Friedrichshall Hbf",
+				"Neckarsulm",
+				"Heilbronn Hbf",
+				"Bietigheim-Bissingen",
+				"Ludwigsburg",
+				"Stuttgart Hbf"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#316113#TA#0#DA#80225#1S#8000260#1T#1537#LS#8000096#LT#1756#PU#80#RT#1#CA#DPN#ZE#63379#ZB#RE 63379#PC#3#FR#8000260#FT#1537#TO#8000096#TT#1756#",
+			"meldungen": [
+				{
+					"prioritaet": "NIEDRIG",
+					"text": "Keine rollstuhlgerechte Einrichtung, kein behindertengerechtes WC im Zug. Mobilitätseingeschränkte Reisende wenden sich bzgl. eventuell erforderlicher Umbuchungen an unsere Mobilitätsservice-Zentrale unter 030 65212888."
+				}
+			],
+			"verkehrmittel": {
+				"name": "RE 63379",
+				"kurzText": "RE",
+				"mittelText": "RE 8",
+				"langText": "RE 63379",
+				"produktGattung": "REGIONAL"
+			},
+			"terminus": "Stuttgart Hbf"
+		},
+		{
+			"bahnhofsId": "510853",
+			"zeit": "2025-02-08T16:35:00",
+			"ueber": [
+				"Bahnhof, Osterburken",
+				"Hohenstadt Ort, Ahorn (Baden)",
+				"Eubigheim Kirche, Ahorn (Baden)",
+				"Eubigheim Obereubigheim Ort, Ahorn (Baden)",
+				"Buch Ort, Ahorn (Baden)",
+				"Uiffingen Ort, Boxberg (Baden)",
+				"Angeltürn Ort, Boxberg (Baden)",
+				"Rathaus, Boxberg (Baden)"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#1108875#TA#4#DA#80225#1S#510853#1T#1635#LS#421730#LT#1713#PU#80#RT#1#CA#rfb#ZE#9839#ZB#RUF 9839#PC#9#FR#510853#FT#1635#TO#421730#TT#1713#",
+			"meldungen": [],
+			"verkehrmittel": {
+				"name": "RUF 9839",
+				"linienNummer": "9839",
+				"kurzText": "RUF",
+				"mittelText": "RUF 9839",
+				"langText": "RUF 9839",
+				"produktGattung": "ANRUFPFLICHTIG"
+			},
+			"terminus": "Rathaus, Boxberg (Baden)"
+		},
+		{
+			"bahnhofsId": "8000295",
+			"zeit": "2025-02-08T16:36:00",
+			"gleis": "1",
+			"ueber": [
+				"Osterburken",
+				"Adelsheim Nord",
+				"Zimmern(b Seckach)",
+				"Seckach",
+				"Eicholzheim",
+				"Oberschefflenz",
+				"Auerbach(b Mosbach, Baden)",
+				"Homburg(Saar)Hbf"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#248243#TA#0#DA#80225#1S#8000295#1T#1636#LS#8000176#LT#2006#PU#80#RT#1#CA#s#ZE#1#ZB#S      1#PC#4#FR#8000295#FT#1636#TO#8000176#TT#2006#",
+			"meldungen": [],
+			"verkehrmittel": {
+				"name": "S 1",
+				"linienNummer": "1",
+				"kurzText": "S",
+				"mittelText": "S 1",
+				"langText": "S 1",
+				"produktGattung": "SBAHN"
+			},
+			"terminus": "Homburg(Saar)Hbf"
+		},
+		{
+			"bahnhofsId": "8000295",
+			"zeit": "2025-02-08T16:36:00",
+			"gleis": "3",
+			"ueber": [
+				"Osterburken",
+				"Adelsheim Ost",
+				"Sennfeld",
+				"Roigheim",
+				"Möckmühl",
+				"Züttlingen",
+				"Siglingen",
+				"Tübingen Hbf"
+			],
+			"journeyId": "2|#VN#1#ST#1738783727#PI#0#ZI#898552#TA#0#DA#80225#1S#8000295#1T#1636#LS#8000141#LT#1922#PU#80#RT#1#CA#DPN#ZE#19329#ZB#MEX19329#PC#3#FR#8000295#FT#1636#TO#8000141#TT#1922#",
+			"meldungen": [
+				{
+					"prioritaet": "HOCH",
+					"text": "Halt entfällt",
+					"type": "HALT_AUSFALL"
+				}
+			],
+			"verkehrmittel": {
+				"name": "MEX19329",
+				"kurzText": "MEX",
+				"mittelText": "MEX 18",
+				"langText": "MEX19329",
+				"produktGattung": "REGIONAL"
+			},
+			"terminus": "Tübingen Hbf"
+		}
+	]
+}

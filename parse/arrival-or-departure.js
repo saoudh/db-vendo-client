@@ -10,17 +10,17 @@ const createParseArrOrDep = (prefix) => {
 		const {profile, opt} = ctx;
 		const cancelled = profile.parseCancelled(d);
 		const res = {
-			tripId: d.journeyID || d.train?.journeyId || d.zuglaufId,
-			stop: profile.parseLocation(ctx, d.station || d.abfrageOrt),
+			tripId: d.journeyID || d.journeyId || d.train?.journeyId || d.zuglaufId,
+			stop: profile.parseLocation(ctx, d.station || d.abfrageOrt || {bahnhofsId: d.bahnhofsId}),
 			...profile.parseWhen(
 				ctx,
 				null,
-				d.timeSchedule || d.time || d.abgangsDatum || d.ankunftsDatum,
-				d.timeType != 'SCHEDULE' ? d.timePredicted || d.time || d.ezAbgangsDatum || d.ezAnkunftsDatum : null,
+				d.timeSchedule || d.time || d.zeit || d.abgangsDatum || d.ankunftsDatum,
+				d.timeType != 'SCHEDULE' ? d.timePredicted || d.time || d.ezZeit || d.ezAbgangsDatum || d.ezAnkunftsDatum : null,
 				cancelled),
 			...profile.parsePlatform(ctx, d.platformSchedule || d.platform || d.gleis, d.platformPredicted || d.platform || d.ezGleis, cancelled),
 			// prognosisType: TODO
-			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || profile.parseStationName(ctx, d.destination?.name || d.richtung) || null,
+			direction: d.transport?.direction?.stopPlaces?.length > 0 && profile.parseStationName(ctx, d.transport?.direction?.stopPlaces[0].name) || profile.parseStationName(ctx, d.destination?.name || d.richtung || d.terminus) || null,
 			provenance: profile.parseStationName(ctx, d.transport?.origin?.name || d.origin?.name || d.abgangsOrt?.name) || null,
 			line: profile.parseLine(ctx, d) || null,
 			remarks: [],
@@ -39,7 +39,18 @@ const createParseArrOrDep = (prefix) => {
 		if (opt.remarks) {
 			res.remarks = profile.parseRemarks(ctx, d);
 		}
-		// TODO opt.stopovers
+
+		if (opt.stopovers && Array.isArray(d.ueber)) {
+			const stopovers = d.ueber
+				.map(viaName => profile.parseStopover(ctx, {name: viaName}, null));
+
+			if (prefix === ARRIVAL) {
+				res.previousStopovers = stopovers;
+			} else if (prefix === DEPARTURE) {
+				res.nextStopovers = stopovers;
+			}
+		}
+
 		return res;
 	};
 

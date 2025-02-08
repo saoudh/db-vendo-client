@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 import tap from 'tap';
 
 import {createClient} from '../index.js';
-import {profile as rawProfile} from '../p/db/index.js';
+import {profile as rawProfile} from '../p/dbweb/index.js';
 const res = require('./fixtures/dbris-arrivals.json');
 import {dbArrivals as expected} from './fixtures/dbris-arrivals.js';
 
@@ -18,7 +18,7 @@ const opt = {
 	duration: 10,
 	linesOfStops: true,
 	remarks: true,
-	stopovers: true,
+	stopovers: false,
 	includeRelatedStations: true,
 	when: '2019-08-19T20:30:00+02:00',
 	products: {},
