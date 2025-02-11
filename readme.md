@@ -5,7 +5,7 @@
 ![ISC-licensed](https://img.shields.io/github/license/public-transport/db-vendo-client.svg)
 [![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
 
-This is a very early version. What works:
+This is an early version. What works:
 
 * `journeys()`, `refreshJourney()` including tickets
 * `locations()`, `nearby()`,
@@ -16,25 +16,27 @@ What doesn't work (yet, see TODO's scattered around the code):
 
 * `journeys()` details like scheduledDays, stop/station groups, some line details ...
 * loadFactor and other details in boards
-* certain stop details like products for `locations()` and geopositions and remarks for boards – this can be remedied by turning on `enrichStations` in the config, enriching location info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
+* certain stop details like products for `locations()` and geopositions and remarks for boards – this can be remedied with `enrichStations` in the config (turned on by default), enriching location info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
 * some query options/filters (e.g. routingMode for journeys, direction for boards)
 * all other endpoints (`tripsByName()`, `radar()`, `journeysFromTrip()`, `reachableFrom()`, `remarks()`, `lines()`, `station()`)
 
 Depending on the configured profile, db-vendo-client will use multiple different DB APIs that offer varying functionality, so choose wisely:
 
-|                       | `db` Profile        | `dbnav` Profile |
-| -------------         | -------------     | ------------- |
-| no API key required   | ✅                | ✅ |
-| max duration boards   | 12h | 1h |
-| remarks               | not for boards | only limited remarks for boards (still no `remarks()` endpoint) |
-| cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag |
-| tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines |
-| polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
-| trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids |
-| line.id/fahrtNr used  | unreliable/route id for journeys/`trip()`, actual fahrtNr for boards | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` |
-| adminCode/operator    | adminCode only for boards | only for journeys |
-| `stop()`              | ❌ | ✅ |
-| assumed backend API stability | less stable | more stable |
+|                       | `db` Profile        | `dbnav` Profile | `dbweb` Profile
+| -------------         | -------------     | ------------- | ------------- |
+| no API key required   | ✅                | ✅ |  ✅ | 
+| max duration boards   | 12h | 1h | 1h |
+| remarks               | not for boards | for boards only most important remarks | all remarks on boards and journeys |
+| cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag | contained with cancelled flag |
+| tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines |
+| polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
+| trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids | HAFAS trip ids |
+| line.id/fahrtNr used  | actual fahrtNr | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` | unreliable/route id |
+| adminCode/operator    | ✅ | only for journeys | only operator |
+| stopovers             | not in boards | not in boards | ✅ |
+| `stop()`              | ✅ | ✅ | ❌ |
+| assumed backend API stability | less stable | more stable | less stable |
+| quotas | 60 requests per minute for journeys, unknown for boards (IPv4) | 60 requests per minute (IPv4) | ? (IPv6) |
 
 Feel free to report anything that you stumble upon via Issues or create a PR :)
 
@@ -44,7 +46,7 @@ Also consult the **[documentation](docs/readme.md)**.
 
 After DB has switched to the new "vendo"/"movas" platform for bahn.de and DB Navigator, the old [HAFAS](https://de.wikipedia.org/wiki/HAFAS) API (see [hafas-client](https://github.com/public-transport/hafas-client/)) seems now to have been shut off. This project aims to enable easy switching to the new APIs. However, not all information will be available from the new APIs.
 
-Actually, db-vendo-client is a wrapper around multiple different APIs, currently the bahn.de API for route planning and the regio-guide RIS API for boards for the `db` profile and the DB Navigator API for the `dbnav` profile. See some [notes about the various new APIs at DB](docs/db-apis.md).
+Actually, db-vendo-client is a wrapper around multiple different APIs, currently the bahn.de API for `dbweb`, the DB Navigator API for the `dbnav` profile, and a combination of the DB Navigator API and the regio-guide RIS API for the `db` profile. See some [notes about the various new APIs at DB](docs/db-apis.md).
 
 Strictly speaking, permission is necessary to use this library with the DB APIs.
 

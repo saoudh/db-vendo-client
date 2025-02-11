@@ -1,6 +1,6 @@
 # `stop(id, [opt])`
 
-This endpoint is only available with `dbnav` profile.
+This endpoint is not available with `dbweb` profile.
 
 `id` must be in one of these formats:
 
