@@ -1,6 +1,7 @@
 import {createClient} from './index.js';
 import {profile as dbProfile} from './p/db/index.js';
 import {profile as dbnavProfile} from './p/dbnav/index.js';
+import {profile as dbwebProfile} from './p/dbweb/index.js';
 import {createHafasRestApi as createApi} from 'hafas-rest-api';
 import {loyaltyCardParser} from 'db-rest/lib/loyalty-cards.js';
 import {parseBoolean, parseInteger} from 'hafas-rest-api/lib/parse.js';
@@ -45,10 +46,15 @@ const config = {
 	mapRouteParsers,
 };
 
+const profiles = {
+	'db': dbProfile,
+	'dbnav': dbnavProfile,
+	'dbweb': dbwebProfile
+}
 
 const start = async () => {
 	const vendo = createClient(
-		process.env.DB_PROFILE == 'db' ? dbProfile : dbnavProfile,
+		profiles[process.env.DB_PROFILE] || dbnavProfile,
 		process.env.USER_AGENT || 'link-to-your-project-or-email',
 		config,
 	);
