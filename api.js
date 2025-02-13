@@ -47,10 +47,10 @@ const config = {
 };
 
 const profiles = {
-	'db': dbProfile,
-	'dbnav': dbnavProfile,
-	'dbweb': dbwebProfile
-}
+	db: dbProfile,
+	dbnav: dbnavProfile,
+	dbweb: dbwebProfile,
+};
 
 const start = async () => {
 	const vendo = createClient(

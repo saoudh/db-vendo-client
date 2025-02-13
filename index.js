@@ -106,9 +106,15 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen || res.entries)
+		let results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen || res.entries)
 			.map(res => parse(ctx, res)); // TODO sort?, slice
 
+		if (!opt.includeRelatedStations) {
+			results = results.filter(r => !r.stop?.id || r.stop.id == station);
+		}
+		if (opt.direction) {
+			results = results.filter(r => !r.nextStopovers || r.nextStopovers.find(s => s.stop?.id == opt.direction || s.stop?.name == opt.direction));
+		}
 		return {
 			[resultsField]: results,
 			realtimeDataUpdatedAt: null, // TODO
