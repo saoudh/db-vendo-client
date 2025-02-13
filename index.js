@@ -45,15 +45,23 @@ const loadEnrichedStationData = (profile) => new Promise((resolve, reject) => {
 		});
 });
 
+const applyEnrichedStationData = async (ctx, shouldLoadEnrichedStationData) => {
+	const {profile, common} = ctx;
+	if (shouldLoadEnrichedStationData && !common.locations) {
+		const locations = await loadEnrichedStationData(profile);
+		common.locations = locations;
+	}
+};
+
 const createClient = (profile, userAgent, opt = {}) => {
 	profile = Object.assign({}, defaultProfile, profile);
 	validateProfile(profile);
 	const common = {};
-	if (opt.enrichStations !== false) {
-		loadEnrichedStationData(profile)
-			.then(locations => {
-				common.locations = locations;
-			});
+	let shouldLoadEnrichedStationData = false;
+	if (typeof opt.enrichStations === 'function') {
+		profile.enrichStation = opt.enrichStations;
+	} else if (opt.enrichStations !== false) {
+		shouldLoadEnrichedStationData = true;
 	}
 
 	if ('string' !== typeof userAgent) {
@@ -64,6 +72,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 	}
 
 	const _stationBoard = async (station, type, resultsField, parse, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
 		if (isObj(station) && station.id) {
 			station = station.id;
 		} else if ('string' !== typeof station) {
@@ -129,6 +138,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const journeys = async (from, to, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
 		if ('earlierThan' in opt && 'laterThan' in opt) {
 			throw new TypeError('opt.earlierThan and opt.laterThan are mutually exclusive.');
 		}
@@ -211,6 +221,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const refreshJourney = async (refreshToken, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if ('string' !== typeof refreshToken || !refreshToken) {
 			throw new TypeError('refreshToken must be a non-empty string.');
 		}
@@ -237,6 +249,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const locations = async (query, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if (!isNonEmptyString(query)) {
 			throw new TypeError('query must be a non-empty string.');
 		}
@@ -263,6 +277,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const stop = async (stop, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if (isObj(stop) && stop.id) {
 			stop = stop.id;
 		} else if ('string' !== typeof stop) {
@@ -284,6 +300,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const nearby = async (location, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		validateLocation(location, 'location');
 
 		opt = Object.assign({
@@ -314,6 +332,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const trip = async (id, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if (!isNonEmptyString(id)) {
 			throw new TypeError('id must be a non-empty string.');
 		}
@@ -341,6 +361,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 	// todo [breaking]: rename to trips()?
 	const tripsByName = async (_lineNameOrFahrtNr = '*', _opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		throw new Error('not implemented');
 	};
 
@@ -367,4 +389,5 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 export {
 	createClient,
+	loadEnrichedStationData,
 };
