@@ -1,5 +1,3 @@
-// todo: use import assertions once they're supported by Node.js & ESLint
-// https://github.com/tc39/proposal-import-assertions
 import tap from 'tap';
 import {
 	checkIfResponseIsOk as checkIfResIsOk,
