@@ -1,6 +1,5 @@
 import isObj from 'lodash/isObject.js';
 import distance from 'gps-distance';
-import readStations from 'db-hafas-stations';
 
 import {defaultProfile} from './lib/default-profile.js';
 import {validateProfile} from './lib/validate-profile.js';
@@ -28,21 +27,23 @@ const validateLocation = (loc, name = 'location') => {
 };
 
 const loadEnrichedStationData = (profile) => new Promise((resolve, reject) => {
-	const items = {};
-	readStations.full()
-		.on('data', (station) => {
-			items[station.id] = station;
-			items[station.name] = station;
-		})
-		.once('end', () => {
-			if (profile.DEBUG) {
-				console.log('Loaded station index.');
-			}
-			resolve(items);
-		})
-		.once('error', (err) => {
-			reject(err);
-		});
+	import('db-hafas-stations').then(m => {
+		const items = {};
+		m.default.full()
+			.on('data', (station) => {
+				items[station.id] = station;
+				items[station.name] = station;
+			})
+			.once('end', () => {
+				if (profile.DEBUG) {
+					console.log('Loaded station index.');
+				}
+				resolve(items);
+			})
+			.once('error', (err) => {
+				reject(err);
+			});
+	});
 });
 
 const applyEnrichedStationData = async (ctx, shouldLoadEnrichedStationData) => {
