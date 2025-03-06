@@ -2,6 +2,7 @@
 
 **A client for the new "vendo"/"movas" Deutsche Bahn APIs, a drop-in replacement for [hafas-client](https://github.com/public-transport/hafas-client/).**
 
+[![npm version](https://img.shields.io/npm/v/db-vendo-client.svg)](https://www.npmjs.com/package/db-vendo-client)
 ![ISC-licensed](https://img.shields.io/github/license/public-transport/db-vendo-client.svg)
 [![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
 
@@ -12,11 +13,11 @@ This is an early version. What works:
 * `departures()`, `arrivals()` boards
 * `trip()`
 
-What doesn't work (yet, see TODO's scattered around the code):
+What doesn't work:
 
 * `journeys()` details like scheduledDays, stop/station groups, some line details ...
 * loadFactor and other details in boards
-* certain stop details like products for `locations()` and geopositions and remarks for boards – this can be remedied with `enrichStations` in the config (turned on by default), enriching location info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
+* certain stop details like products for `locations()` and geopositions for boards – this can be remedied with `enrichStations` in the config (turned on by default), enriching stop info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
 * some query options/filters (e.g. routingMode for journeys, direction for boards)
 * all other endpoints (`tripsByName()`, `radar()`, `journeysFromTrip()`, `reachableFrom()`, `remarks()`, `lines()`, `station()`)
 

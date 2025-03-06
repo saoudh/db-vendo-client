@@ -64,7 +64,7 @@ const parseLocation = (ctx, l) => {
 	}
 
 	res.name = name;
-	res = enrichStation(ctx, res);
+	res = profile.enrichStation(ctx, res);
 
 	if (l.type === ADDRESS || lid.A == '2') {
 		res.address = name;
