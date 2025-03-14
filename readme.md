@@ -26,7 +26,7 @@ Depending on the configured profile, db-vendo-client will use multiple different
 |                       | `db` Profile        | `dbnav` Profile | `dbweb` Profile
 | -------------         | -------------     | ------------- | ------------- |
 | no API key required   | ✅                | ✅ |  ✅ | 
-| max duration boards   | 12h | 1h | 1h |
+| duration for boards   | up to 12h | always 1h | always 1h |
 | remarks               | not for boards | for boards only most important remarks | all remarks on boards and journeys |
 | cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag | contained with cancelled flag |
 | tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines |
