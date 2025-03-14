@@ -7,7 +7,7 @@ const ADDRESS = 'ADR';
 const leadingZeros = /^0+/;
 
 const parseLocation = (ctx, l) => {
-	const {profile, common} = ctx;
+	const {profile} = ctx;
 
 	if (!l) {
 		return null;
@@ -53,16 +53,6 @@ const parseLocation = (ctx, l) => {
 		return stop;
 	}
 
-	if (name && common?.locations?.[name] && res.id === null) {
-		delete res.type;
-		delete res.id;
-
-		return {
-			...common.locations[name],
-			...res,
-		};
-	}
-
 	res.name = name;
 	res = profile.enrichStation(ctx, res);
 
@@ -87,6 +77,7 @@ const enrichStation = (ctx, stop, locations) => {
 			...rich,
 			...stop,
 		};
+		delete stop.lines;
 	}
 	return stop;
 };
