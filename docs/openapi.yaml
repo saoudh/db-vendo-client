@@ -365,7 +365,19 @@ paths:
             default: true
         - name: scheduledDays
           in: query
-          description: Parse & return dates each journey is valid on?
+          description: Parse & return dates the journey is valid on?, returns a field `serviceDays` (instead of `scheduledDays` in hafas-client!) with a different, human-readable structure
+          schema:
+            type: boolean
+            default: false
+        - name: notOnlyFastRoutes
+          in: query
+          description: if true, also show journeys that are mathematically non-optimal
+          schema:
+            type: boolean
+            default: false
+        - name: bestprice
+          in: query
+          description: search for lowest prices across the entire day
           schema:
             type: boolean
             default: false
@@ -683,7 +695,19 @@ paths:
             default: true
         - name: scheduledDays
           in: query
-          description: Parse & return dates the journey is valid on?
+          description: Parse & return dates the journey is valid on?, returns a field `serviceDays` (instead of `scheduledDays` in hafas-client!) with a different, human-readable structure
+          schema:
+            type: boolean
+            default: false
+        - name: notOnlyFastRoutes
+          in: query
+          description: if true, also show journeys that are mathematically non-optimal
+          schema:
+            type: boolean
+            default: false
+        - name: bestprice
+          in: query
+          description: search for lowest prices across the entire day
           schema:
             type: boolean
             default: false

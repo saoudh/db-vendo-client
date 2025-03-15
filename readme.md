@@ -8,14 +8,14 @@
 
 This is an early version. What works:
 
-* `journeys()`, `refreshJourney()` including tickets
+* `journeys()`, `refreshJourney()` including tickets and bestprice option
 * `locations()`, `nearby()`,
 * `departures()`, `arrivals()` boards
 * `trip()`
 
 What doesn't work:
 
-* `journeys()` details like scheduledDays, stop/station groups, some line details ...
+* `journeys()` details like stop/station groups, some line details ...
 * loadFactor and other details in boards
 * certain stop details like products for `locations()` and geopositions for boards – this can be remedied with `enrichStations` in the config (turned on by default), enriching stop info with [db-hafas-stations](https://github.com/derhuerst/db-hafas-stations).
 * some query options/filters (e.g. routingMode for journeys, direction for boards)

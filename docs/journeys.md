@@ -75,7 +75,9 @@ With `opt`, you can override the default options, which look like this:
 	subStops: true, // not supported
 	entrances: true, // not supported
 	remarks: true, // parse & expose hints & warnings?
-	scheduledDays: false, // not yet supported
+	scheduledDays: false, // returns a field `serviceDays` (instead of `scheduledDays` in hafas-client!) with a different, human-readable structure
+	notOnlyFastRoutes: false, // if true, also show journeys that are mathematically non-optimal
+	bestprice: false, // search for lowest prices across the entire day, returns list of journeys sorted by price
 	firstClass: false, // first or second class for tickets
 	loyaltyCard: null, // BahnCards etc., see below
 	language: 'en', // language to get results in
