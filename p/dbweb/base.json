@@ -1,5 +1,6 @@
 {
 	"journeysEndpoint": "https://int.bahn.de/web/api/angebote/fahrplan",
+	"bestpriceEndpoint": "https://int.bahn.de/web/api/angebote/tagesbestpreis",
 	"refreshJourneysEndpointTickets": "https://int.bahn.de/web/api/angebote/recon",
 	"refreshJourneysEndpointPolyline": "https://int.bahn.de/web/api/reiseloesung/verbindung",
 	"locationsEndpoint": "https://int.bahn.de/web/api/reiseloesung/orte",

@@ -85,10 +85,10 @@ const createClient = (profile, userAgent, opt = {}) => {
 			throw new TypeError('type must be a non-empty string.');
 		}
 
-		if (!profile.departuresGetPasslist && 'stopovers' in opt) {
+		if (!profile.departuresGetPasslist && opt.stopovers) {
 			throw new Error('opt.stopovers is not supported by this endpoint');
 		}
-		if (!profile.departuresStbFltrEquiv && 'includeRelatedStations' in opt) { // TODO artificially filter?
+		if (!profile.departuresStbFltrEquiv && 'includeRelatedStations' in opt) {
 			throw new Error('opt.includeRelatedStations is not supported by this endpoint');
 		}
 
@@ -185,6 +185,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 			entrances: true, // parse & expose entrances of stops/stations?
 			remarks: true, // parse & expose hints & warnings?
 			scheduledDays: false, // parse & expose dates each journey is valid on?
+			notOnlyFastRoutes: false, // if true, also show routes that are mathematically non-optimal
+			bestprice: false, // search for lowest prices across the entire day
 		}, opt);
 
 		if (opt.when !== undefined) {
@@ -210,9 +212,15 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.formatJourneysReq({profile, opt}, from, to, when, outFrwd, journeysRef);
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
-		const verbindungen = Number.isInteger(opt.results) ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
+		if (opt.bestprice) {
+			res.verbindungen = (res.intervalle || res.tagesbestPreisIntervalle).flatMap(i => i.verbindungen.map(v => ({...v, ...v.verbindung})));
+		}
+		const verbindungen = Number.isInteger(opt.results) && opt.results != 3 ? res.verbindungen.slice(0, opt.results) : res.verbindungen; // TODO remove default from hafas-rest-api
 		const journeys = verbindungen
 			.map(j => profile.parseJourney(ctx, j));
+		if (opt.bestprice) {
+			journeys.sort((a, b) => a.price?.amount - b.price?.amount);
+		}
 
 		return {
 			earlierRef: res.verbindungReference?.earlier || res.frueherContext || null,

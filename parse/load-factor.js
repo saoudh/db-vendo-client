@@ -9,7 +9,7 @@ const parseLoadFactor = (opt, auslastung) => {
 	if (!auslastung) {
 		return null;
 	}
-	const cls = opt.firstClass
+	const cls = opt.firstClass === true
 		? 'KLASSE_1'
 		: 'KLASSE_2';
 	const load = auslastung.find(a => a.klasse === cls)?.stufe;

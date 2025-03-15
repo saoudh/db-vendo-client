@@ -69,7 +69,15 @@ const parseJourney = (ctx, jj) => { // j = raw journey
 	// TODO
 	if (opt.scheduledDays && j.serviceDays) {
 		// todo [breaking]: rename to scheduledDates
-		// res.scheduledDays = profile.parseScheduledDays(ctx, j.serviceDays);
+		// TODO parse scheduledDays as before
+		res.serviceDays = j.serviceDays.map(d => ({
+			irregular: d.irregular,
+			lastDateInPeriod: d.lastDateInPeriod || d.letztesDatumInZeitraum,
+			planningPeriodBegin: d.planningPeriodBegin || d.planungsZeitraumAnfang,
+			planningPeriodEnd: d.planningPeriodEnd || d.planungsZeitraumEnde,
+			regular: d.regular,
+			weekdays: d.weekdays || d.wochentage,
+		}));
 	}
 
 	res.price = profile.parsePrice(ctx, jj);

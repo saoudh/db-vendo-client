@@ -1,11 +1,14 @@
+const PARTIAL_FARE_HINT = 'Teilpreis / partial fare';
 
 const parsePrice = (ctx, raw) => {
-	const p = raw.angebotsPreis || raw.angebote?.preise?.gesamt?.ab; // TODO teilpreis
+	const p = raw.angebotsPreis || raw.angebote?.preise?.gesamt?.ab || raw.abPreis;
 	if (p?.betrag) {
+		const partialFare = raw.hasTeilpreis ?? raw.angebote?.preise?.istTeilpreis ?? raw.teilpreis;
 		return {
 			amount: p.betrag,
 			currency: p.waehrung,
-			hint: null,
+			hint: partialFare ? PARTIAL_FARE_HINT : null,
+			partialFare: partialFare,
 		};
 	}
 	return undefined;
@@ -45,7 +48,7 @@ const parseTickets = (ctx, j) => {
 					partialFare: s.teilpreis,
 				};
 				if (s.teilpreis) {
-					p.addData = 'Teilpreis / partial fare';
+					p.addData = PARTIAL_FARE_HINT;
 				}
 				const conds = s.konditionsAnzeigen || s.konditionen;
 				if (conds) {

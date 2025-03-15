@@ -210,6 +210,7 @@ const dbJourney = {
 			amount: 27.99,
 			currency: 'EUR',
 			hint: null,
+			partialFare: false,
 		},
 		tickets: [
 			{

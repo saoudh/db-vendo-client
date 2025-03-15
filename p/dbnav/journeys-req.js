@@ -55,8 +55,11 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	if (journeysRef) {
 		query.reiseHin.wunsch.context = journeysRef;
 	}
+	if (opt.notOnlyFastRoutes) {
+		query.reiseHin.wunsch.economic = true;
+	}
 	return {
-		endpoint: ctx.profile.journeysEndpoint,
+		endpoint: opt.bestprice ? profile.bestpriceEndpoint : profile.journeysEndpoint,
 		body: query,
 		headers: getHeaders('application/x.db.vendo.mob.verbindungssuche.v8+json'),
 		method: 'post',

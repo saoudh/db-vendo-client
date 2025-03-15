@@ -292,7 +292,7 @@ const dbwebJourney = {
 		},
 	],
 	refreshToken: '¶HKI¶T$A=1@O=Köln Hbf@X=6958730@Y=50943029@L=8000207@a=128@$A=1@O=Köln Messe/Deutz@X=6975000@Y=50940872@L=8003368@a=128@$202504110511$202504110512$S     12$$1$$$$$$§W$A=1@O=Köln Messe/Deutz@X=6975000@Y=50940872@L=8003368@a=128@$A=1@O=Köln Messe/Deutz Gl.11-12@X=6974065@Y=50941717@L=8073368@a=128@$202504110512$202504110519$$$1$$$$$$§T$A=1@O=Köln Messe/Deutz Gl.11-12@X=6974065@Y=50941717@L=8073368@a=128@$A=1@O=Nürnberg Hbf@X=11082989@Y=49445615@L=8000284@a=128@$202504110520$202504110858$ICE  523$$1$$$$$$',
-	price: {amount: 31.49, currency: 'EUR', hint: null},
+	price: {amount: 31.49, currency: 'EUR', hint: null, partialFare: false},
 	tickets: [{
 		name: 'from',
 		priceObj: {

@@ -13,7 +13,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 		deutschlandTicketVorhanden: false,
 		nurDeutschlandTicketVerbindungen: false,
 		reservierungsKontingenteVorhanden: false,
-		schnelleVerbindungen: true,
+		schnelleVerbindungen: !opt.notOnlyFastRoutes,
 		sitzplatzOnly: false,
 		abfahrtsHalt: from.lid,
 		zwischenhalte: opt.via
@@ -35,14 +35,14 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	if (opt.results !== null) {
 		// TODO query.numF = opt.results;
 	}
-	query = Object.assign(query, ctx.profile.formatTravellers(ctx));
+	query = Object.assign(query, profile.formatTravellers(ctx));
 	return {
-		endpoint: ctx.profile.journeysEndpoint,
+		endpoint: opt.bestprice ? profile.bestpriceEndpoint : profile.journeysEndpoint,
 		body: query,
 		method: 'post',
 	};
 };
-// TODO poly conditional other endpoint
+
 const formatRefreshJourneyReq = (ctx, refreshToken) => {
 	const {profile, opt} = ctx;
 	if (opt.tickets) {
