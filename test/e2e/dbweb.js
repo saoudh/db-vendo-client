@@ -276,9 +276,9 @@ if (!process.env.VCR_OFF) {
 		});
 		t.end();
 	});
-}
 
-/*
+
+	/*
 tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to Spittelmarkt.', async (t) => {
 	const blnMehringdamm = '730939';
 	const blnStadtmitte = '732541';
@@ -368,33 +368,34 @@ tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to S
 	}
 });*/
 
-tap.test('trip details', async (t) => {
-	const res = await client.journeys(berlinHbf, münchenHbf, {
-		results: 1, departure: when,
+	tap.test('trip details', async (t) => {
+		const res = await client.journeys(berlinHbf, münchenHbf, {
+			results: 1, departure: when,
+		});
+
+		const p = res.journeys[0].legs.find(l => !l.walking);
+		t.ok(p.tripId, 'precondition failed');
+		t.ok(p.line.name, 'precondition failed');
+
+		const tripRes = await client.trip(p.tripId, {when});
+
+		const validate = createValidate(cfg, {
+			trip: (cfg) => {
+				const validateTrip = createValidateTrip(cfg);
+				const validateTripWithFakeDirection = (val, trip, name) => {
+					validateTrip(val, {
+						...trip,
+						direction: trip.direction || 'foo', // todo, see #49
+					}, name);
+				};
+				return validateTripWithFakeDirection;
+			},
+		});
+		validate(t, tripRes, 'tripResult', 'tripRes');
+
+		t.end();
 	});
-
-	const p = res.journeys[0].legs.find(l => !l.walking);
-	t.ok(p.tripId, 'precondition failed');
-	t.ok(p.line.name, 'precondition failed');
-
-	const tripRes = await client.trip(p.tripId, {when});
-
-	const validate = createValidate(cfg, {
-		trip: (cfg) => {
-			const validateTrip = createValidateTrip(cfg);
-			const validateTripWithFakeDirection = (val, trip, name) => {
-				validateTrip(val, {
-					...trip,
-					direction: trip.direction || 'foo', // todo, see #49
-				}, name);
-			};
-			return validateTripWithFakeDirection;
-		},
-	});
-	validate(t, tripRes, 'tripResult', 'tripRes');
-
-	t.end();
-});
+}
 
 tap.test('departures at Berlin Schwedter Str.', async (t) => {
 	const res = await client.departures(blnSchwedterStr, {

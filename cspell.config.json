@@ -621,13 +621,17 @@
     "Zusammenfassung",
     "Züttlingen",
     "Zwickauer",
-    "zwischenhalte"
+    "zwischenhalte",
+    "bestprice",
+    "intervalle",
+    "Intervalle",
+    "tagesbest"
   ],
   "ignorePaths": [
     "docs/dumps/**",
     "test/e2e/fixtures/**",
     "test/parse/remarks.js",
-	"test/parse/dbnav-journey.js"
+	  "test/parse/dbnav-journey.js"
   ],
   "dictionaries": [
     "node"
