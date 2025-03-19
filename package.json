@@ -1,7 +1,7 @@
 {
 	"name": "db-vendo-client",
 	"description": "Client for bahn.de public transport APIs.",
-	"version": "6.6.2",
+	"version": "6.7.0",
 	"type": "module",
 	"main": "index.js",
 	"files": [
@@ -60,7 +60,7 @@
 	"dependencies": {
 		"content-type": "^1.0.5",
 		"cross-fetch": "^4.1.0",
-		"db-hafas-stations": "^1.1.0",
+		"db-hafas-stations": "2.0.0",
 		"gps-distance": "0.0.4",
 		"https-proxy-agent": "^7.0.6",
 		"luxon": "^3.5.0",

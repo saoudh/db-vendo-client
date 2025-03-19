@@ -78,6 +78,14 @@ const enrichStation = (ctx, stop, locations) => {
 			...stop,
 		};
 		delete stop.lines;
+		delete stop.facilities;
+		delete stop.reisezentrumOpeningHours;
+		if (stop.station) {
+			stop.station = {...stop.station};
+			delete stop.station.lines;
+			delete stop.station.facilities;
+			delete stop.station.reisezentrumOpeningHours;
+		}
 	}
 	return stop;
 };
