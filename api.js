@@ -2,6 +2,7 @@ import {createClient} from './index.js';
 import {profile as dbProfile} from './p/db/index.js';
 import {profile as dbnavProfile} from './p/dbnav/index.js';
 import {profile as dbwebProfile} from './p/dbweb/index.js';
+import {profile as dbrisProfile} from './p/dbris/index.js';
 import {mapRouteParsers} from './lib/api-parsers.js';
 import {createHafasRestApi as createApi} from 'hafas-rest-api';
 
@@ -26,6 +27,7 @@ const profiles = {
 	db: dbProfile,
 	dbnav: dbnavProfile,
 	dbweb: dbwebProfile,
+	dbris: dbrisProfile,
 };
 
 const start = async () => {

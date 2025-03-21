@@ -40,14 +40,21 @@ const createParseArrOrDep = (prefix) => {
 			res.remarks = profile.parseRemarks(ctx, d);
 		}
 
-		if ((opt.stopovers || opt.direction) && Array.isArray(d.ueber)) {
-			const stopovers = d.ueber
-				.map(viaName => profile.parseStopover(ctx, {name: viaName}, null));
-
-			if (prefix === ARRIVAL) {
-				res.previousStopovers = stopovers;
-			} else if (prefix === DEPARTURE) {
-				res.nextStopovers = stopovers;
+		if (opt.stopovers || opt.direction) {
+			let stopovers = undefined;
+			if (Array.isArray(d.ueber)) {
+				stopovers = d.ueber
+					.map(viaName => profile.parseStopover(ctx, {name: viaName}, null));
+			} else if (Array.isArray(d.transport?.via)) {
+				stopovers = (d.transport?.via)
+					.map(via => profile.parseStopover(ctx, via, null));
+			}
+			if (stopovers) {
+				if (prefix === ARRIVAL) {
+					res.previousStopovers = stopovers;
+				} else if (prefix === DEPARTURE) {
+					res.nextStopovers = stopovers;
+				}
 			}
 		}
 
