@@ -9,10 +9,9 @@ const profile = {
 
 	products,
 
-
 	formatStationBoardReq,
 
-	journeysOutFrwd: true,
+	journeysOutFrwd: false,
 	departuresGetPasslist: true,
 	departuresStbFltrEquiv: true,
 	trip: false,

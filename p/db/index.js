@@ -30,6 +30,7 @@ const tripEndpoint_dbnav = dbnavBase.tripEndpoint;
 const tripEndpoint_dbregioguide = dbregioguideBase.tripEndpoint;
 
 // arrivals(), departures()
+import {formatStationBoardReq} from '../dbregioguide/station-board-req.js';
 const {boardEndpoint} = dbregioguideBase;
 
 const profile = {
@@ -56,6 +57,7 @@ const profile = {
 	formatTripReq,
 	tripEndpoint_dbnav, tripEndpoint_dbregioguide,
 
+	formatStationBoardReq,
 	boardEndpoint,
 };
 

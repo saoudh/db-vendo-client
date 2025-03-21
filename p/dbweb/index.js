@@ -4,6 +4,8 @@ import {formatJourneysReq, formatRefreshJourneyReq} from './journeys-req.js';
 import {formatLocationFilter} from './location-filter.js';
 import {formatLocationsReq} from './locations-req.js';
 import {formatStationBoardReq} from './station-board-req.js';
+import {formatTripReq} from './trip-req.js';
+import {formatNearbyReq} from './nearby-req.js';
 
 const profile = {
 	...baseProfile,
@@ -14,9 +16,11 @@ const profile = {
 
 	formatJourneysReq,
 	formatRefreshJourneyReq,
+	formatTripReq,
+	formatNearbyReq,
 	formatLocationsReq,
-	formatLocationFilter,
 	formatStationBoardReq,
+	formatLocationFilter,
 
 	departuresGetPasslist: true,
 };
