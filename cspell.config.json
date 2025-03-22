@@ -625,11 +625,14 @@
     "bestprice",
     "intervalle",
     "Intervalle",
-    "tagesbest"
+    "tagesbest",
+    "dbbahnhof",
+    "cancelation"
   ],
   "ignorePaths": [
     "docs/dumps/**",
     "test/e2e/fixtures/**",
+    "test/fixtures/**",
     "test/parse/remarks.js",
 	  "test/parse/dbnav-journey.js"
   ],

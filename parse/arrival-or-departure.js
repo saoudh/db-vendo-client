@@ -11,12 +11,12 @@ const createParseArrOrDep = (prefix) => {
 		const cancelled = profile.parseCancelled(d);
 		const res = {
 			tripId: d.journeyID || d.journeyId || d.train?.journeyId || d.zuglaufId,
-			stop: profile.parseLocation(ctx, d.station || d.abfrageOrt || {bahnhofsId: d.bahnhofsId}),
+			stop: profile.parseLocation(ctx, d.station || d.abfrageOrt || d.stopPlace || {bahnhofsId: d.bahnhofsId}),
 			...profile.parseWhen(
 				ctx,
 				null,
 				d.timeSchedule || d.time || d.zeit || d.abgangsDatum || d.ankunftsDatum,
-				d.timeType != 'SCHEDULE' ? d.timePredicted || d.time || d.ezZeit || d.ezAbgangsDatum || d.ezAnkunftsDatum : null,
+				d.timeType != 'SCHEDULE' ? d.timePredicted || d.timeDelayed || d.time || d.ezZeit || d.ezAbgangsDatum || d.ezAnkunftsDatum : null,
 				cancelled),
 			...profile.parsePlatform(ctx, d.platformSchedule || d.platform || d.gleis, d.platformPredicted || d.platform || d.ezGleis, cancelled),
 			// prognosisType: TODO
@@ -45,8 +45,8 @@ const createParseArrOrDep = (prefix) => {
 			if (Array.isArray(d.ueber)) {
 				stopovers = d.ueber
 					.map(viaName => profile.parseStopover(ctx, {name: viaName}, null));
-			} else if (Array.isArray(d.transport?.via)) {
-				stopovers = (d.transport?.via)
+			} else if (Array.isArray(d.transport?.via) || Array.isArray(d.viaStops)) {
+				stopovers = (d.transport?.via || d.viaStops)
 					.map(via => profile.parseStopover(ctx, via, null));
 			}
 			if (stopovers) {

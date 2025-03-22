@@ -99,6 +99,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// departures at related stations
 			// e.g. those that belong together on the metro map.
 			includeRelatedStations: true,
+			moreStops: null, // also include departures/arrivals for array of up to nine additional station evaNumbers  (not supported with dbnav and dbweb)
 		}, opt);
 		opt.when = new Date(opt.when || Date.now());
 		if (Number.isNaN(Number(opt.when))) {
@@ -110,7 +111,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		let results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen || res.entries)
+		let results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen || res.entries.flat())
 			.map(res => parse(ctx, res)); // TODO sort?, slice
 
 		if (!opt.includeRelatedStations) {

@@ -1290,7 +1290,7 @@ const dbwebDepartures = [
 		},
 		remarks: [
 			{
-				code: undefined,
+				code: 'HALT_AUSFALL',
 				summary: 'Halt entfällt',
 				text: 'Halt entfällt',
 				type: 'warning',

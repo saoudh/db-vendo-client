@@ -10,7 +10,12 @@ const parseRemarks = (ctx, ref) => {
 		ref.himNotizen || [],
 		ref.hims || [],
 		ref.serviceNotiz && [ref.serviceNotiz] || [],
-		ref.messages || [],
+		ref.messages?.common || [],
+		ref.messages?.delay || [],
+		ref.messages?.cancelation || [],
+		ref.messages?.destination || [],
+		ref.messages?.via || [],
+		Array.isArray(ref.messages) ? ref.messages : [],
 		ref.meldungen || [],
 		ref.meldungenAsObject || [],
 		ref.attributNotizen || [],
@@ -28,12 +33,12 @@ const parseRemarks = (ctx, ref) => {
 			if (remark.prioritaet || remark.prio || remark.type) {
 				type = 'status';
 			}
-			if (!remark.priority && !remark.kategorie && remark.key || remark.disruptionID
+			if (!remark.priority && !remark.kategorie && remark.key || remark.disruptionID || remark.important
 				|| remark.prioritaet && remark.prioritaet == 'HOCH' || remark.prio && remark.prio == 'HOCH' || remark.priority && remark.priority < 100) {
 				type = 'warning';
 			}
 			let res = {
-				code: remark.code || remark.key || remark.id,
+				code: remark.code || remark.key || remark.id || remark.type,
 				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || remark.shortText
 					|| Object.values(remark.descriptions || {})
 						.shift()?.textShort,

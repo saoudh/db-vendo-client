@@ -3,6 +3,8 @@ import {profile as dbProfile} from './p/db/index.js';
 import {profile as dbnavProfile} from './p/dbnav/index.js';
 import {profile as dbwebProfile} from './p/dbweb/index.js';
 import {profile as dbrisProfile} from './p/dbris/index.js';
+import {profile as dbbahnhofProfile} from './p/dbbahnhof/index.js';
+import {profile as dbregioguideProfile} from './p/dbregioguide/index.js';
 import {mapRouteParsers} from './lib/api-parsers.js';
 import {createHafasRestApi as createApi} from 'hafas-rest-api';
 
@@ -28,6 +30,8 @@ const profiles = {
 	dbnav: dbnavProfile,
 	dbweb: dbwebProfile,
 	dbris: dbrisProfile,
+	dbbahnhof: dbbahnhofProfile,
+	dbregioguide: dbregioguideProfile,
 };
 
 const start = async () => {
