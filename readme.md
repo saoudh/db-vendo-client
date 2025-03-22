@@ -6,7 +6,7 @@
 ![ISC-licensed](https://img.shields.io/github/license/public-transport/db-vendo-client.svg)
 [![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
 
-This is an early version. What works:
+The following [FPTF](https://github.com/public-transport/friendly-public-transport-format)/[hafas-client](https://github.com/public-transport/hafas-client/) endpoints are supported (depending on the chosen profile, see below):
 
 * `journeys()`, `refreshJourney()` including tickets and bestprice option
 * `locations()`, `nearby()`,
@@ -23,21 +23,25 @@ What doesn't work:
 
 Depending on the configured profile, db-vendo-client will use multiple different DB APIs that offer varying functionality, so choose wisely:
 
-|                       | `db` Profile        | `dbnav` Profile | `dbweb` Profile
-| -------------         | -------------     | ------------- | ------------- |
-| no API key required   | ✅                | ✅ |  ✅ | 
-| duration for boards   | up to 12h | always 1h | always 1h |
-| remarks               | not for boards | for boards only most important remarks | all remarks on boards and journeys |
-| cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag | contained with cancelled flag |
-| tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines |
-| polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets | only for `refreshJourney()/trip()`, mutually exclusive with tickets |
-| trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids | HAFAS trip ids |
-| line.id/fahrtNr used  | actual fahrtNr | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` | unreliable/route id |
-| adminCode/operator    | ✅ | only for journeys | only operator |
-| stopovers             | not in boards | not in boards | ✅ |
-| `stop()`              | ✅ | ✅ | ❌ |
-| assumed backend API stability | less stable | more stable | less stable |
-| quotas | 60 requests per minute for journeys, unknown for boards (IPv4) | 60 requests per minute (IPv4) | ? (IPv6) |
+| Profile               | `db`              | `dbnav` | `dbweb` | `dbbahnhof` | `dbris` |
+| -------------         | -------------     | ------------- | ------------- | ------------- | ------------- |
+| no API key required   | ✅                | ✅ |  ✅ | ✅ | ❌ |
+| all above endpoints supported | ✅              | ✅ | except `stop()` | only boards | only boards |
+| duration for boards   | up to 12h         | always 1h | always 1h | up to 6h, only from current time | up to 12h |
+| remarks               | not for boards    | for boards only most important remarks | all remarks on boards and journeys | most remarks | all  remarks |
+| cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag |
+| tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | ❌ | ❌ |
+| polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets | only for `refreshJourney()/trip()`, mutually exclusive with tickets | ❌ | ❌ |
+| trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids | HAFAS trip ids | RIS trip ids | RIS trip ids | 
+| line.id/fahrtNr used  | actual fahrtNr | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` | unreliable/route id | unreliable/route id | ✅ |
+| adminCode/operator    | ✅ | only for journeys | only operator | only adminCode | ✅ |
+| stopovers             | not in boards | not in boards | ✅ | some | ✅ |
+| assumed backend API stability | less stable | more stable | less stable | less stable | more stable |
+| quotas | 60 requests per minute for journeys, unknown for boards (IPv4) | 60 requests per minute (IPv4) | aggressive blocking (IPv4/IPv6) | ? | depends on API key |
+
+
+> [!IMPORTANT]
+> If you think that for your project, quotas may become an issue, [consider alternative ways to obtain the data you need.](https://github.com/derhuerst/db-rest/blob/6/docs/readme.md#why-not-to-use-this-api).
 
 Feel free to report anything that you stumble upon via Issues or create a PR :)
 
@@ -81,7 +85,7 @@ There are [community-maintained TypeScript typings available as `@types/hafas-cl
 
 `db-vendo-client` is mostly browser compatible, however none of the endpoints enables CORS, so it is impossible to use `db-vendo-client` in normal browser environments. It was tested with vite + capacitorjs and should also work with cordova or react native and similar projects.
 
-**Limitations:** Does not work with `enrichStations` option enabled.
+**Limitations:** Does not work with `enrichStations` option enabled or with the `dbris` profile.
 
 ## Related Projects
 

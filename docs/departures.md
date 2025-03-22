@@ -36,11 +36,12 @@ With `opt`, you can override the default options, which look like this:
 	// departures at related stations
 	// e.g. those that belong together on the metro map.
 	includeRelatedStations: true,
+	moreStops: null // also include departures/arrivals for array of up to nine additional station evaNumbers (not supported with dbnav and dbweb)
 	language: 'en' // language to get results in
 }
 ```
-The maximum supported duration is 720 for `db` and 60 for other profiles.
-If you pass an object `opt.products`, its fields will partially override the default products defined in the profile. 
+The maximum supported duration depends on the profile (see main readme), e.g. 720 for `db` and 60 for `dbnav`. In order to use the `dbris` profile, you need to pass the env vars `DB_API_KEY` and `DB_CLIENT_ID`.
+If you pass an object `opt.products`, its fields will partially override the default products defined in the profile.
 
 ## Response
 
