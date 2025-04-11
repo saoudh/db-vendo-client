@@ -628,7 +628,8 @@
     "tagesbest",
     "dbbahnhof",
     "Deutschlandticket",
-    "fahrverguenstigungen"
+    "fahrverguenstigungen",
+    "cancelation"
   ],
   "ignorePaths": [
     "docs/dumps/**",
