@@ -9,6 +9,10 @@ const formatBaseJourneysReq = (ctx) => {
 		einstiegsTypList: [
 			'STANDARD',
 		],
+		fahrverguenstigungen: {
+			deutschlandTicketVorhanden: ctx.opt.deutschlandTicketDiscount,
+			nurDeutschlandTicketVerbindungen: ctx.opt.deutschlandTicketConnectionsOnly,
+		},
 		klasse: travellers.klasse,
 		reisendenProfil: {
 			reisende: travellers.reisende.map(t => {

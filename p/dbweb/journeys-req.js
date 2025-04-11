@@ -10,8 +10,8 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	let query = {
 		maxUmstiege: transfers,
 		minUmstiegszeit: opt.transferTime,
-		deutschlandTicketVorhanden: false,
-		nurDeutschlandTicketVerbindungen: false,
+		deutschlandTicketVorhanden: opt.deutschlandTicketDiscount,
+		nurDeutschlandTicketVerbindungen: opt.deutschlandTicketConnectionsOnly,
 		reservierungsKontingenteVorhanden: false,
 		schnelleVerbindungen: !opt.notOnlyFastRoutes,
 		sitzplatzOnly: false,

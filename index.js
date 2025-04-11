@@ -181,6 +181,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 			scheduledDays: false, // parse & expose dates each journey is valid on?
 			notOnlyFastRoutes: false, // if true, also show routes that are mathematically non-optimal
 			bestprice: false, // search for lowest prices across the entire day
+			deutschlandTicketDiscount: false,
+			deutschlandTicketConnectionsOnly: false,
 		}, opt);
 
 		if (opt.when !== undefined) {
@@ -239,6 +241,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 			entrances: true, // parse & expose entrances of stops/stations?
 			remarks: true, // parse & expose hints & warnings?
 			scheduledDays: false, // parse & expose dates the journey is valid on?
+			deutschlandTicketDiscount: false,
+			deutschlandTicketConnectionsOnly: false,
 		}, opt);
 
 		const req = profile.formatRefreshJourneyReq({profile, opt}, refreshToken);

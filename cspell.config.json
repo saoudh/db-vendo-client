@@ -627,7 +627,8 @@
     "Intervalle",
     "tagesbest",
     "dbbahnhof",
-    "cancelation"
+    "Deutschlandticket",
+    "fahrverguenstigungen"
   ],
   "ignorePaths": [
     "docs/dumps/**",
