@@ -613,7 +613,7 @@ paths:
             default: true
         - name: linesOfStops
           in: query
-          description: Parse & return lines of each stop/station?
+          description: not supported
           schema:
             type: boolean
             default: false
@@ -1887,11 +1887,11 @@ components:
           default: false
           type: boolean
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: false
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         remarks:
@@ -1995,11 +1995,11 @@ components:
           default: false
           type: boolean
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         remarks:
@@ -2034,15 +2034,15 @@ components:
           default: true
           type: boolean
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: false
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         linesOfStops:
-          description: parse & expose lines at each stop/station?
+          description: not supported
           default: false
           type: boolean
         language:
@@ -2061,11 +2061,11 @@ components:
           default: false
           type: boolean
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         remarks:
@@ -2088,11 +2088,11 @@ components:
           default: false
           type: boolean
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         remarks:
@@ -2128,11 +2128,11 @@ components:
           default: 10
           type: number
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         linesOfStops:
@@ -2206,7 +2206,7 @@ components:
           default: undefined
           type: number
         poi:
-          description: return points of interest?
+          description: not supported
           default: false
           type: boolean
         stops:
@@ -2218,15 +2218,15 @@ components:
           description: products
           default: undefined
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         linesOfStops:
-          description: parse & expose lines at each stop/station?
+          description: not supported
           default: false
           type: boolean
         language:
@@ -2254,11 +2254,11 @@ components:
           description: products
           default: undefined
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         polylines:
@@ -2296,11 +2296,11 @@ components:
           default: 20
           type: number
         subStops:
-          description: parse & expose sub-stops of stations?
+          description: not supported
           default: true
           type: boolean
         entrances:
-          description: parse & expose entrances of stops/stations?
+          description: not supported
           default: true
           type: boolean
         polylines:

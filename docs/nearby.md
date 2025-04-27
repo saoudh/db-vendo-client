@@ -10,7 +10,7 @@ With `opt`, you can override the default options, which look like this:
 {
 	results: 8, // maximum number of results
 	distance: null, // maximum walking distance in meters
-	poi:      false, // return points of interest?
+	poi:      false, // not supported
 	stops:    true, // return stops/stations?
 	subStops: true, // not supported
 	entrances: true, // not supported
