@@ -1,13 +1,8 @@
-// todo: use import assertions once they're supported by Node.js & ESLint
-// https://github.com/tc39/proposal-import-assertions
-import {createRequire} from 'module';
-const require = createRequire(import.meta.url);
-
 import tap from 'tap';
 
 import {createClient} from '../index.js';
-import {profile as rawProfile} from '../p/db/index.js';
-const res = require('./fixtures/dbris-arrivals.json');
+import {profile as rawProfile} from '../p/dbris/index.js';
+import res from './fixtures/dbris-arrivals.json' with { type: 'json' };
 import {dbArrivals as expected} from './fixtures/dbris-arrivals.js';
 
 const client = createClient(rawProfile, 'public-transport/hafas-client:test', {enrichStations: false});
@@ -18,7 +13,7 @@ const opt = {
 	duration: 10,
 	linesOfStops: true,
 	remarks: true,
-	stopovers: true,
+	stopovers: false,
 	includeRelatedStations: true,
 	when: '2019-08-19T20:30:00+02:00',
 	products: {},

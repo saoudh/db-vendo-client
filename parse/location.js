@@ -7,16 +7,16 @@ const ADDRESS = 'ADR';
 const leadingZeros = /^0+/;
 
 const parseLocation = (ctx, l) => {
-	const {profile, common} = ctx;
+	const {profile} = ctx;
 
 	if (!l) {
 		return null;
 	}
 
 	const lid = parse(l.id || l.locationId, {delimiter: '@'});
-	const res = {
+	let res = {
 		type: 'location',
-		id: (l.extId || l.evaNr || lid.L || l.evaNumber || l.evaNo || '').replace(leadingZeros, '') || null,
+		id: (l.extId || l.evaNr || lid.L || l.evaNumber || l.evaNo || l.bahnhofsId || '').replace(leadingZeros, '') || null,
 	};
 	const name = l.name || lid.O;
 
@@ -28,13 +28,15 @@ const parseLocation = (ctx, l) => {
 		res.longitude = lid.X / 1000000;
 	}
 
-	// addresses and pois might also have fake evaNr sometimes!
-	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || lid.A == '1') {
+	// addresses and POIs might also have fake evaNr sometimes!
+	if (l.type === STATION || l.extId || l.evaNumber || l.evaNo || lid.A == '1' || l.bahnhofsId) {
 		let stop = {
 			type: 'station',
 			id: res.id,
-			name: name,
 		};
+		if (name) {
+			stop.name = name;
+		}
 		if ('number' === typeof res.latitude) {
 			stop.location = res; // todo: remove `.id`
 		}
@@ -44,13 +46,7 @@ const parseLocation = (ctx, l) => {
 			stop.products = profile.parseProducts(ctx, l.products);
 		}
 
-		if (common && common.locations && common.locations[stop.id]) {
-			delete stop.type;
-			stop = {
-				...common.locations[stop.id],
-				...stop,
-			};
-		}
+		stop = profile.enrichStation(ctx, stop);
 
 		// TODO isMeta
 		// TODO entrances, lines
@@ -58,6 +54,8 @@ const parseLocation = (ctx, l) => {
 	}
 
 	res.name = name;
+	res = profile.enrichStation(ctx, res);
+
 	if (l.type === ADDRESS || lid.A == '2') {
 		res.address = name;
 	}
@@ -68,6 +66,31 @@ const parseLocation = (ctx, l) => {
 	return res;
 };
 
+const enrichStation = (ctx, stop, locations) => {
+	const {common} = ctx;
+	const locs = locations || common?.locations;
+	const rich = locs && (locs[stop.id] || locs[stop.name]);
+	if (rich) {
+		delete stop.type;
+		delete stop.id;
+		stop = {
+			...rich,
+			...stop,
+		};
+		delete stop.lines;
+		delete stop.facilities;
+		delete stop.reisezentrumOpeningHours;
+		if (stop.station) {
+			stop.station = {...stop.station};
+			delete stop.station.lines;
+			delete stop.station.facilities;
+			delete stop.station.reisezentrumOpeningHours;
+		}
+	}
+	return stop;
+};
+
 export {
 	parseLocation,
+	enrichStation,
 };

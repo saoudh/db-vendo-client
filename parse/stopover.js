@@ -2,13 +2,15 @@ const parseStopover = (ctx, st, date) => { // st = raw stopover
 	const {profile, opt} = ctx;
 
 	const cancelled = profile.parseCancelled(st);
-	const arr = profile.parseWhen(ctx, date, st.ankunftsZeitpunkt || st.ankunftsDatum, st.ezAnkunftsZeitpunkt || st.ezAnkunftsDatum, cancelled);
-	const arrPl = profile.parsePlatform(ctx, st.gleis, st.ezGleis);
-	const dep = profile.parseWhen(ctx, date, st.abfahrtsZeitpunkt || st.abgangsDatum, st.ezAbfahrtsZeitpunkt || st.ezAbgangsDatum, cancelled);
-	const depPl = profile.parsePlatform(ctx, st.gleis, st.ezGleis);
+	const arr = profile.parseWhen(ctx, date, st.ankunftsZeitpunkt || st.ankunftsDatum || st.arrivalTime?.target, st.ezAnkunftsZeitpunkt || st.ezAnkunftsDatum || st.arrivalTime?.timeType != 'SCHEDULE' && st.arrivalTime?.predicted, cancelled,
+	);
+	const arrPl = profile.parsePlatform(ctx, st.gleis || st.track?.target, st.ezGleis || st.track?.prediction);
+	const dep = profile.parseWhen(ctx, date, st.abfahrtsZeitpunkt || st.abgangsDatum || st.departureTime?.target, st.ezAbfahrtsZeitpunkt || st.ezAbgangsDatum || st.departureTime?.timeType != 'SCHEDULE' && st.departureTime?.predicted, cancelled,
+	);
+	const depPl = arrPl;
 
 	const res = {
-		stop: profile.parseLocation(ctx, st.ort || st) || null,
+		stop: profile.parseLocation(ctx, st.ort || st.station || st) || null,
 		arrival: arr.when,
 		plannedArrival: arr.plannedWhen,
 		arrivalDelay: arr.delay,

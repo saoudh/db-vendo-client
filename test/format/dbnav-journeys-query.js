@@ -41,6 +41,10 @@ const berlinWienQuery0 = Object.freeze(
 		einstiegsTypList: [
 			'STANDARD',
 		],
+		fahrverguenstigungen: {
+			deutschlandTicketVorhanden: undefined,
+			nurDeutschlandTicketVerbindungen: undefined,
+		},
 		klasse: 'KLASSE_2',
 		reiseHin: {
 			wunsch: {

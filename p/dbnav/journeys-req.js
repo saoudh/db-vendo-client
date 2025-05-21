@@ -9,6 +9,10 @@ const formatBaseJourneysReq = (ctx) => {
 		einstiegsTypList: [
 			'STANDARD',
 		],
+		fahrverguenstigungen: {
+			deutschlandTicketVorhanden: ctx.opt.deutschlandTicketDiscount,
+			nurDeutschlandTicketVerbindungen: ctx.opt.deutschlandTicketConnectionsOnly,
+		},
 		klasse: travellers.klasse,
 		reisendenProfil: {
 			reisende: travellers.reisende.map(t => {
@@ -55,8 +59,11 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	if (journeysRef) {
 		query.reiseHin.wunsch.context = journeysRef;
 	}
+	if (opt.notOnlyFastRoutes) {
+		query.reiseHin.wunsch.economic = true;
+	}
 	return {
-		endpoint: ctx.profile.journeysEndpoint,
+		endpoint: opt.bestprice ? profile.bestpriceEndpoint : profile.journeysEndpoint,
 		body: query,
 		headers: getHeaders('application/x.db.vendo.mob.verbindungssuche.v8+json'),
 		method: 'post',

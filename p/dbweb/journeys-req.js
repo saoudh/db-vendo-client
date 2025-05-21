@@ -10,10 +10,10 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	let query = {
 		maxUmstiege: transfers,
 		minUmstiegszeit: opt.transferTime,
-		deutschlandTicketVorhanden: false,
-		nurDeutschlandTicketVerbindungen: false,
+		deutschlandTicketVorhanden: opt.deutschlandTicketDiscount,
+		nurDeutschlandTicketVerbindungen: opt.deutschlandTicketConnectionsOnly,
 		reservierungsKontingenteVorhanden: false,
-		schnelleVerbindungen: true,
+		schnelleVerbindungen: !opt.notOnlyFastRoutes,
 		sitzplatzOnly: false,
 		abfahrtsHalt: from.lid,
 		zwischenhalte: opt.via
@@ -35,28 +35,39 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	if (opt.results !== null) {
 		// TODO query.numF = opt.results;
 	}
-	query = Object.assign(query, ctx.profile.formatTravellers(ctx));
+	query = Object.assign(query, profile.formatTravellers(ctx));
 	return {
-		endpoint: ctx.profile.journeysEndpoint,
+		endpoint: opt.bestprice ? profile.bestpriceEndpoint : profile.journeysEndpoint,
 		body: query,
 		method: 'post',
 	};
 };
-// TODO poly conditional other endpoint
+
 const formatRefreshJourneyReq = (ctx, refreshToken) => {
-	const {profile} = ctx;
-	let query = {
-		ctxRecon: refreshToken,
-		deutschlandTicketVorhanden: false,
-		nurDeutschlandTicketVerbindungen: false,
-		reservierungsKontingenteVorhanden: false,
-	};
-	query = Object.assign(query, profile.formatTravellers(ctx));
-	return {
-		endpoint: profile.refreshJourneysEndpoint,
-		body: query,
-		method: 'post',
-	};
+	const {profile, opt} = ctx;
+	if (opt.tickets) {
+		let query = {
+			ctxRecon: refreshToken,
+			deutschlandTicketVorhanden: false,
+			nurDeutschlandTicketVerbindungen: false,
+			reservierungsKontingenteVorhanden: false,
+		};
+		query = Object.assign(query, profile.formatTravellers(ctx));
+		return {
+			endpoint: profile.refreshJourneysEndpointTickets,
+			body: query,
+			method: 'post',
+		};
+	} else {
+		return {
+			endpoint: profile.refreshJourneysEndpointPolyline,
+			body: {
+				ctxRecon: refreshToken,
+				poly: true,
+			},
+			method: 'post',
+		};
+	}
 };
 
 export {

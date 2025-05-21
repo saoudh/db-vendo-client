@@ -126,7 +126,7 @@ tap.test('journeys – Berlin Schwedter Str. to München Hbf', async (t) => {
 });
 
 tap.test('refreshJourney – valid tickets', async (t) => {
-	const T_MOCK = 1710831600 * 1000; // 2024-03-19T08:00:00+01:00
+	const T_MOCK = 1758279600 * 1000;
 	const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
 
 	const journeysRes = await client.journeys(berlinHbf, münchenHbf, {
@@ -151,130 +151,132 @@ tap.test('refreshJourney – valid tickets', async (t) => {
 
 // todo: journeys, only one product
 
-tap.test('journeys – fails with no product', async (t) => {
-	await journeysFailsWithNoProduct({
-		test: t,
-		fetchJourneys: client.journeys,
-		fromId: blnSchwedterStr,
-		toId: münchenHbf,
-		when,
-		products: dbProfile.products,
-	});
-	t.end();
-});
-
-tap.test('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
-	const torfstr = {
-		type: 'location',
-		address: 'Torfstraße 17',
-		latitude: 52.5416823,
-		longitude: 13.3491223,
-	};
-	const res = await client.journeys(blnSchwedterStr, torfstr, {
-		results: 3,
-		departure: when,
-	});
-
-	await testJourneysStationToAddress({
-		test: t,
-		res,
-		validate,
-		fromId: blnSchwedterStr,
-		to: torfstr,
-	});
-	t.end();
-});
-
-tap.test('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
-	const atze = {
-		type: 'location',
-		id: '991598902',
-		poi: true,
-		name: 'Berlin, Atze Musiktheater für Kinder (Kultur und U',
-		latitude: 52.542417,
-		longitude: 13.350437,
-	};
-	const res = await client.journeys(blnSchwedterStr, atze, {
-		results: 3,
-		departure: when,
-	});
-
-	await testJourneysStationToPoi({
-		test: t,
-		res,
-		validate,
-		fromId: blnSchwedterStr,
-		to: atze,
-	});
-	t.end();
-});
-
-tap.test('journeys: via works – with detour', async (t) => {
-	// Going from Westhafen to Wedding via Württembergalle without detour
-	// is currently impossible. We check if the routing engine computes a detour.
-	const res = await client.journeys(westhafen, wedding, {
-		via: württembergallee,
-		results: 1,
-		departure: when,
-		stopovers: true,
-	});
-
-	await testJourneysWithDetour({
-		test: t,
-		res,
-		validate,
-		detourIds: [württembergallee],
-	});
-	t.end();
-});
-
-// todo: walkingSpeed "Berlin - Charlottenburg, Hallerstraße" -> jungfernheide
-// todo: without detour
-
-
-// todo: with the DB endpoint, earlierRef/laterRef is missing queries many days in the future
-tap.skip('earlier/later journeys, Jungfernheide -> München Hbf', async (t) => {
-	await testEarlierLaterJourneys({
-		test: t,
-		fetchJourneys: client.journeys,
-		validate,
-		fromId: jungfernheide,
-		toId: münchenHbf,
-		when,
-	});
-
-	t.end();
-});
-
-if (!process.env.VCR_MODE) {
-	tap.test('journeys – leg cycle & alternatives', async (t) => {
-		await testLegCycleAlternatives({
+if (!process.env.VCR_OFF) {
+	tap.test('journeys – fails with no product', async (t) => {
+		await journeysFailsWithNoProduct({
 			test: t,
 			fetchJourneys: client.journeys,
-			fromId: blnTiergarten,
-			toId: blnJannowitzbrücke,
+			fromId: blnSchwedterStr,
+			toId: münchenHbf,
+			when,
+			products: dbProfile.products,
+		});
+		t.end();
+	});
+
+	tap.test('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
+		const torfstr = {
+			type: 'location',
+			address: 'Torfstraße 17',
+			latitude: 52.5416823,
+			longitude: 13.3491223,
+		};
+		const res = await client.journeys(blnSchwedterStr, torfstr, {
+			results: 3,
+			departure: when,
+		});
+
+		await testJourneysStationToAddress({
+			test: t,
+			res,
+			validate,
+			fromId: blnSchwedterStr,
+			to: torfstr,
+		});
+		t.end();
+	});
+
+	tap.test('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
+		const atze = {
+			type: 'location',
+			id: '991598902',
+			poi: true,
+			name: 'Berlin, Atze Musiktheater für Kinder (Kultur und U',
+			latitude: 52.542417,
+			longitude: 13.350437,
+		};
+		const res = await client.journeys(blnSchwedterStr, atze, {
+			results: 3,
+			departure: when,
+		});
+
+		await testJourneysStationToPoi({
+			test: t,
+			res,
+			validate,
+			fromId: blnSchwedterStr,
+			to: atze,
+		});
+		t.end();
+	});
+
+	tap.test('journeys: via works – with detour', async (t) => {
+		// Going from Westhafen to Wedding via Württembergallee without detour
+		// is currently impossible. We check if the routing engine computes a detour.
+		const res = await client.journeys(westhafen, wedding, {
+			via: württembergallee,
+			results: 1,
+			departure: when,
+			stopovers: true,
+		});
+
+		await testJourneysWithDetour({
+			test: t,
+			res,
+			validate,
+			detourIds: [württembergallee],
+		});
+		t.end();
+	});
+
+	// todo: walkingSpeed "Berlin - Charlottenburg, Hallerstraße" -> jungfernheide
+	// todo: without detour
+
+
+	// todo: with the DB endpoint, earlierRef/laterRef is missing queries many days in the future
+	tap.skip('earlier/later journeys, Jungfernheide -> München Hbf', async (t) => {
+		await testEarlierLaterJourneys({
+			test: t,
+			fetchJourneys: client.journeys,
+			validate,
+			fromId: jungfernheide,
+			toId: münchenHbf,
+			when,
+		});
+
+		t.end();
+	});
+
+	if (!process.env.VCR_MODE) {
+		tap.test('journeys – leg cycle & alternatives', async (t) => {
+			await testLegCycleAlternatives({
+				test: t,
+				fetchJourneys: client.journeys,
+				fromId: blnTiergarten,
+				toId: blnJannowitzbrücke,
+				when,
+			});
+			t.end();
+		});
+	}
+
+	tap.test('refreshJourney', async (t) => {
+		const T_MOCK = 1763542800 * 1000;
+		const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
+		const validate = createValidate({...cfg, when});
+
+		await testRefreshJourney({
+			test: t,
+			fetchJourneys: client.journeys,
+			refreshJourney: client.refreshJourney,
+			validate,
+			fromId: jungfernheide,
+			toId: münchenHbf,
 			when,
 		});
 		t.end();
 	});
 }
-
-tap.test('refreshJourney', async (t) => {
-	const T_MOCK = 1710831600 * 1000; // 2024-03-19T08:00:00+01:00
-	const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
-	const validate = createValidate({...cfg, when});
-
-	await testRefreshJourney({
-		test: t,
-		fetchJourneys: client.journeys,
-		refreshJourney: client.refreshJourney,
-		validate,
-		fromId: jungfernheide,
-		toId: münchenHbf,
-		when,
-	});
-	t.end();
-});
 
 /*
 tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to Spittelmarkt.', async (t) => {

@@ -297,3 +297,33 @@ tap.test('parses regio guide ruf correctly', (t) => {
 	t.same(parse(ctx, input), expected);
 	t.end();
 });
+
+
+tap.test('parses regio guide trip line correctly', (t) => {
+	const input = {
+		name: 'S 5',
+		no: 36552,
+		journeyId: '20250114-2080f6df-62d4-3c0f-8a89-0db06bc5c2c8',
+		tenantId: 'hessen',
+		administrationId: '800528',
+		operatorName: 'DB Regio, S-Bahn Rhein-Main',
+		operatorCode: 'DB',
+		category: 'S',
+		type: 'CITY_TRAIN',
+	};
+	const expected = {
+		type: 'line',
+		id: 's-5-36552',
+		name: 'S 5',
+		fahrtNr: '36552',
+		public: true,
+		product: 'suburban',
+		productName: 'S',
+		mode: 'train',
+		adminCode: '800528',
+		operator: null,
+	};
+
+	t.same(parse(ctx, input), expected);
+	t.end();
+});

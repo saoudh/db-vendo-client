@@ -1,5 +1,6 @@
 {
 	"journeysEndpoint": "https://app.vendo.noncd.db.de/mob/angebote/fahrplan",
+	"bestpriceEndpoint": "https://app.vendo.noncd.db.de/mob/angebote/tagesbestpreis",
 	"refreshJourneysEndpointTickets": "https://app.vendo.noncd.db.de/mob/angebote/recon",
 	"refreshJourneysEndpointPolyline": "https://app.vendo.noncd.db.de/mob/trip/recon",
 	"locationsEndpoint": "https://app.vendo.noncd.db.de/mob/location/search",

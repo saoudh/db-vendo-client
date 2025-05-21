@@ -1,8 +1,6 @@
-import flatMap from 'lodash/flatMap.js';
-
 const parseRemarks = (ctx, ref) => {
 	// TODO ereignisZusammenfassung, priorisierteMeldungen?
-	return flatMap([
+	return [
 		ref.disruptions || [],
 		ref.risNotizen || [],
 		ref.echtzeitNotizen && ref.echtzeitNotizen.map(e => {
@@ -10,13 +8,20 @@ const parseRemarks = (ctx, ref) => {
 		}) || [],
 		ref.himMeldungen || [],
 		ref.himNotizen || [],
+		ref.hims || [],
 		ref.serviceNotiz && [ref.serviceNotiz] || [],
-		ref.messages || [],
+		ref.messages?.common || [],
+		ref.messages?.delay || [],
+		ref.messages?.cancelation || [],
+		ref.messages?.destination || [],
+		ref.messages?.via || [],
+		Array.isArray(ref.messages) ? ref.messages : [],
+		ref.meldungen || [],
 		ref.meldungenAsObject || [],
 		ref.attributNotizen || [],
 		ref.attributes || [],
 		ref.verkehrsmittel?.zugattribute || [],
-	])
+	].flat()
 		.map(remark => {
 			if (remark.kategorie || remark.priority) {
 				const res = ctx.profile.parseHintByCode(remark);
@@ -28,18 +33,18 @@ const parseRemarks = (ctx, ref) => {
 			if (remark.prioritaet || remark.prio || remark.type) {
 				type = 'status';
 			}
-			if (!remark.priority && !remark.kategorie && remark.key || remark.disruptionID
+			if (!remark.priority && !remark.kategorie && remark.key || remark.disruptionID || remark.important
 				|| remark.prioritaet && remark.prioritaet == 'HOCH' || remark.prio && remark.prio == 'HOCH' || remark.priority && remark.priority < 100) {
 				type = 'warning';
 			}
 			let res = {
-				code: remark.code || remark.key,
-				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text
-				|| Object.values(remark.descriptions || {})
-					.shift()?.textShort,
-				text: remark.nachrichtLang || remark.value || remark.text
-				|| Object.values(remark.descriptions || {})
-					.shift()?.text,
+				code: remark.code || remark.key || remark.id || remark.type,
+				summary: remark.nachrichtKurz || remark.value || remark.ueberschrift || remark.text || remark.shortText
+					|| Object.values(remark.descriptions || {})
+						.shift()?.textShort,
+				text: remark.nachrichtLang || remark.value || remark.text || remark.caption
+					|| Object.values(remark.descriptions || {})
+						.shift()?.text,
 				type: type,
 			};
 			if (remark.modDateTime || remark.letzteAktualisierung) {
@@ -201,11 +206,16 @@ const parseRemarks = (ctx, ref) => {
 */
 
 const parseCancelled = (ref) => {
-	return ref.canceled || ref.cancelled || (ref.risNotizen || ref.echtzeitNotizen) && Boolean((ref.risNotizen || ref.echtzeitNotizen).find(r => r.key == 'text.realtime.stop.cancelled'
-		|| r.type == 'HALT_AUSFALL'
-		|| r.text == 'Halt entfällt'
-		|| r.text == 'Stop cancelled',
-	));
+	return ref.canceled
+		|| ref.cancelled
+		|| ref.journeyCancelled
+		|| (ref.risNotizen || ref.echtzeitNotizen || ref.meldungen) && Boolean(
+			(ref.risNotizen || ref.echtzeitNotizen || ref.meldungen).find(r => r.key == 'text.realtime.stop.cancelled'
+				|| r.type == 'HALT_AUSFALL'
+				|| r.text == 'Halt entfällt'
+				|| r.text == 'Stop cancelled',
+			),
+		);
 };
 
 export {

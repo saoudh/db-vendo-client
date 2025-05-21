@@ -45,6 +45,7 @@ Notes:
 * uses RIS trip IDs, does not expose them directly in the routing-search response
 * loadFactor for some regional services, not for long distance services
 * boards up to 12 hours
+* routing-search returns polylines (!)
 
 ## Vendo/Movas Navigator API
 https://app.vendo.noncd.db.de/mob/
@@ -57,6 +58,7 @@ EPs:
 * zuglauf
 * zuglaeufe/ICE_947/halte/by-abfahrt/8000207_2024 (coach sequence)
 * angebote/recon (tickets)
+* trip/recon (polylines)
 
 Notes:
 * see [traffic dumps](dumps/)
@@ -66,6 +68,8 @@ Notes:
 * boards only 1 hour (or unknown param)
 * does not contain machine-readable cancelled info in the boards (only "Halt entfällt" string), but contains relevant remarks
 * loadFactor only on journeys (?)
+* polylines only for zuglauf and trip/recon
+* limited remarks on boards
 
 ## Vendo/Movas bahn.de API
 https://int.bahn.de/web/api/

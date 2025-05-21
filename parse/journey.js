@@ -29,6 +29,17 @@ const parseLocationsFromCtxRecon = (ctx, j) => {
 		}, {});
 };
 
+const trimJourneyId = (journeyId) => {
+	if (!journeyId) {
+		return null;
+	}
+	const endOfHafasId = journeyId.lastIndexOf('$');
+	if (endOfHafasId != -1) {
+		return journeyId.substring(0, endOfHafasId + 1);
+	}
+	return journeyId;
+};
+
 const parseJourney = (ctx, jj) => { // j = raw journey
 	const {profile, opt} = ctx;
 	const j = jj.verbindung || jj;
@@ -46,7 +57,7 @@ const parseJourney = (ctx, jj) => { // j = raw journey
 	const res = {
 		type: 'journey',
 		legs,
-		refreshToken: j.ctxRecon || j.kontext || null,
+		refreshToken: trimJourneyId(j.ctxRecon || j.kontext),
 	};
 
 	// TODO freq
@@ -58,7 +69,15 @@ const parseJourney = (ctx, jj) => { // j = raw journey
 	// TODO
 	if (opt.scheduledDays && j.serviceDays) {
 		// todo [breaking]: rename to scheduledDates
-		// res.scheduledDays = profile.parseScheduledDays(ctx, j.serviceDays);
+		// TODO parse scheduledDays as before
+		res.serviceDays = j.serviceDays.map(d => ({
+			irregular: d.irregular,
+			lastDateInPeriod: d.lastDateInPeriod || d.letztesDatumInZeitraum,
+			planningPeriodBegin: d.planningPeriodBegin || d.planungsZeitraumAnfang,
+			planningPeriodEnd: d.planningPeriodEnd || d.planungsZeitraumEnde,
+			regular: d.regular,
+			weekdays: d.weekdays || d.wochentage,
+		}));
 	}
 
 	res.price = profile.parsePrice(ctx, jj);

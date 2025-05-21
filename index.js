@@ -1,9 +1,9 @@
-import isObj from 'lodash/isObject.js';
 import distance from 'gps-distance';
-import readStations from 'db-hafas-stations';
 
 import {defaultProfile} from './lib/default-profile.js';
 import {validateProfile} from './lib/validate-profile.js';
+
+const isObj = element => element !== null && 'object' === typeof element && !Array.isArray(element);
 
 // background info: https://github.com/public-transport/hafas-client/issues/286
 const FORBIDDEN_USER_AGENTS = [
@@ -27,32 +27,36 @@ const validateLocation = (loc, name = 'location') => {
 	}
 };
 
-const loadEnrichedStationData = (profile) => new Promise((resolve, reject) => {
+const loadEnrichedStationData = async (profile) => {
+	const dbHafasStations = await import('db-hafas-stations');
 	const items = {};
-	readStations.full()
-		.on('data', (station) => {
-			items[station.id] = station;
-		})
-		.once('end', () => {
-			if (profile.DEBUG) {
-				console.log('Loaded station index.');
-			}
-			resolve(items);
-		})
-		.once('error', (err) => {
-			reject(err);
-		});
-});
+	for await (const station of dbHafasStations.readFullStations()) {
+		items[station.id] = station;
+		items[station.name] = station;
+	}
+	if (profile.DEBUG) {
+		console.log('Loaded station index.');
+	}
+	return items;
+};
+
+const applyEnrichedStationData = async (ctx, shouldLoadEnrichedStationData) => {
+	const {profile, common} = ctx;
+	if (shouldLoadEnrichedStationData && !common.locations) {
+		const locations = await loadEnrichedStationData(profile);
+		common.locations = locations;
+	}
+};
 
 const createClient = (profile, userAgent, opt = {}) => {
 	profile = Object.assign({}, defaultProfile, profile);
 	validateProfile(profile);
 	const common = {};
-	if (opt.enrichStations !== false) {
-		loadEnrichedStationData(profile)
-			.then(locations => {
-				common.locations = locations;
-			});
+	let shouldLoadEnrichedStationData = false;
+	if (typeof opt.enrichStations === 'function') {
+		profile.enrichStation = opt.enrichStations;
+	} else if (opt.enrichStations !== false) {
+		shouldLoadEnrichedStationData = true;
 	}
 
 	if ('string' !== typeof userAgent) {
@@ -63,6 +67,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 	}
 
 	const _stationBoard = async (station, type, resultsField, parse, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
 		if (isObj(station) && station.id) {
 			station = station.id;
 		} else if ('string' !== typeof station) {
@@ -73,7 +78,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			throw new TypeError('type must be a non-empty string.');
 		}
 
-		if (!profile.departuresGetPasslist && 'stopovers' in opt) {
+		if (!profile.departuresGetPasslist && opt.stopovers) {
 			throw new Error('opt.stopovers is not supported by this endpoint');
 		}
 		if (!profile.departuresStbFltrEquiv && 'includeRelatedStations' in opt) {
@@ -94,6 +99,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 			// departures at related stations
 			// e.g. those that belong together on the metro map.
 			includeRelatedStations: true,
+			moreStops: null, // also include departures/arrivals for array of up to nine additional station evaNumbers  (not supported with dbnav and dbweb)
 		}, opt);
 		opt.when = new Date(opt.when || Date.now());
 		if (Number.isNaN(Number(opt.when))) {
@@ -105,9 +111,15 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 
 		const ctx = {profile, opt, common, res};
-		const results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen)
+		let results = (res[resultsField] || res.items || res.bahnhofstafelAbfahrtPositionen || res.bahnhofstafelAnkunftPositionen || res.entries.flat())
 			.map(res => parse(ctx, res)); // TODO sort?, slice
 
+		if (!opt.includeRelatedStations) {
+			results = results.filter(r => !r.stop?.id || r.stop.id == station);
+		}
+		if (opt.direction) {
+			results = results.filter(r => !r.nextStopovers || r.nextStopovers.find(s => s.stop?.id == opt.direction || s.stop?.name == opt.direction));
+		}
 		return {
 			[resultsField]: results,
 			realtimeDataUpdatedAt: null, // TODO
@@ -122,6 +134,7 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const journeys = async (from, to, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
 		if ('earlierThan' in opt && 'laterThan' in opt) {
 			throw new TypeError('opt.earlierThan and opt.laterThan are mutually exclusive.');
 		}
@@ -166,6 +179,10 @@ const createClient = (profile, userAgent, opt = {}) => {
 			entrances: true, // parse & expose entrances of stops/stations?
 			remarks: true, // parse & expose hints & warnings?
 			scheduledDays: false, // parse & expose dates each journey is valid on?
+			notOnlyFastRoutes: false, // if true, also show routes that are mathematically non-optimal
+			bestprice: false, // search for lowest prices across the entire day
+			deutschlandTicketDiscount: false,
+			deutschlandTicketConnectionsOnly: false,
 		}, opt);
 
 		if (opt.when !== undefined) {
@@ -191,9 +208,15 @@ const createClient = (profile, userAgent, opt = {}) => {
 		const req = profile.formatJourneysReq({profile, opt}, from, to, when, outFrwd, journeysRef);
 		const {res} = await profile.request({profile, opt}, userAgent, req);
 		const ctx = {profile, opt, common, res};
-		const verbindungen = Number.isInteger(opt.results) ? res.verbindungen.slice(0, opt.results) : res.verbindungen;
+		if (opt.bestprice) {
+			res.verbindungen = (res.intervalle || res.tagesbestPreisIntervalle).flatMap(i => i.verbindungen.map(v => ({...v, ...v.verbindung})));
+		}
+		const verbindungen = Number.isInteger(opt.results) && opt.results != 3 ? res.verbindungen.slice(0, opt.results) : res.verbindungen; // TODO remove default from hafas-rest-api
 		const journeys = verbindungen
 			.map(j => profile.parseJourney(ctx, j));
+		if (opt.bestprice) {
+			journeys.sort((a, b) => a.price?.amount - b.price?.amount);
+		}
 
 		return {
 			earlierRef: res.verbindungReference?.earlier || res.frueherContext || null,
@@ -204,6 +227,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const refreshJourney = async (refreshToken, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if ('string' !== typeof refreshToken || !refreshToken) {
 			throw new TypeError('refreshToken must be a non-empty string.');
 		}
@@ -216,6 +241,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 			entrances: true, // parse & expose entrances of stops/stations?
 			remarks: true, // parse & expose hints & warnings?
 			scheduledDays: false, // parse & expose dates the journey is valid on?
+			deutschlandTicketDiscount: false,
+			deutschlandTicketConnectionsOnly: false,
 		}, opt);
 
 		const req = profile.formatRefreshJourneyReq({profile, opt}, refreshToken);
@@ -230,6 +257,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const locations = async (query, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if (!isNonEmptyString(query)) {
 			throw new TypeError('query must be a non-empty string.');
 		}
@@ -256,6 +285,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const stop = async (stop, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if (isObj(stop) && stop.id) {
 			stop = stop.id;
 		} else if ('string' !== typeof stop) {
@@ -277,6 +308,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const nearby = async (location, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		validateLocation(location, 'location');
 
 		opt = Object.assign({
@@ -307,6 +340,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 	};
 
 	const trip = async (id, opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		if (!isNonEmptyString(id)) {
 			throw new TypeError('id must be a non-empty string.');
 		}
@@ -334,6 +369,8 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 	// todo [breaking]: rename to trips()?
 	const tripsByName = async (_lineNameOrFahrtNr = '*', _opt = {}) => {
+		await applyEnrichedStationData({profile, common}, shouldLoadEnrichedStationData);
+
 		throw new Error('not implemented');
 	};
 
@@ -360,4 +397,5 @@ const createClient = (profile, userAgent, opt = {}) => {
 
 export {
 	createClient,
+	loadEnrichedStationData,
 };

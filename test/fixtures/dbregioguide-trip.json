@@ -1,0 +1,410 @@
+{
+    "name": "ag RE22",
+    "no": 84100,
+    "journeyId": "20250117-c85e57a7-7ac5-3736-9f8f-b37a1f660e4c",
+    "tenantId": "bayern",
+    "administrationId": "S9",
+    "operatorName": "agilis",
+    "operatorCode": "ag",
+    "category": "ag",
+    "type": "REGIONAL_TRAIN",
+    "date": "2025-01-17T15:16:00+01:00",
+    "stops": [
+        {
+            "status": "Normal",
+            "departureId": "8004168_D_1",
+            "station": {
+                "evaNo": "8004168",
+                "name": "München Flughafen Terminal",
+                "position": {
+                    "latitude": 48.353728,
+                    "longitude": 11.78597
+                }
+            },
+            "track": {
+                "target": "1",
+                "prediction": "1"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T15:16:00+01:00",
+                "predicted": "2025-01-17T15:16:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737123360000,
+                "predictedTimeInMs": 1737123360000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8004167_A_1",
+            "departureId": "8004167_D_1",
+            "station": {
+                "evaNo": "8004167",
+                "name": "München Flughafen Besucherpark",
+                "position": {
+                    "latitude": 48.352095,
+                    "longitude": 11.764185
+                }
+            },
+            "track": {
+                "target": "1",
+                "prediction": "1"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T15:18:00+01:00",
+                "predicted": "2025-01-17T15:18:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737123480000,
+                "predictedTimeInMs": 1737123480000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T15:18:00+01:00",
+                "predicted": "2025-01-17T15:18:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737123480000,
+                "predictedTimeInMs": 1737123480000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8002078_A_1",
+            "departureId": "8002078_D_1",
+            "station": {
+                "evaNo": "8002078",
+                "name": "Freising",
+                "position": {
+                    "latitude": 48.395195,
+                    "longitude": 11.744539
+                }
+            },
+            "track": {
+                "target": "4",
+                "prediction": "4"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T15:29:00+01:00",
+                "predicted": "2025-01-17T15:29:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737124140000,
+                "predictedTimeInMs": 1737124140000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T15:28:00+01:00",
+                "predicted": "2025-01-17T15:28:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737124080000,
+                "predictedTimeInMs": 1737124080000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8004084_A_1",
+            "departureId": "8004084_D_1",
+            "station": {
+                "evaNo": "8004084",
+                "name": "Moosburg",
+                "position": {
+                    "latitude": 48.47033,
+                    "longitude": 11.930382
+                }
+            },
+            "track": {
+                "target": "1",
+                "prediction": "1"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T15:38:00+01:00",
+                "predicted": "2025-01-17T15:38:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737124680000,
+                "predictedTimeInMs": 1737124680000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T15:37:00+01:00",
+                "predicted": "2025-01-17T15:37:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737124620000,
+                "predictedTimeInMs": 1737124620000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8000217_A_1",
+            "departureId": "8000217_D_1",
+            "station": {
+                "evaNo": "8000217",
+                "name": "Landshut(Bay)Hbf",
+                "position": {
+                    "latitude": 48.547492,
+                    "longitude": 12.13593
+                }
+            },
+            "track": {
+                "target": "5",
+                "prediction": "5"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T15:53:00+01:00",
+                "predicted": "2025-01-17T15:53:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737125580000,
+                "predictedTimeInMs": 1737125580000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T15:50:00+01:00",
+                "predicted": "2025-01-17T15:50:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737125400000,
+                "predictedTimeInMs": 1737125400000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8001835_A_1",
+            "departureId": "8001835_D_1",
+            "station": {
+                "evaNo": "8001835",
+                "name": "Ergoldsbach",
+                "position": {
+                    "latitude": 48.693868,
+                    "longitude": 12.201874
+                }
+            },
+            "track": {
+                "target": "1",
+                "prediction": "1"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T16:06:00+01:00",
+                "predicted": "2025-01-17T16:06:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737126360000,
+                "predictedTimeInMs": 1737126360000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T16:05:00+01:00",
+                "predicted": "2025-01-17T16:05:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737126300000,
+                "predictedTimeInMs": 1737126300000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8000688_A_1",
+            "departureId": "8000688_D_1",
+            "station": {
+                "evaNo": "8000688",
+                "name": "Neufahrn(Niederbay)",
+                "position": {
+                    "latitude": 48.729884,
+                    "longitude": 12.19046
+                }
+            },
+            "track": {
+                "target": "2",
+                "prediction": "2"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T16:10:00+01:00",
+                "predicted": "2025-01-17T16:10:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737126600000,
+                "predictedTimeInMs": 1737126600000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T16:09:00+01:00",
+                "predicted": "2025-01-17T16:09:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737126540000,
+                "predictedTimeInMs": 1737126540000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8001679_A_1",
+            "departureId": "8001679_D_1",
+            "station": {
+                "evaNo": "8001679",
+                "name": "Eggmühl",
+                "position": {
+                    "latitude": 48.836497,
+                    "longitude": 12.182192
+                }
+            },
+            "track": {
+                "target": "3",
+                "prediction": "3"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T16:20:00+01:00",
+                "predicted": "2025-01-17T16:20:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127200000,
+                "predictedTimeInMs": 1737127200000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T16:19:00+01:00",
+                "predicted": "2025-01-17T16:19:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127140000,
+                "predictedTimeInMs": 1737127140000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8002506_A_1",
+            "departureId": "8002506_D_1",
+            "station": {
+                "evaNo": "8002506",
+                "name": "Hagelstadt",
+                "position": {
+                    "latitude": 48.895859,
+                    "longitude": 12.214829
+                }
+            },
+            "track": {
+                "target": "2",
+                "prediction": "2"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T16:26:00+01:00",
+                "predicted": "2025-01-17T16:26:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127560000,
+                "predictedTimeInMs": 1737127560000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T16:25:00+01:00",
+                "predicted": "2025-01-17T16:25:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127500000,
+                "predictedTimeInMs": 1737127500000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8003357_A_1",
+            "departureId": "8003357_D_1",
+            "station": {
+                "evaNo": "8003357",
+                "name": "Köfering",
+                "position": {
+                    "latitude": 48.931716,
+                    "longitude": 12.20875
+                }
+            },
+            "track": {
+                "target": "2",
+                "prediction": "2"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T16:30:00+01:00",
+                "predicted": "2025-01-17T16:30:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127800000,
+                "predictedTimeInMs": 1737127800000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T16:29:00+01:00",
+                "predicted": "2025-01-17T16:29:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127740000,
+                "predictedTimeInMs": 1737127740000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8004592_A_1",
+            "departureId": "8004592_D_1",
+            "station": {
+                "evaNo": "8004592",
+                "name": "Obertraubling",
+                "position": {
+                    "latitude": 48.967537,
+                    "longitude": 12.169996
+                }
+            },
+            "track": {
+                "target": "2",
+                "prediction": "2"
+            },
+            "messages": [],
+            "departureTime": {
+                "target": "2025-01-17T16:34:00+01:00",
+                "predicted": "2025-01-17T16:34:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737128040000,
+                "predictedTimeInMs": 1737128040000,
+                "timeType": "SCHEDULE"
+            },
+            "arrivalTime": {
+                "target": "2025-01-17T16:33:00+01:00",
+                "predicted": "2025-01-17T16:33:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737127980000,
+                "predictedTimeInMs": 1737127980000,
+                "timeType": "SCHEDULE"
+            }
+        },
+        {
+            "status": "Normal",
+            "arrivalId": "8000309_A_1",
+            "station": {
+                "evaNo": "8000309",
+                "name": "Regensburg Hbf",
+                "position": {
+                    "latitude": 49.011672,
+                    "longitude": 12.099617
+                }
+            },
+            "track": {
+                "target": "5",
+                "prediction": "5"
+            },
+            "messages": [],
+            "arrivalTime": {
+                "target": "2025-01-17T16:41:00+01:00",
+                "predicted": "2025-01-17T16:41:00+01:00",
+                "diff": 0,
+                "targetTimeInMs": 1737128460000,
+                "predictedTimeInMs": 1737128460000,
+                "timeType": "SCHEDULE"
+            }
+        }
+    ],
+    "started": false,
+    "finished": false,
+    "hims": [],
+    "validUntil": "2025-01-17T15:46:00.000Z",
+    "validFrom": "2025-01-17T14:06:00.000Z",
+    "isLoyaltyCaseEligible": false
+}

@@ -212,6 +212,7 @@ const dbNavJourney = {
 			amount: 43.99,
 			currency: 'EUR',
 			hint: null,
+			partialFare: false,
 		},
 		tickets: [
 			{

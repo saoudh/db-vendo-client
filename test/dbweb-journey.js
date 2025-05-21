@@ -1,14 +1,9 @@
-// todo: use import assertions once they're supported by Node.js & ESLint
-// https://github.com/tc39/proposal-import-assertions
-import {createRequire} from 'module';
-const require = createRequire(import.meta.url);
-
 import tap from 'tap';
 
 import {createClient} from '../index.js';
-import {profile as rawProfile} from '../p/db/index.js';
-const res = require('./fixtures/db-refresh-journey.json');
-import {dbJourney as expected} from './fixtures/db-refresh-journey.js';
+import {profile as rawProfile} from '../p/dbweb/index.js';
+import res from './fixtures/dbweb-journey.json' with { type: 'json' };
+import {dbwebJourney as expected} from './fixtures/dbweb-journey.js';
 
 const client = createClient(rawProfile, 'public-transport/hafas-client:test', {enrichStations: false});
 const {profile} = client;
@@ -31,10 +26,10 @@ const opt = {
 	products: {},
 };
 
-tap.test('parses a refresh journey correctly (DB)', (t) => {
+tap.test('parses a dbweb journey correctly', (t) => { // TODO DEVI leg
 	const ctx = {profile, opt, common: null, res};
 	const journey = profile.parseJourney(ctx, res.verbindungen[0]);
 
-	t.same(journey, expected.journey);
+	t.same(journey, expected);
 	t.end();
 });

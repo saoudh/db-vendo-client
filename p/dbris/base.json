@@ -1,0 +1,4 @@
+{
+	"boardEndpoint": "https://apis.deutschebahn.com/db/apis/ris-boards/v1/public/",
+	"defaultLanguage": "en"
+}

@@ -1,7 +1,4 @@
-import {createRequire} from 'module';
-const require = createRequire(import.meta.url);
-
-const baseProfile = require('./base.json');
+import baseProfile from './base.json' with { type: 'json' };
 import {products} from '../../lib/products.js';
 import {formatJourneysReq, formatRefreshJourneyReq} from './journeys-req.js';
 import {formatTripReq} from './trip-req.js';
@@ -11,6 +8,7 @@ import {formatStopReq} from './stop-req.js';
 import {formatNearbyReq} from './nearby-req.js';
 import {formatStationBoardReq} from './station-board-req.js';
 import {parseStop} from './parse-stop.js';
+import {parseJourney} from './parse-journey.js';
 
 const profile = {
 	...baseProfile,
@@ -27,6 +25,7 @@ const profile = {
 	formatStationBoardReq,
 	formatLocationFilter,
 
+	parseJourney,
 	parseStop,
 };
 

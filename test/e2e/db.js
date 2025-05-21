@@ -99,138 +99,139 @@ const potsdamHbf = '8012666';
 const berlinSüdkreuz = '8011113';
 const kölnHbf = '8000207';
 
-tap.test('journeys – Berlin Schwedter Str. to München Hbf', async (t) => {
-	const res = await client.journeys(blnSchwedterStr, münchenHbf, {
-		results: 4,
-		departure: when,
-		stopovers: true,
-	});
+if (!process.env.VCR_OFF) {
+	tap.test('journeys – Berlin Schwedter Str. to München Hbf', async (t) => {
+		const res = await client.journeys(blnSchwedterStr, münchenHbf, {
+			results: 4,
+			departure: when,
+			stopovers: true,
+		});
 
-	await testJourneysStationToStation({
-		test: t,
-		res,
-		validate,
-		fromId: blnSchwedterStr,
-		toId: münchenHbf,
-	});
-	// todo: find a journey where there pricing info is always available
-	for (let journey of res.journeys) {
-		if (journey.price) {
-			assertValidPrice(t, journey.price);
+		await testJourneysStationToStation({
+			test: t,
+			res,
+			validate,
+			fromId: blnSchwedterStr,
+			toId: münchenHbf,
+		});
+		// todo: find a journey where there pricing info is always available
+		for (let journey of res.journeys) {
+			if (journey.price) {
+				assertValidPrice(t, journey.price);
+			}
+			if (journey.tickets) {
+				assertValidTickets(t, journey.tickets);
+			}
 		}
-		if (journey.tickets) {
-			assertValidTickets(t, journey.tickets);
+		t.end();
+	});
+
+	tap.test('refreshJourney – valid tickets', async (t) => {
+		const T_MOCK = 1758279600 * 1000;
+		const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
+
+		const journeysRes = await client.journeys(berlinHbf, münchenHbf, {
+			results: 4,
+			departure: when,
+			stopovers: true,
+		});
+		const refreshWithoutTicketsRes = await client.refreshJourney(journeysRes.journeys[0].refreshToken, {
+			tickets: false,
+		});
+		const refreshWithTicketsRes = await client.refreshJourney(journeysRes.journeys[0].refreshToken, {
+			tickets: true,
+		});
+		for (let res of [refreshWithoutTicketsRes, refreshWithTicketsRes]) {
+			if (res.journey.tickets !== undefined) {
+				assertValidTickets(t, res.journey.tickets);
+			}
 		}
-	}
-	t.end();
-});
 
-tap.test('refreshJourney – valid tickets', async (t) => {
-	const T_MOCK = 1710831600 * 1000; // 2024-03-19T08:00:00+01:00
-	const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
-
-	const journeysRes = await client.journeys(berlinHbf, münchenHbf, {
-		results: 4,
-		departure: when,
-		stopovers: true,
-	});
-	const refreshWithoutTicketsRes = await client.refreshJourney(journeysRes.journeys[0].refreshToken, {
-		tickets: false,
-	});
-	const refreshWithTicketsRes = await client.refreshJourney(journeysRes.journeys[0].refreshToken, {
-		tickets: true,
-	});
-	for (let res of [refreshWithoutTicketsRes, refreshWithTicketsRes]) {
-		if (res.journey.tickets !== undefined) {
-			assertValidTickets(t, res.journey.tickets);
-		}
-	}
-
-	t.end();
-});
-
-// todo: journeys, only one product
-
-tap.test('journeys – fails with no product', async (t) => {
-	await journeysFailsWithNoProduct({
-		test: t,
-		fetchJourneys: client.journeys,
-		fromId: blnSchwedterStr,
-		toId: münchenHbf,
-		when,
-		products: dbProfile.products,
-	});
-	t.end();
-});
-
-tap.test('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
-	const torfstr = {
-		type: 'location',
-		address: 'Torfstraße 17',
-		latitude: 52.5416823,
-		longitude: 13.3491223,
-	};
-	const res = await client.journeys(blnSchwedterStr, torfstr, {
-		results: 3,
-		departure: when,
+		t.end();
 	});
 
-	await testJourneysStationToAddress({
-		test: t,
-		res,
-		validate,
-		fromId: blnSchwedterStr,
-		to: torfstr,
-	});
-	t.end();
-});
+	// todo: journeys, only one product
 
-tap.test('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
-	const atze = {
-		type: 'location',
-		id: '991598902',
-		poi: true,
-		name: 'Berlin, Atze Musiktheater für Kinder (Kultur und U',
-		latitude: 52.542417,
-		longitude: 13.350437,
-	};
-	const res = await client.journeys(blnSchwedterStr, atze, {
-		results: 3,
-		departure: when,
+	tap.test('journeys – fails with no product', async (t) => {
+		await journeysFailsWithNoProduct({
+			test: t,
+			fetchJourneys: client.journeys,
+			fromId: blnSchwedterStr,
+			toId: münchenHbf,
+			when,
+			products: dbProfile.products,
+		});
+		t.end();
 	});
 
-	await testJourneysStationToPoi({
-		test: t,
-		res,
-		validate,
-		fromId: blnSchwedterStr,
-		to: atze,
+	tap.test('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
+		const torfstr = {
+			type: 'location',
+			address: 'Torfstraße 17',
+			latitude: 52.5416823,
+			longitude: 13.3491223,
+		};
+		const res = await client.journeys(blnSchwedterStr, torfstr, {
+			results: 3,
+			departure: when,
+		});
+
+		await testJourneysStationToAddress({
+			test: t,
+			res,
+			validate,
+			fromId: blnSchwedterStr,
+			to: torfstr,
+		});
+		t.end();
 	});
-	t.end();
-});
 
-tap.test('journeys: via works – with detour', async (t) => {
-	// Going from Westhafen to Wedding via Württembergalle without detour
-	// is currently impossible. We check if the routing engine computes a detour.
-	const res = await client.journeys(westhafen, wedding, {
-		via: württembergallee,
-		results: 1,
-		departure: when,
-		stopovers: true,
+	tap.test('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
+		const atze = {
+			type: 'location',
+			id: '991598902',
+			poi: true,
+			name: 'Berlin, Atze Musiktheater für Kinder (Kultur und U',
+			latitude: 52.542417,
+			longitude: 13.350437,
+		};
+		const res = await client.journeys(blnSchwedterStr, atze, {
+			results: 3,
+			departure: when,
+		});
+
+		await testJourneysStationToPoi({
+			test: t,
+			res,
+			validate,
+			fromId: blnSchwedterStr,
+			to: atze,
+		});
+		t.end();
 	});
 
-	await testJourneysWithDetour({
-		test: t,
-		res,
-		validate,
-		detourIds: [württembergallee],
+	tap.test('journeys: via works – with detour', async (t) => {
+		// Going from Westhafen to Wedding via Württembergallee without detour
+		// is currently impossible. We check if the routing engine computes a detour.
+		const res = await client.journeys(westhafen, wedding, {
+			via: württembergallee,
+			results: 1,
+			departure: when,
+			stopovers: true,
+		});
+
+		await testJourneysWithDetour({
+			test: t,
+			res,
+			validate,
+			detourIds: [württembergallee],
+		});
+		t.end();
 	});
-	t.end();
-});
 
-// todo: walkingSpeed "Berlin - Charlottenburg, Hallerstraße" -> jungfernheide
-// todo: without detour
-
+	// todo: walkingSpeed "Berlin - Charlottenburg, Hallerstraße" -> jungfernheide
+	// todo: without detour
+}
 
 // todo: with the DB endpoint, earlierRef/laterRef is missing queries many days in the future
 tap.skip('earlier/later journeys, Jungfernheide -> München Hbf', async (t) => {
@@ -260,7 +261,7 @@ if (!process.env.VCR_MODE) {
 }
 
 tap.test('refreshJourney', async (t) => {
-	const T_MOCK = 1710831600 * 1000; // 2024-03-19T08:00:00+01:00
+	const T_MOCK = 1763542800 * 1000;
 	const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
 	const validate = createValidate({...cfg, when});
 
@@ -476,7 +477,6 @@ tap.test('locations named Jungfernheide', async (t) => {
 	t.end();
 });
 
-/*
 tap.test('stop', async (t) => {
 	const s = await client.stop(regensburgHbf);
 
@@ -486,6 +486,7 @@ tap.test('stop', async (t) => {
 	t.end();
 });
 
+/*
 tap.test('line with additionalName', async (t) => {
 	const {departures} = await client.departures(potsdamHbf, {
 		when,
