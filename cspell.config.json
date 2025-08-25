@@ -634,7 +634,9 @@
     "dbbahnhof",
     "Deutschlandticket",
     "fahrverguenstigungen",
-    "cancelation"
+    "cancelation",
+    "MOTIS",
+    "motis"
   ],
   "ignorePaths": [
     "docs/dumps/**",

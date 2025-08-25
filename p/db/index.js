@@ -26,12 +26,11 @@ const {nearbyEndpoint} = dbnavBase;
 
 // trip()
 import {formatTripReq} from './trip-req.js';
-const tripEndpoint_dbnav = dbnavBase.tripEndpoint;
-const tripEndpoint_dbregioguide = dbregioguideBase.tripEndpoint;
+const {tripEndpoint} = dbnavBase;
 
 // arrivals(), departures()
-import {formatStationBoardReq} from '../dbregioguide/station-board-req.js';
-const {boardEndpoint} = dbregioguideBase;
+import {formatStationBoardReq} from '../dbnav/station-board-req.js';
+const {boardEndpoint} = dbnavBase;
 
 const profile = {
 	locale: 'de-DE',
@@ -55,7 +54,7 @@ const profile = {
 	nearbyEndpoint,
 
 	formatTripReq,
-	tripEndpoint_dbnav, tripEndpoint_dbregioguide,
+	tripEndpoint,
 
 	formatStationBoardReq,
 	boardEndpoint,

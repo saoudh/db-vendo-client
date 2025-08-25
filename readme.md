@@ -27,21 +27,21 @@ Depending on the configured profile, db-vendo-client will use multiple different
 | -------------         | -------------     | ------------- | ------------- | ------------- | ------------- |
 | no API key required   | ✅                | ✅ |  ✅ | ✅ | ❌ |
 | all above endpoints supported | ✅              | ✅ | except `stop()` | only boards | only boards |
-| duration for boards   | up to 12h         | always 1h | always 1h | up to 6h, only from current time | up to 12h |
-| remarks               | not for boards    | for boards only most important remarks | all remarks on boards and journeys | most remarks | all  remarks |
-| cancelled trips       | contained with cancelled flag in journeys, not contained in boards | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag |
+| duration for boards   | always 1h         | always 1h | always 1h | up to 6h, only from current time | up to 12h |
+| remarks               | for boards only most important remarks    | for boards only most important remarks | all remarks on boards and journeys | most remarks | all  remarks |
+| cancelled trips       | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag | contained with cancelled flag |
 | tickets               | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | only for `refreshJourney()`, mutually exclusive with polylines | ❌ | ❌ |
-| polylines             | only for `refreshJourney()` (mutually exclusive with tickets) and for `trip()` (only for HAFAS trip ids) | only for `refreshJourney()/trip()`, mutually exclusive with tickets | only for `refreshJourney()/trip()`, mutually exclusive with tickets | ❌ | ❌ |
-| trip ids used         | HAFAS trip ids for journeys, RIS trip ids for boards (static on train splits?) | HAFAS trip ids | HAFAS trip ids | RIS trip ids | RIS trip ids | 
-| line.id/fahrtNr used  | actual fahrtNr | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` | unreliable/route id | unreliable/route id | ✅ |
-| adminCode/operator    | ✅ | only for journeys | only operator | only adminCode | ✅ |
+| polylines             | only for `refreshJourney()/trip()`, mutually exclusive with tickets | only for `refreshJourney()/trip()`, mutually exclusive with tickets | only for `refreshJourney()/trip()`, mutually exclusive with tickets | ❌ | ❌ |
+| trip ids used         | HAFAS trip ids | HAFAS trip ids | HAFAS trip ids | RIS trip ids | RIS trip ids | 
+| line.id/fahrtNr used  | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` | actual fahrtNr for journeys, unreliable/route id for boards and `trip()` | unreliable/route id | unreliable/route id | ✅ |
+| adminCode/operator    | only for journeys | only for journeys | only operator | only adminCode | ✅ |
 | stopovers             | not in boards | not in boards | ✅ | some | ✅ |
 | assumed backend API stability | less stable | more stable | less stable | less stable | more stable |
-| quotas | 60 requests per minute for journeys, unknown for boards (IPv4) | 60 requests per minute (IPv4) | aggressive blocking (IPv4/IPv6) | ? | depends on API key |
+| quotas | 60 requests per minute (IPv4) | 60 requests per minute (IPv4) | aggressive blocking (IPv4/IPv6) | ? | depends on API key |
 
 
 > [!IMPORTANT]
-> If you think that for your project, quotas may become an issue, [consider alternative ways to obtain the data you need.](https://github.com/derhuerst/db-rest/blob/6/docs/readme.md#why-not-to-use-this-api).
+> If you think that for your project, quotas may become an issue, [consider alternative ways to obtain the data you need.](https://github.com/derhuerst/db-rest/blob/6/docs/readme.md#why-not-to-use-this-api), e.g. [motis-fptf-client](https://github.com/motis-project/motis-fptf-client) (a drop-in replacement for db-vendo-client/hafas-client) in conjunction with https://transitous.org or a self-hosted [MOTIS](https://github.com/motis-project/motis) instance.
 
 Feel free to report anything that you stumble upon via Issues or create a PR :)
 
@@ -92,6 +92,7 @@ There are [community-maintained TypeScript typings available as `@types/hafas-cl
 - [hafas-client](https://github.com/public-transport/hafas-client/) – including further related projects
 - [hafas-rest-api](https://github.com/public-transport/hafas-rest-api/) – expose a hafas-client or db-vendo-client instance as a REST API
 - [db-rest](https://github.com/derhuerst/db-rest/) – for the legacy DB HAFAS endpoint
+- [motis-fptf-client](https://github.com/motis-project/motis-fptf-client) – a drop-in replacement for db-vendo-client/hafas-client wrapping a [MOTIS](https://github.com/motis-project/motis) instance
 - [`*.transport.rest`](https://transport.rest/) – Public APIs wrapping some HAFAS endpoints.
 
 ## Contributing
