@@ -636,7 +636,8 @@
     "fahrverguenstigungen",
     "cancelation",
     "MOTIS",
-    "motis"
+    "motis",
+    "Berechnung"
   ],
   "ignorePaths": [
     "docs/dumps/**",
