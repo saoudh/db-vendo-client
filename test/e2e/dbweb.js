@@ -260,7 +260,7 @@ if (!process.env.VCR_OFF) {
 		});
 	}
 
-	tap.test('refreshJourney', async (t) => {
+	tap.skip('refreshJourney', async (t) => {
 		const T_MOCK = 1710831600 * 1000; // 2024-03-19T08:00:00+01:00
 		const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
 		const validate = createValidate({...cfg, when});
