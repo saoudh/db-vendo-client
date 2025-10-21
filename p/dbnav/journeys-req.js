@@ -53,6 +53,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 		wunsch: {
 			abgangsLocationId: from.lid,
 			verkehrsmittel: filters,
+			alternativeHalteBerechnung: true, // what is this?
 			zeitWunsch: {
 				reiseDatum: profile.formatTime(profile, when, true),
 				zeitPunktArt: outFrwd ? 'ABFAHRT' : 'ANKUNFT',
