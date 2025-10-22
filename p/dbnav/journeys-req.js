@@ -4,7 +4,7 @@ const formatBaseJourneysReq = (ctx) => {
 	// TODO opt.accessibility
 	// TODO routingMode
 	const travellers = ctx.profile.formatTravellers(ctx);
-	return {
+	const baseReq = {
 		autonomeReservierung: false,
 		einstiegsTypList: [
 			'STANDARD',
@@ -27,6 +27,16 @@ const formatBaseJourneysReq = (ctx) => {
 		},
 		reservierungsKontingenteVorhanden: false,
 	};
+
+	// Add business customer affiliation if BMIS number is provided
+	if (ctx.opt.bmisNumber) {
+		baseReq.firmenZugehoerigkeit = {
+			bmisNr: ctx.opt.bmisNumber,
+			identifikationsart: 'BMIS',
+		};
+	}
+
+	return baseReq;
 };
 
 const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
@@ -43,6 +53,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 		wunsch: {
 			abgangsLocationId: from.lid,
 			verkehrsmittel: filters,
+			alternativeHalteBerechnung: true, // what is this?
 			zeitWunsch: {
 				reiseDatum: profile.formatTime(profile, when, true),
 				zeitPunktArt: outFrwd ? 'ABFAHRT' : 'ANKUNFT',
@@ -65,7 +76,7 @@ const formatJourneysReq = (ctx, from, to, when, outFrwd, journeysRef) => {
 	return {
 		endpoint: opt.bestprice ? profile.bestpriceEndpoint : profile.journeysEndpoint,
 		body: query,
-		headers: getHeaders('application/x.db.vendo.mob.verbindungssuche.v8+json'),
+		headers: getHeaders('application/x.db.vendo.mob.verbindungssuche.v9+json'),
 		method: 'post',
 	};
 };
@@ -82,7 +93,7 @@ const formatRefreshJourneyReq = (ctx, refreshToken) => {
 	return {
 		endpoint: opt.tickets ? profile.refreshJourneysEndpointTickets : profile.refreshJourneysEndpointPolyline,
 		body: query,
-		headers: getHeaders('application/x.db.vendo.mob.verbindungssuche.v8+json'),
+		headers: getHeaders('application/x.db.vendo.mob.verbindungssuche.v9+json'),
 		method: 'post',
 	};
 };
